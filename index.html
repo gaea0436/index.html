@@ -3,37 +3,242 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>TOKYO SOLO 2026</title>
+    <title>華的東京冬日獨旅 2026</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Noto Sans TC', sans-serif; background: #7B969A; overflow-x: hidden; }
+        body { font-family: 'Noto Sans TC', sans-serif; background: #7B969A; overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .day-panel { display: none; }
-        .day-panel.active { display: block; animation: slideUp 0.4s ease-out; }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .nav-dot.active { background: #fff !important; transform: scale(1.2); }
-        .glass { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); }
-        .tool-panel { display: none; position: fixed; bottom: 80px; left: 5%; width: 90%; z-index: 100; }
+        .day-panel.active { display: block; animation: fadeIn 0.4s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .glass { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-radius: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .nav-btn.active { background: white; color: #7B969A; transform: scale(1.1); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        .tool-overlay { display: none; position: fixed; bottom: 100px; left: 5%; width: 90%; z-index: 1000; }
     </style>
 </head>
-<body class="text-slate-800 pb-24">
+<body class="text-slate-800 pb-28">
 
-    <header class="p-6 text-white flex justify-between items-end">
-        <div>
-            <h1 class="text-2xl font-bold tracking-widest">TOKYO TRAVEL</h1>
-            <p class="text-xs opacity-70">2026.02.03 - 02.08</p>
-        </div>
-        <div class="text-right bg-white/20 p-2 rounded-2xl backdrop-blur-md">
-            <p class="text-[10px] font-bold">TOKYO 🌡️</p>
-            <p id="weather-temp" class="text-lg font-bold">3°C ~ 9°C</p>
-            <p class="text-[10px]">穿著建議：發熱衣+防風厚外套</p>
+    <header class="p-6 text-white">
+        <div class="flex justify-between items-start">
+            <div>
+                <h1 class="text-2xl font-bold tracking-tighter">TOKYO SOLO</h1>
+                <p class="text-[10px] opacity-70 tracking-widest">PERSONAL TRAVEL APP</p>
+            </div>
+            <div id="weather-box" class="bg-white/20 p-3 rounded-2xl backdrop-blur-md text-right min-w-[120px]">
+                <p id="date-label" class="text-[10px] font-bold">2/3 (Tue)</p>
+                <p id="temp-label" class="text-lg font-bold">2°C / 8°C</p>
+                <p id="wear-label" class="text-[9px] leading-tight opacity-90">發熱衣+羊毛衫+厚羽絨</p>
+            </div>
         </div>
     </header>
 
-    <div class="flex overflow-x-auto gap-4 px-6 mb-6 no-scrollbar h-20 items-center">
-        <button onclick="changeDay(1, this)" class="day-btn active flex-shrink-0 w-12 h-16 bg-white/20 rounded-2xl flex flex-col items-center justify-center text-white border border-white/30 transition-all">
-            <span class="text-[10px]">D1</span><span class="font-bold">03</span>
+    <div class="flex overflow-x-auto gap-3 px-6 mb-6 no-scrollbar h-16 items-center">
+        <button onclick="switchDay(1, '2/3', '2°C / 8°C', '發熱衣+厚羽絨+圍巾', this)" class="nav-btn active flex-shrink-0 px-5 py-2 rounded-2xl text-sm font-bold border border-white/20 text-white transition-all">D1</button>
+        <button onclick="switchDay(2, '2/4', '3°C / 10°C', '層次穿法+暖暖包', this)" class="nav-btn flex-shrink-0 px-5 py-2 rounded-2xl text-sm font-bold border border-white/20 text-white transition-all">D2</button>
+        <button onclick="switchDay(3, '2/5', '4°C / 11°C', '輕便發熱衣+防風外套', this)" class="nav-btn flex-shrink-0 px-5 py-2 rounded-2xl text-sm font-bold border border-white/20 text-white transition-all">D3</button>
+        <button onclick="switchDay(4, '2/6', '1°C / 9°C', '極寒！厚襪+毛帽', this)" class="nav-btn flex-shrink-0 px-5 py-2 rounded-2xl text-sm font-bold border border-white/20 text-white transition-all">D4</button>
+        <button onclick="switchDay(5, '2/7', '5°C / 12°C', '適合洋蔥式穿搭', this)" class="nav-btn flex-shrink-0 px-5 py-2 rounded-2xl text-sm font-bold border border-white/20 text-white transition-all">D5</button>
+        <button onclick="switchDay(6, '2/8', '4°C / 10°C', '準備搭機舒適穿著', this)" class="nav-btn flex-shrink-0 px-5 py-2 rounded-2xl text-sm font-bold border border-white/20 text-white transition-all">D6</button>
+    </div>
+
+    <main class="px-6 space-y-4">
+        
+        <div id="day-1" class="day-panel active">
+            <div class="glass p-6 mb-4">
+                <div class="flex justify-between items-start mb-4">
+                    <span class="bg-blue-100 text-blue-600 text-[10px] px-2 py-1 rounded-md font-bold uppercase">Transport</span>
+                    <span class="text-xs text-gray-400">15:35 TPE → 19:35 NRT</span>
+                </div>
+                <h3 class="text-lg font-bold">桃園機場起飛 (IT202)</h3>
+                <p class="text-sm text-gray-500 mt-2 leading-relaxed">抵達成田 T2 後搭乘 Skyliner 前往市區，儲值 Suica 卡。</p>
+                <div class="mt-4 pt-4 border-t flex justify-between items-center">
+                    <div>
+                        <p class="text-[10px] text-[#7B969A] font-bold">住宿 CHECK-IN</p>
+                        <p class="text-sm font-bold">四谷京阪飯店</p>
+                    </div>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Hotel+Keihan+Tokyo+Yotsuya" class="bg-slate-100 p-2 rounded-full text-sm">📍 導覽</a>
+                </div>
+                <div class="mt-3 p-3 bg-yellow-50 rounded-xl text-[11px] text-amber-700 font-medium">
+                    💡 宵夜建議：飯店旁 LIFE 超市買水果、Lawson 炸雞君！
+                </div>
+            </div>
+        </div>
+
+        <div id="day-2" class="day-panel">
+            <div class="glass p-6 mb-4">
+                <h3 class="text-lg font-bold mb-4">江戶風情之旅</h3>
+                <div class="space-y-6">
+                    <div class="flex gap-4">
+                        <p class="text-[10px] text-gray-400 font-bold mt-1">09:00</p>
+                        <div class="flex-1">
+                            <div class="flex justify-between"><h4 class="font-bold text-sm">淺草寺、雷門</h4><a href="https://www.google.com/maps/search/?api=1&query=Sensō-ji" class="text-[10px] text-[#7B969A]">📍 導航</a></div>
+                            <p class="text-xs text-gray-500 mt-1">必拍：巨大燈籠、仲見世通。早餐：龜十銅鑼燒。</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <p class="text-[10px] text-gray-400 font-bold mt-1">11:30</p>
+                        <div class="flex-1">
+                            <div class="flex justify-between"><h4 class="font-bold text-sm">神田神社 (神田明神)</h4><a href="https://www.google.com/maps/search/?api=1&query=Kanda+Shrine" class="text-[10px] text-[#7B969A]">📍 導航</a></div>
+                            <p class="text-xs text-gray-500 mt-1">午餐：神田 藪蕎麥 (百年店)。</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <p class="text-[10px] text-gray-400 font-bold mt-1">15:00</p>
+                        <div class="flex-1">
+                            <div class="flex justify-between"><h4 class="font-bold text-sm">東京大神宮</h4><a href="https://www.google.com/maps/search/?api=1&query=Tokyo+Daijingu" class="text-[10px] text-[#7B969A]">📍 導航</a></div>
+                            <p class="text-xs text-gray-500 mt-1">求結緣神社。傍晚備用：秋葉原無線電會館。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="day-3" class="day-panel">
+            <div class="glass p-6 mb-4">
+                <h3 class="text-lg font-bold mb-4">文化與園林</h3>
+                <div class="space-y-6">
+                    <div class="flex gap-4">
+                        <p class="text-[10px] text-gray-400 font-bold mt-1">09:30</p>
+                        <div class="flex-1">
+                            <div class="flex justify-between"><h4 class="font-bold text-sm">上野東照宮</h4><a href="https://www.google.com/maps/search/?api=1&query=Ueno+Toshogu" class="text-[10px] text-[#7B969A]">📍 導航</a></div>
+                            <p class="text-xs text-gray-500 mt-1 italic">建築美學。2月牡丹花期預計至2月中旬。</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <p class="text-[10px] text-gray-400 font-bold mt-1">13:30</p>
+                        <div class="flex-1">
+                            <div class="flex justify-between"><h4 class="font-bold text-sm">皇居、皇居東御苑</h4><a href="https://www.google.com/maps/search/?api=1&query=Kikyo-mon+Gate" class="text-[10px] text-[#7B969A]">📍 導航</a></div>
+                            <p class="text-xs text-gray-500 mt-1">必備護照！桔梗門排隊導覽。午餐：根岸牛舌。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="day-4" class="day-panel">
+            <div class="glass p-6 mb-4">
+                <h3 class="text-lg font-bold mb-4">都会之森</h3>
+                <div class="space-y-6">
+                    <div class="flex gap-4">
+                        <p class="text-[10px] text-gray-400 font-bold mt-1">09:00</p>
+                        <div class="flex-1">
+                            <div class="flex justify-between"><h4 class="font-bold text-sm">新宿御苑</h4><a href="https://www.google.com/maps/search/?api=1&query=Shinjuku+Gyoen" class="text-[10px] text-[#7B969A]">📍 導航</a></div>
+                            <p class="text-xs text-gray-500 mt-1">《言葉之庭》景點。大片草地與溫室。</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <p class="text-[10px] text-gray-400 font-bold mt-1">13:30</p>
+                        <div class="flex-1">
+                            <div class="flex justify-between"><h4 class="font-bold text-sm">明治神宮</h4><a href="https://www.google.com/maps/search/?api=1&query=Meiji+Jingu" class="text-[10px] text-[#7B969A]">📍 導航</a></div>
+                            <p class="text-xs text-gray-500 mt-1">廣闊森林。隨後前往澀谷 Sky (需預約)。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="day-5" class="day-panel">
+            <div class="glass p-6 mb-4">
+                <div class="flex items-center gap-2 mb-4"><span class="bg-[#7B969A] text-white text-[10px] px-2 py-1 rounded-md font-bold uppercase">Moving Day</span></div>
+                <h3 class="text-lg font-bold mb-4">最後採購與朋友家</h3>
+                <div class="space-y-6">
+                    <div>
+                        <div class="flex justify-between"><h4 class="font-bold text-sm">Alpen TOKYO (新宿)</h4><a href="https://www.google.com/maps/search/?api=1&query=Alpen+TOKYO" class="text-[10px] text-[#7B969A]">📍 導航</a></div>
+                        <p class="text-xs text-gray-500 mt-1">露營用品大朝聖。隨後移住中目黑朋友家。</p>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-2xl border-2 border-dashed border-gray-200">
+                        <p class="text-[10px] font-bold text-gray-400 uppercase">Friend's Home Address</p>
+                        <p class="text-xs font-bold mt-1">東京都目黑區青葉台 3-14-4 <br>アジールコート池尻大橋 403</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="day-6" class="day-panel">
+            <div class="glass p-6 mb-4">
+                <h3 class="text-lg font-bold mb-4">中目黑慢活</h3>
+                <div class="space-y-6">
+                    <div>
+                        <div class="flex justify-between"><h4 class="font-bold text-sm">目黑川散步</h4><a href="https://www.google.com/maps/search/?api=1&query=Meguro+River" class="text-[10px] text-[#7B969A]">📍 導航</a></div>
+                        <p class="text-xs text-gray-500 mt-1">11:15 成田機場起飛 (IT203)。</p>
+                    </div>
+                    <div class="bg-gray-100 p-4 rounded-2xl flex items-center justify-between">
+                        <div>
+                            <p class="text-[10px] text-gray-400 font-bold uppercase">Last Snack</p>
+                            <p class="text-xs font-bold">FamilyMart FamiChiki!</p>
+                        </div>
+                        <span class="text-2xl">🍗</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <nav class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-md h-16 glass rounded-full shadow-2xl z-[2000] flex justify-around items-center px-6 border border-white/50">
+        <button onclick="toggleOverlay('itinerary')" class="flex flex-col items-center"><span class="text-lg">📍</span><span class="text-[8px] font-bold">行程</span></button>
+        <button onclick="toggleOverlay('calc')" class="flex flex-col items-center"><span class="text-lg">💰</span><span class="text-[8px] font-bold">分帳</span></button>
+        <button onclick="toggleOverlay('translate')" class="flex flex-col items-center"><span class="text-lg">文</span><span class="text-[8px] font-bold">翻譯</span></button>
+        <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="flex flex-col items-center"><span class="text-lg">⬆️</span><span class="text-[8px] font-bold">回頂部</span></button>
+    </nav>
+
+    <div id="overlay-calc" class="tool-overlay glass p-6 shadow-2xl border-t-4 border-[#7B969A]">
+        <h3 class="font-bold mb-4 text-[#7B969A]">💰 記帳/分帳</h3>
+        <input type="number" id="exp-amount" placeholder="金額 (JPY)" class="w-full p-3 rounded-xl bg-slate-100 text-sm mb-2 outline-none">
+        <input type="text" id="exp-note" placeholder="備註 (如：拉麵)" class="w-full p-3 rounded-xl bg-slate-100 text-sm mb-3 outline-none">
+        <button class="w-full bg-[#7B969A] text-white py-3 rounded-xl font-bold text-sm shadow-lg">新增支出紀錄</button>
+    </div>
+
+    <div id="overlay-translate" class="tool-overlay glass p-6 shadow-2xl border-t-4 border-[#7B969A]">
+        <h3 class="font-bold mb-4 text-[#7B969A]">文 繁中 ⇋ 日文</h3>
+        <textarea placeholder="輸入內容..." class="w-full p-3 rounded-xl bg-slate-100 text-sm mb-3 outline-none h-20"></textarea>
+        <div class="flex gap-2">
+            <button class="flex-1 bg-[#7B969A] text-white py-3 rounded-xl font-bold text-xs">翻日文</button>
+            <button class="flex-1 bg-slate-200 text-slate-600 py-3 rounded-xl font-bold text-xs">翻中文</button>
+        </div>
+    </div>
+
+    <script>
+        function switchDay(dayNum, date, temp, wear, btn) {
+            // 更新 Header 天氣資訊
+            document.getElementById('date-label').innerText = date;
+            document.getElementById('temp-label').innerText = temp;
+            document.getElementById('wear-label').innerText = wear;
+
+            // 切換按鈕樣式
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            // 切換行程面板
+            document.querySelectorAll('.day-panel').forEach(p => p.classList.remove('active'));
+            document.getElementById('day-' + dayNum).classList.add('active');
+
+            // 關閉工具選單
+            document.querySelectorAll('.tool-overlay').forEach(o => o.style.display = 'none');
+            
+            // 回到頂部
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        function toggleOverlay(type) {
+            const calc = document.getElementById('overlay-calc');
+            const trans = document.getElementById('overlay-translate');
+            
+            if (type === 'calc') {
+                trans.style.display = 'none';
+                calc.style.display = (calc.style.display === 'block') ? 'none' : 'block';
+            } else if (type === 'translate') {
+                calc.style.display = 'none';
+                trans.style.display = (trans.style.display === 'block') ? 'none' : 'block';
+            } else {
+                calc.style.display = 'none';
+                trans.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
         </button>
         <button onclick="changeDay(2, this)" class="day-btn flex-shrink-0 w-12 h-16 bg-white/20 rounded-2xl flex flex-col items-center justify-center text-white border border-white/30">
             <span class="text-[10px]">D2</span><span class="font-bold">04</span>
