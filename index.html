@@ -3,37 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>華的東京 SOLO App 2026</title>
+    <title>華的東京 SOLO 究極版 2026</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Noto Sans TC', sans-serif; background: #7B969A; overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
         .day-panel { display: none; }
-        .day-panel.active { display: block; animation: fadeIn 0.4s ease-out; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .glass { background: rgba(255, 255, 255, 0.98); border-radius: 28px; box-shadow: 0 12px 30px rgba(0,0,0,0.15); }
-        .nav-btn.active { background: white; color: #7B969A; transform: scale(1.05); font-weight: 900; }
+        .day-panel.active { display: block; animation: slideIn 0.3s ease-out; }
+        @keyframes slideIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
+        .glass { background: rgba(255, 255, 255, 0.98); border-radius: 30px; box-shadow: 0 15px 35px rgba(0,0,0,0.15); }
+        .nav-btn.active { background: white; color: #7B969A; transform: scale(1.1); font-weight: 900; }
         
-        /* 時間軸進階佈局 */
-        .timeline-wrapper { position: relative; padding-left: 60px; }
-        .timeline-line { position: absolute; left: 24px; top: 0; bottom: 0; width: 2px; background: rgba(255,255,255,0.3); }
+        /* 強化時間軸佈局 */
+        .timeline-wrapper { position: relative; padding-left: 65px; }
+        .timeline-line { position: absolute; left: 26px; top: 0; bottom: 0; width: 3px; background: rgba(255,255,255,0.4); }
         .time-bubble { 
-            position: absolute; left: -50px; top: 10px; width: 52px; height: 26px; 
+            position: absolute; left: -58px; top: 12px; width: 62px; height: 32px; 
             background: white; color: #7B969A; border-radius: 20px; 
-            font-size: 10px; font-weight: 900; display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1); z-index: 20;
+            font-size: 13px; font-weight: 900; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2); z-index: 20; border: 2px solid #7B969A;
         }
         .no-scrollbar::-webkit-scrollbar { display: none; }
     </style>
 </head>
-<body class="pb-36">
+<body class="pb-40 text-slate-800">
 
     <header class="p-6 text-white flex justify-between items-start">
-        <div>
-            <h1 class="text-3xl font-black tracking-tighter">TOKYO SOLO</h1>
-            <p id="current-date-full" class="text-sm font-bold mt-1">2026.02.03 (週二)</p>
+        <div class="max-w-[60%]">
+            <h1 class="text-4xl font-black tracking-tighter italic">TOKYO</h1>
+            <p id="current-date-full" class="text-base font-bold mt-1 opacity-90">2026.02.03 (週二)</p>
         </div>
-        <div class="text-right bg-white/20 p-3 rounded-2xl backdrop-blur-md border border-white/10">
+        <div class="text-right bg-white/25 p-4 rounded-3xl backdrop-blur-xl border border-white/20 shadow-xl">
+            <p id="temp-display" class="text-2xl font-black">2°C / 8°C</p>
+            <p id="wear-display" class="text-[11px] font-bold mt-1 leading-tight text-white/90">發熱衣+羊毛+厚羽絨</p>
+        </div>
+    </header>
+
+    <div class="flex overflow-x-auto gap-4 px-6 mb-10 no-scrollbar">
+        <button onclick="switchDay(1, '2026.02.03 (週二)', '2°C/8°C', '發熱衣+羊毛+厚羽絨', this)" class="nav-btn active flex-shrink-0 w-24 py-5 rounded-3xl bg-white/10 text-white border border-white/10 text-center shadow-lg">
+            <span class="block text-[11px] opacity-70">DAY 1</span><span class="text-xl font-black italic">2/03</span>
+        </button>
+        <button onclick="switchDay(2, '2026.02.04 (週三)', '3°C/10°C', '層次穿法+暖暖包', this)" class="nav-btn flex-shrink-0 w-24 py-5 rounded-3xl bg-white/10 text-white border border-white/10 text-center shadow-lg">
+            <span class="block text-[11px] opacity-70">DAY 2</span><span class="text-xl font-black italic">2/04</span>
+        </button>
+        <button onclick="switchDay(3, '2026.02.05 (週四)', '4°C/11°C', '防風外套+手套', this)" class="nav-btn flex-shrink-0 w-24 py-5 rounded-3xl bg-white/10 text-white border border-white/10 text-center shadow-lg">
+            <span class="block text-[11px] opacity-70">DAY 3</span><span class="text-xl font-black italic">2/05</span>
+        </button>
+        <button onclick="switchDay(4, '2026.02.06 (週五)', '1°C/9°C', '極寒！毛帽+耳罩', this)" class="nav-btn flex-shrink-0 w-24 py-5 rounded-3xl bg-white/10 text-white border border-white/10 text-center shadow-lg">
+            <span class="block text-[11px] opacity-70">DAY 4</span><span class="text-xl font-black italic">2/06</span>
+        </button>
+        <button onclick="switchDay(5, '2026.02.07 (週六)', '5°C/12°C', '洋蔥式+輕裝行走', this)" class="nav-btn flex-shrink-0 w-24 py-5 rounded-3xl bg-white/10 text-white border border-white/10 text-center shadow-lg">
+            <span class="block text-[11px] opacity-70">DAY 5</span><span class="text-xl font-black italic">2/07</span>
+        </button>
+        <button onclick="switchDay(6, '2026.02.08 (週日)', '4°C/10°C', '準備機艙舒適裝', this)" class="nav-btn flex-shrink-0 w-24 py-5 rounded-3xl bg-white/10 text-white border border-white/10 text-center shadow-lg">
+            <span class="block text-[11px] opacity-70">DAY 6</span><span class="text-xl font-black italic">2/08</span>
+        </button>
+    </div>
+
+    <main class="px-6" id="app-content">
+
+        <div id="panel-1" class="day-panel active timeline-wrapper">
+            <div class="timeline-line"></div>
+            <div class="relative mb-12">
+                <div class="time-bubble">15:35</div>
+                <div class="glass p-7 ml-3">
+                    <div class="flex justify-between items-center mb-3 text-sm font-black text-[#7B969A]"><span>IT202 虎航</span><a href="https://www.google.com/maps/search/桃園國際機場第一航廈" class="bg-slate-100 px-3 py-1.5 rounded-full shadow-sm">📍 導航</a></div>
+                    <h3 class="text-3xl font-black mb-5">桃園機場 ✈️ 成田</h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <button onclick="alert('✨ 特色：虎航 IT202、松山-羽田 (備案：桃園-成田)')" class="bg-[#7B969A]/15 text-[#7B969A] py-3.5 rounded-2xl font-black text-sm">✨ 特色</button>
+                        <button onclick="alert('📝 備註：領行李、搭Skyliner前往飯店。宵夜：LIFE超市、LAWSON炸雞君。')" class="bg-slate-100 text-slate-500 py-3.5 rounded-2xl font-black text-sm">📝 備註</button>
+                    </div>
+                </div>
+            </div>
+            <div class="relative mb-12">
+                <div class="time-bubble">21:00</div>
+                <div class="glass p-7 ml-3">
+                    <div class="flex justify-between items-center mb-3 text-sm font-black text-[#7B969A]"><span>HOTEL</span><a href="https://www.google.com/maps/search/Hotel+Keihan+Tokyo+Yotsuya" class="bg-slate-100 px-3
             <p id="temp-display" class="text-2xl font-black">2°C / 8°C</p>
             <p id="wear-display" class="text-[10px] font-medium mt-1 leading-tight">厚羽絨+防風發熱衣</p>
         </div>
