@@ -9,13 +9,13 @@
     <style>
         :root {
             /* --- 莫蘭迪藍色系配色盤 (優雅、知性、舒適) --- */
-            --primary: #6B8E9E;   /* 主色：莫蘭迪灰藍 (Dusty Slate Blue) */
-            --secondary: #E3EDF2; /* 次要色：極淡迷霧藍 (Pale Misty Blue) */
+            --primary: #6B8E9E;   /* 主色：莫蘭迪灰藍 */
+            --secondary: #E3EDF2; /* 次要色：極淡迷霧藍 */
             --bg: #F0F4F8;        /* 背景：帶有藍灰色調的米白 */
             --text: #445566;      /* 文字：深藍灰色 */
             --text-light: #8899A6;/* 次要文字：中灰色 */
             --card-bg: #FFFFFF;   /* 卡片背景：純白 */
-            --accent: #C88D8D;    /* 強調色：莫蘭迪乾燥玫瑰 (Dusty Rose) */
+            --accent: #C88D8D;    /* 強調色：莫蘭迪乾燥玫瑰 */
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -186,91 +186,4 @@
             cursor: pointer;
             transition: color 0.3s;
         }
-        .nav-item.active { color: var(--primary); }
-        .nav-item i { font-size: 1.3rem; display: block; margin-bottom: 5px; }
-
-        .page { display: none; padding-bottom: 20px;}
-        .page.active { display: block; }
-        h2 { color: var(--text); font-weight: 500; }
-
-        /* 美食卡片 */
-        .food-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            padding: 15px;
-        }
-        .food-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.04);
-            border: 1px solid #F0F4F8;
-        }
-        .food-img-placeholder {
-            height: 120px;
-            background: var(--secondary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #B0C4D1;
-            font-size: 2.5rem;
-        }
-        .food-info { padding: 12px; }
-        .food-name { font-weight: bold; font-size: 1rem; margin-bottom: 5px; color: var(--text); }
-        .food-jp { color: var(--text-light); font-size: 0.85rem; margin-bottom: 8px; }
-        .food-price { color: var(--primary); font-weight: 700; font-size: 1.05rem;}
-
-        /* 工具箱 */
-        .tools-container { padding: 20px; }
-        .tool-card {
-            background: white;
-            padding: 25px 20px;
-            border-radius: 15px;
-            margin-bottom: 20px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.04);
-            border: 1px solid #F0F4F8;
-        }
-        .tool-card h3 { color: var(--text); margin-top: 0; font-weight: 500; }
-        .tool-card h3 i { color: var(--primary); margin-right: 8px; opacity: 0.8; }
-
-        .tool-btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 14px;
-            width: 100%;
-            border-radius: 12px;
-            font-size: 1rem;
-            font-weight: 500;
-            margin-top: 15px;
-            cursor: pointer;
-            transition: background 0.2s;
-            box-shadow: 0 4px 12px rgba(107, 142, 158, 0.25);
-        }
-        .tool-btn:hover { background: #5A7D9A; }
-        
-        .input-group { display: flex; gap: 10px; margin-bottom: 15px; }
-        .input-group input { 
-            flex: 1; padding: 12px; border: 2px solid var(--bg); border-radius: 10px; 
-            font-size: 1rem; outline: none; transition: border-color 0.3s;
-            color: var(--text); background: #FAFCFD;
-        }
-        .input-group input:focus { border-color: var(--primary); background: white; }
-
-        .translate-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-        .phrase-btn {
-            background: white;
-            border: 1px solid var(--primary);
-            color: var(--primary);
-            padding: 12px;
-            border-radius: 10px;
-            text-align: center;
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-weight: 500;
-        }
-        .phrase-btn:hover { background: var(--secondary); }
-
-        #expenseList li { display: flex; justify-content: space-between; margin-bottom: 8px;
+        .nav
