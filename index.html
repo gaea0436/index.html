@@ -1,59 +1,395 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>華的東京獨旅 2026</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            /* --- 莫蘭迪藍色系配色盤 (優雅、知性、舒適) --- */
-            --primary: #6B8E9E;   /* 主色：莫蘭迪灰藍 */
-            --secondary: #E3EDF2; /* 次要色：極淡迷霧藍 */
-            --bg: #F0F4F8;        /* 背景：帶有藍灰色調的米白 */
-            --text: #445566;      /* 文字：深藍灰色 */
-            --text-light: #8899A6;/* 次要文字：中灰色 */
-            --card-bg: #FFFFFF;   /* 卡片背景：純白 */
-            --accent: #C88D8D;    /* 強調色：莫蘭迪乾燥玫瑰 */
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>華的東京獨旅 2026</title>
 
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body {
-            font-family: 'Noto Sans TC', sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            margin: 0;
-            padding: 0;
-            padding-bottom: 80px; /* 避開底部導航 */
-        }
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-        /* --- Header 氣象區 --- */
-        .header {
-            background: linear-gradient(135deg, var(--primary), #8EAAB9);
-            color: white;
-            padding: 20px;
-            border-radius: 0 0 20px 20px;
-            box-shadow: 0 4px 15px rgba(107, 142, 158, 0.3);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        .weather-widget {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .temp-box h1 { margin: 0; font-size: 2.5rem; font-weight: 500; }
-        .temp-box p { margin: 0; font-size: 0.9rem; opacity: 0.9; }
-        .outfit-tip {
-            background: rgba(255,255,255,0.15);
-            padding: 8px 12px;
-            border-radius: 10px;
-            font-size: 0.85rem;
-            max-width: 60%;
-            display: flex;
-            align-items: center;
+    <style>  
+        :root {  
+            /* --- 莫蘭迪藍色系配色盤 (優雅、知性、舒適) --- */  
+            --primary: #6B8E9E;   /* 主色：莫蘭迪灰藍 */  
+            --secondary: #E3EDF2; /* 次要色：極淡迷霧藍 */  
+            --bg: #F0F4F8;        /* 背景：帶有藍灰色調的米白 */  
+            --text: #445566;      /* 文字：深藍灰色 */  
+            --text-light: #8899A6;/* 次要文字：中灰色 */  
+            --card-bg: #FFFFFF;   /* 卡片背景：純白 */  
+            --accent: #C88D8D;    /* 強調色：莫蘭迪乾燥玫瑰 */  
+        }  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }  
+    body {  
+        font-family: 'Noto Sans TC', sans-serif;  
+        background-color: var(--bg);  
+        color: var(--text);  
+        margin: 0;  
+        padding: 0;  
+        padding-bottom: 80px; /* 避開底部導航 */  
+    }  
+
+    /* --- Header 氣象區 --- */  
+    .header {  
+        background: linear-gradient(135deg, var(--primary), #8EAAB9);  
+        color: white;  
+        padding: 20px;  
+        border-radius: 0 0 20px 20px;  
+        box-shadow: 0 4px 15px rgba(107, 142, 158, 0.3);  
+        position: sticky;  
+        top: 0;  
+        z-index: 100;  
+    }  
+    .weather-widget {  
+        display: flex;  
+        justify-content: space-between;  
+        align-items: center;  
+    }  
+    .temp-box h1 { margin: 0; font-size: 2.5rem; font-weight: 500; }  
+    .temp-box p { margin: 0; font-size: 0.9rem; opacity: 0.9; }  
+    .outfit-tip {  
+        background: rgba(255,255,255,0.15);  
+        padding: 8px 12px;  
+        border-radius: 10px;  
+        font-size: 0.85rem;  
+        max-width: 60%;  
+        display: flex;  
+        align-items: center;  
+        gap: 5px;  
+        backdrop-filter: blur(5px);  
+    }  
+
+    /* --- 日期選擇器 --- */  
+    .date-scroller {  
+        display: flex;  
+        overflow-x: auto;  
+        padding: 15px 10px;  
+        gap: 10px;  
+        scrollbar-width: none;  
+    }  
+    .date-scroller::-webkit-scrollbar { display: none; }  
+      
+    .date-chip {  
+        background: white;  
+        padding: 8px 16px;  
+        border-radius: 20px;  
+        white-space: nowrap;  
+        font-weight: 500;  
+        color: var(--text-light);  
+        border: 1px solid transparent;  
+        box-shadow: 0 2px 5px rgba(0,0,0,0.03);  
+        transition: all 0.3s ease;  
+        cursor: pointer;  
+    }  
+    .date-chip.active {  
+        background: var(--primary);  
+        color: white;  
+        box-shadow: 0 4px 10px rgba(107, 142, 158, 0.4);  
+    }  
+
+    /* --- 行程時間軸 --- */  
+    .timeline-container { padding: 10px 20px; }  
+    .timeline-item {  
+        display: flex;  
+        margin-bottom: 20px;  
+        position: relative;  
+    }  
+    .timeline-item::before {  
+        content: '';  
+        position: absolute;  
+        left: 55px;  
+        top: 0;  
+        bottom: -20px;  
+        width: 2px;  
+        background: #DDE6EB;  
+        z-index: 0;  
+    }  
+    .timeline-item:last-child::before { display: none; }  
+
+    .time-col {  
+        width: 55px;  
+        padding-right: 10px;  
+        text-align: right;  
+        font-size: 0.9rem;  
+        font-weight: 700;  
+        color: var(--primary);  
+        padding-top: 5px;  
+        z-index: 1;  
+        background: var(--bg);  
+    }  
+    .content-col {  
+        flex: 1;  
+        background: var(--card-bg);  
+        border-radius: 15px;  
+        padding: 15px;  
+        box-shadow: 0 3px 10px rgba(0,0,0,0.04);  
+        position: relative;  
+        z-index: 1;  
+        border: 1px solid #F0F4F8;  
+    }  
+    .content-col h3 { margin: 0 0 5px 0; font-size: 1.1rem; color: var(--text); }  
+      
+    /* 標籤配色 */  
+    .tag {  
+        display: inline-block;  
+        font-size: 0.75rem;  
+        padding: 3px 10px;  
+        border-radius: 6px;  
+        margin-bottom: 8px;  
+        font-weight: 500;  
+    }  
+    .tag.交通 { background: #E6EEF5; color: #5A7D9A; }  
+    .tag.景點 { background: #EBF2EB; color: #709678; }  
+    .tag.餐飲, .tag.購物, .tag.住宿 { background: #F7F3E8; color: #9C8E7A; }  
+    .tag.園林, .tag.觀光 { background: #F0F5F2; color: #7A9C92; }  
+
+    .note {  
+        font-size: 0.85rem;  
+        color: var(--text-light);  
+        margin-top: 10px;  
+        line-height: 1.5;  
+        background: var(--bg);  
+        padding: 10px;  
+        border-radius: 8px;  
+    }  
+    .map-btn {  
+        display: inline-flex;  
+        align-items: center;  
+        margin-top: 12px;  
+        color: var(--primary);  
+        text-decoration: none;  
+        font-weight: 500;  
+        font-size: 0.9rem;  
+        transition: opacity 0.2s;  
+    }  
+    .map-btn:hover { opacity: 0.8; }  
+    .map-btn i { margin-right: 6px; }  
+
+    /* --- 底部導航 --- */  
+    .bottom-nav {  
+        position: fixed;  
+        bottom: 0;  
+        left: 0;  
+        right: 0;  
+        background: rgba(255,255,255,0.95);  
+        backdrop-filter: blur(10px);  
+        display: flex;  
+        justify-content: space-around;  
+        padding: 12px 0;  
+        box-shadow: 0 -2px 15px rgba(0,0,0,0.04);  
+        z-index: 200;  
+        border-top: 1px solid var(--secondary);  
+    }  
+    .nav-item {  
+        text-align: center;  
+        color: #AABBC6;  
+        font-size: 0.75rem;  
+        cursor: pointer;  
+        transition: color 0.3s;  
+    }  
+    .nav-item.active { color: var(--primary); }  
+    .nav-item i { font-size: 1.3rem; display: block; margin-bottom: 5px; }  
+
+    .page { display: none; padding-bottom: 20px;}  
+    .page.active { display: block; }  
+    h2 { color: var(--text); font-weight: 500; }  
+
+    /* 美食卡片 */  
+    .food-grid {  
+        display: grid;  
+        grid-template-columns: 1fr 1fr;  
+        gap: 15px;  
+        padding: 15px;  
+    }  
+    .food-card {  
+        background: white;  
+        border-radius: 15px;  
+        overflow: hidden;  
+        box-shadow: 0 3px 10px rgba(0,0,0,0.04);  
+        border: 1px solid #F0F4F8;  
+    }  
+    .food-img-placeholder {  
+        height: 120px;  
+        background: var(--secondary);  
+        display: flex;  
+        align-items: center;  
+        justify-content: center;  
+        color: #B0C4D1;  
+        font-size: 2.5rem;  
+    }  
+    .food-info { padding: 12px; }  
+    .food-name { font-weight: bold; font-size: 1rem; margin-bottom: 5px; color: var(--text); }  
+    .food-jp { color: var(--text-light); font-size: 0.85rem; margin-bottom: 8px; }  
+    .food-price { color: var(--primary); font-weight: 700; font-size: 1.05rem;}  
+
+    /* 工具箱 */  
+    .tools-container { padding: 20px; }  
+    .tool-card {  
+        background: white;  
+        padding: 25px 20px;  
+        border-radius: 15px;  
+        margin-bottom: 20px;  
+        box-shadow: 0 3px 10px rgba(0,0,0,0.04);  
+        border: 1px solid #F0F4F8;  
+    }  
+    .tool-card h3 { color: var(--text); margin-top: 0; font-weight: 500; }  
+    .tool-card h3 i { color: var(--primary); margin-right: 8px; opacity: 0.8; }  
+
+    .tool-btn {  
+        background: var(--primary);  
+        color: white;  
+        border: none;  
+        padding: 14px;  
+        width: 100%;  
+        border-radius: 12px;  
+        font-size: 1rem;  
+        font-weight: 500;  
+        margin-top: 15px;  
+        cursor: pointer;  
+        transition: background 0.2s;  
+        box-shadow: 0 4px 12px rgba(107, 142, 158, 0.25);  
+    }  
+    .tool-btn:hover { background: #5A7D9A; }  
+      
+    .input-group { display: flex; gap: 10px; margin-bottom: 15px; }  
+    .input-group input {   
+        flex: 1; padding: 12px; border: 2px solid var(--bg); border-radius: 10px;   
+        font-size: 1rem; outline: none; transition: border-color 0.3s;  
+        color: var(--text); background: #FAFCFD;  
+    }  
+    .input-group input:focus { border-color: var(--primary); background: white; }  
+
+    .translate-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }  
+    .phrase-btn {  
+        background: white;  
+        border: 1px solid var(--primary);  
+        color: var(--primary);  
+        padding: 12px;  
+        border-radius: 10px;  
+        text-align: center;  
+        font-size: 0.95rem;  
+        cursor: pointer;  
+        transition: all 0.2s;  
+        font-weight: 500;  
+    }  
+    .phrase-btn:hover { background: var(--secondary); }  
+
+    #expenseList li { display: flex; justify-content: space-between; margin-bottom: 8px; border-bottom: 1px dashed #eee; padding-bottom: 8px; color: var(--text); font-size: 0.95rem; }  
+    #totalExpense { color: var(--accent) !important; font-size: 1.2rem; }  
+
+    .checkbox-label { display: flex; align-items: center; margin: 12px 0; color: var(--text); font-size: 1rem; cursor: pointer; }  
+    .checkbox-label input { accent-color: var(--primary); transform: scale(1.2); margin-right: 10px; }  
+</style>
+</head>
+
+<body>
+
+<!-- ===== Header ===== -->
+<div class="header">
+  <div class="weather-widget">
+    <div class="temp-box">
+      <p id="currentDateDisplay">—</p>
+      <h1 id="weatherTemp">—</h1>
+    </div>
+    <div class="outfit-tip" id="weatherTip">
+      <i class="fas fa-tshirt"></i> <span>載入中...</span>
+    </div>
+  </div>
+</div>
+
+<div class="date-scroller" id="dateNav"></div>
+
+<div id="page-itinerary" class="page active">
+  <div class="timeline-container" id="itineraryList"></div>
+</div>
+
+<div id="page-food" class="page">
+  <div style="padding:20px">
+    <h2><i class="fas fa-utensils"></i> 超商必吃</h2>
+    <p style="color:#8899A6;font-size:0.9rem">已整理好清單</p>
+  </div>
+  <div class="food-grid" id="foodList"></div>
+</div>
+
+<div id="page-tools" class="page">
+  <div class="tools-container">
+
+    <div class="tool-card">
+      <h3><i class="fas fa-language"></i> 即時溝通</h3>
+      <div class="translate-grid">
+        <div class="phrase-btn" onclick="alert('Sumimasen, toire wa doko desu ka?')">廁所在哪</div>
+        <div class="phrase-btn" onclick="alert('Kore wo kudasai')">請給我這個</div>
+        <div class="phrase-btn" onclick="alert('O-kaikei wo onegaishimasu')">麻煩結帳</div>
+        <div class="phrase-btn" onclick="alert('Fukuro wa irimasen')">不用袋子</div>
+      </div>
+    </div>
+
+    <div class="tool-card">
+      <h3><i class="fas fa-calculator"></i> 快速記帳</h3>
+      <div class="input-group">
+        <input id="expenseName" placeholder="項目">
+        <input id="expenseAmount" type="number" placeholder="金額">
+      </div>
+      <button class="tool-btn" onclick="addExpense()">加入</button>
+      <h4>今日總計 <span id="totalExpense">¥0</span></h4>
+      <ul id="expenseList"></ul>
+    </div>
+
+  </div>
+</div>
+
+<div class="bottom-nav">
+  <div class="nav-item active" onclick="switchPage('itinerary',this)">行程</div>
+  <div class="nav-item" onclick="switchPage('food',this)">美食</div>
+  <div class="nav-item" onclick="switchPage('tools',this)">工具</div>
+</div>
+
+<script>
+/* ===== 共用工具 ===== */
+function safeRun(fn, ...args) {
+  try { fn(...args); }
+  catch (e) { console.warn(fn.name + ' 執行失敗', e); }
+}
+
+function storageAvailable() {
+  try {
+    localStorage.setItem('__t', 1);
+    localStorage.removeItem('__t');
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+/* ===== 狀態 ===== */
+let currentDate = "2026-02-03";
+const STORAGE_KEY = 'tokyo_trip_expenses';
+
+/* ===== 初始化（關鍵優化）===== */
+document.addEventListener('DOMContentLoaded', () => {
+  safeRun(renderDateNav);
+  safeRun(renderItinerary, currentDate);
+  safeRun(renderWeather, currentDate);
+  safeRun(renderFood);
+
+  if (storageAvailable()) {
+    safeRun(loadExpenses);
+  } else {
+    console.info('localStorage 不可用，記帳功能停用');
+  }
+});
+
+/* ===== 記帳 ===== */
+function loadExpenses() {
+  const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+  data.forEach(e => {
+    renderExpenseItem(e);
+    updateTotal(e.amount);
+  });
+}
+</script>
+
+</body>
+</html>            align-items: center;
             gap: 5px;
             backdrop-filter: blur(5px);
         }
