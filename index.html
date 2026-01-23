@@ -353,42 +353,67 @@
         // 行程資料 (根據你的 CSV 內容填入)
         // 注意：為了讓你直接能用，我根據檔案內容填入了 Day 1, 2, 5。
         // Day 3, 4 因檔案截圖限制，我預留了格式，你可以很容易把文字貼進去。
-        const itineraryDB = {
-            "2026-02-03": [
-                { time: "15:35", title: "桃園 T1 起飛 (IT202)", type: "交通", note: "建議在機場先吃午餐。13:30 抵達機場報到。", link: "geo:25.0797,121.2342" },
+       "D1 2026-02-03(二)": [
+                { time: "15:35", title: "桃園 T1 起飛 (IT202)", type: "交通", note: "建議在機場先吃午餐。13:30 抵達機場報到。車程4小時", link: "geo:25.0797,121.2342" },
                 { time: "19:35", title: "抵達成田 T2", type: "交通", note: "購買/儲值西瓜卡 (Suica)。", link: "geo:35.7719,140.3929" },
                 { time: "20:30", title: "搭乘 Skyliner 往市區", type: "交通", note: "車上可先吃點輕食。車程約 45 分鐘。", link: "" },
-                { time: "21:45", title: "入住：四谷京阪飯店", type: "住宿", note: "飯店旁 LIFE 超市買水果、水當宵夜。", link: "https://www.google.com/maps/search/?api=1&query=Hotel+Keihan+Yotsuya" }
+                { time: "21:45", title: "入住：四谷京阪飯店", type: "住宿", note: "地點適中，四谷站周邊安靜安全，步行3分鐘可達,飯店旁 LIFE 超市買水果、水當宵夜。", link: "https://www.google.com/maps/search/?api=1&query=Hotel+Keihan+Yotsuya" }
             ],
-            "2026-02-04": [
-                { time: "09:30", title: "上野東照宮", type: "景點", note: "金色殿宇與牡丹園。記得買御守。", link: "https://www.google.com/maps/search/?api=1&query=Ueno+Toshogu" },
-                { time: "11:00", title: "不忍池 / 弁天堂", type: "景點", note: "散步拍照，欣賞蓮花池枯景。", link: "" },
-                { time: "12:30", title: "午餐：伊豆榮 梅川亭", type: "餐飲", note: "百年鰻魚飯老店，就在公園內。", link: "" },
-                { time: "14:00", title: "淺草寺 / 雷門", type: "景點", note: "人多注意隨身物品。仲見世通吃人形燒。", link: "" },
-                { time: "16:30", title: "神田明神", type: "景點", note: "LoveLive 與 IT 保護神，動漫迷聖地。", link: "" }
+            "D2 2026-02-04(三)": [
+                { time: "09:30", title: "上野東照宮", type: "景點", note: "金碧輝煌的江戶建築與牡丹花園(花期約至2月中旬)。記得買御守。", link: "https://www.google.com/maps/search/?api=1&query=Ueno+Toshogu" },
+                { time: "10:30", title: "上野恩賜公園/不忍池/弁天堂", type: "景點", note: "都市中的巨大蓮池、鳥類觀察、辯天堂&散步拍照，欣賞蓮花池枯景。", link: "https://maps.app.goo.gl/yszrTSGJHqnUEafx6" },
+                { time: "11:00", title: "阿美橫丁 (Ameyoko)午餐：伊豆榮 梅川亭", type: "餐飲", note: "有許多平價美食，但較吵雜。若喜安靜，可選公園周邊餐廳。百年鰻魚飯老店，就在公園內。", link: "https://maps.app.goo.gl/NGaycu43nBPtTqsNA" },
+                { time: "11:30", title: "淺草寺", type: "景點", note: "人多注意隨身物品。江戶風情、紅色巨大燈籠，仲見世通吃人形燒。", link: "https://maps.app.goo.gl/8pe8xihZNRryDym49" "雷門", type: "景點", note: "購買龜十銅鑼燒。", link: "https://maps.app.goo.gl/BNKfeX7mUEHGByeXA"},
+		{ time: "13:00", title: "午餐 (淺草周邊)", type: "餐飲", note: "建議尋找在地特色料理", link: "" },
+		{ time: "14:30", title: "隅田川公園 / 遠眺晴空塔", type: "觀光", note: "拍照打卡、享受河岸景觀", link: "https://maps.app.goo.gl/yh6KkMkUUGxsTLmS8" },
+               
             ],
+
             // 中間日期若有詳細資料，可直接依照格式複製貼上
-            "2026-02-05": [
-                { time: "10:00", title: "明治神宮", type: "景點", note: "享受森林芬多精，參觀御苑。", link: "" },
-                { time: "12:30", title: "午餐：AFURI 柚子拉麵", type: "餐飲", note: "清爽柚子鹽口味，適合女生。", link: "" },
-                { time: "14:30", title: "澀谷 Sky", type: "景點", note: "需預約。俯瞰東京全景。", link: "" }
+            		
+            "D3 2026-02-05(四)": [
+                { time: "09:00", title: "皇居(二重橋/外苑)", type: "園林", note: "必須穿好走路的鞋子，必帶護照;護城河、舊江戶城石垣、日式回遊庭園，皇居一般參觀（桔梗門排隊）預估2h。", link: "https://maps.app.goo.gl/aBduEnbBHGJzouJs6" }
+		{ time: "10:00", title: "皇居東御苑", type: "景點", note: "2/6 東御苑休園但導覽有開。根岸 (ねぎし) 牛舌定食。", link: "https://maps.app.goo.gl/FygtJpQu3mdwyTw89" }
+		{ time: "11:00", title: "午餐：東京車站一番街", type: "備用", note: "集合全日本伴手禮與動漫周邊。六厘舍沾麵 (有單人位),根岸牛舌定食 (有單人位)", link: "https://maps.app.goo.gl/GqciMbwJqLLZLAo66" },
+		{ time: "14:00", title: "東京大神宮", type: "觀光", note: "「東京伊勢神宮」，東京最強結緣神社，日式庭園極美。預估45'", link: "https://maps.app.goo.gl/ErsbsZ1Z1gBcBjRv6" },
+		{ time: "15:00", title: "秋葉原無線電會館", type: "景點", note: "感受獨特的電玩與模型文化。Acos (秋葉原店)、Yodobashi Camera (秋葉原店) 6樓~搖曳露營週邊", link: "https://maps.app.goo.gl/EskakxeeJR1CZgMe9" }
+		{ time: "", title: "K-BOOKS 秋葉原本館", type: "景點", note: "志摩凜與機車的 1/10 比例經典公仔較有機會在這裡看到現貨。", link: "https://maps.app.goo.gl/zHJDrGLgBqdnwcKTA" }
+		{ time: "", title: "駿河屋 (Surugaya) 或 らしんばん (Lashinbang)", type: "景點", note: "絕版或價格較親民的二手公仔（如景品類、一番賞獎項），這兩間二手大店是尋寶的好地方。。", link: "" },
+		{ time: "16:30", title: "神田神社", type: "景點", note: "艷麗的朱紅建築、江戶總鎮守，附近有神保町咖哩或藪蕎麥", link: "https://maps.app.goo.gl/sbfT3dKmLdgggpoYA" }
+		{ time: "17:30", title: "晚餐：AFURI 柚子拉麵", type: "餐飲", note: "神田 藪蕎麥 (百年店)；附近美食：神保町咖哩 或 淺草今半(壽喜燒)", link: "" },
+		{ time: "18:00", title: "東京巨蛋", type: "景點", note: "現代化氣墊式巨蛋建築、周邊園區，戶外拍照，可至 LaQua 購物，如有展覽可參觀。", link: https://maps.app.goo.gl/eihL6ojSfB3mkTNN8"" },		
             ],
-            "2026-02-06": [
-                { time: "09:00", title: "東京巨蛋", type: "景點", note: "周邊巡禮，如有展覽可參觀。", link: "" },
-                { time: "13:00", title: "皇居東御苑", type: "景點", note: "歷史建築與庭園。", link: "" }
+            "D4 2026-02-06(五)": [
+                { time: "09:00", title: "明治神宮", type: "景點", note: "廣闊森林、大型木造鳥居、清幽參道，都市森林漫步，參觀御苑。預估1.5h", link: "https://maps.app.goo.gl/D3g7ArbSWXScqAwNA" },
+		{ time: "10:45", title: "明治神宮棒球場", type: "景點", note: "歷史悠久的球場，熱血應援氣氛，朝聖棒球聖地與 LaQua購物", link: "https://maps.app.goo.gl/oqFeUcYJTugQyMvD8" },
+		{ time: "13:00", title: "新宿御苑", type: "景點", note: "法式、英式、日式三種風格庭園與溫室，《言葉之庭》取景地，極美。預估2h", link: "https://maps.app.goo.gl/13MAYfjRqU8eGufK7" }, 
+		{ time: "16:30", title: "思出橫丁 (傍晚景)", type: "景點", note: "體驗昭和懷舊窄巷、日式居酒屋街、復古風情", link: "https://maps.app.goo.gl/oN9UoGPSXBfTw7i77" },
+		{ time: "17:30", title: "Sports wear Disc. Alpen Tokyo", type: "購物", note: "露營用品店，或L-Breath", link: "https://maps.app.goo.gl/FaPNF1L5gWQxXt6s9" },
+                { time: "18:30", title: "東京都廳展望室", type: "餐飲", note: "免費高空看新宿夜景 (45樓)", link: "https://maps.app.goo.gl/azRNSfdihufA5vfD6" },
+                { time: "17:30", title: "晚餐：AFURI 柚子拉麵", type: "餐飲", note: "清爽柚子鹽口味，適合女生。", link: "" },                		            
             ],
-            "2026-02-07": [
+            "D5 2026-02-07(六)": [
                 { time: "09:00", title: "退房 & 行李寄送", type: "交通", note: "建議將行李寄放在「澀谷站」。換宿至池尻大橋。", link: "" },
-                { time: "10:30", title: "東京鐵塔 (拍照打卡)", type: "景點", note: "攝影點：芝公園階梯或停車場出口。", link: "https://www.google.com/maps/search/?api=1&query=Tokyo+Tower" },
+                { time: "10:30", title: "東京鐵塔/芝公園", type: "景點", note: "東京象徵,攝影點：芝公園階梯或停車場出口經典位。", link: "https://www.google.com/maps/search/?api=1&query=Tokyo+Tower" },
                 { time: "12:30", title: "午餐：炸牛排 Motomura", type: "餐飲", note: "口感軟嫩，記得排隊。", link: "" },
-                { time: "14:00", title: "國立新美術館", type: "景點", note: "黑川紀章設計。大廳拍照像雜誌封面。", link: "https://www.google.com/maps/search/?api=1&query=The+National+Art+Center" },
-                { time: "19:30", title: "晚餐：AFURI 或 居酒屋", type: "餐飲", note: "享受最後一晚的東京氛圍。", link: "" }
+                { time: "14:00", title: "國立新美術館", type: "景點", note: "黑川紀章大作，波浪形玻璃帷幕建築。攝影：黑川紀章設計的倒建築光影；國立新美術館的內部空間非常宏偉，即便不進展場，光在大廳與咖啡廳區域拍照就非常像雜誌封面。", link: "https://www.google.com/maps/search/?api=1&query=The+National+Art+Center" },
+		{ time: "15:30", title: "竹下通、表參道", type: "景點", note: "時尚品牌旗艦店建築、現代設計感。表參道之丘 (安藤忠雄作品)", link: "https://maps.app.goo.gl/xM7uVPQU45TG2vcTA" }
+		{ time: "17:30", title: "澀谷Sky", type: "景點", note: "需預約。日落俯瞰東京全景，無票則改去 Hikarie 11F。", link: "https://maps.app.goo.gl/9rUemZVCs48y8XXP7" }
+                { time: "", title: "涉谷交叉點", type: "景點", note: "世界最繁忙路口、澀谷 Scramble", link: "https://maps.app.goo.gl/aV6aoPqCjV8fERau8" }
+		{ time: "19:30", title: "晚餐：敘敘苑(單人窗位) 或 挽肉與米", type: "餐飲", note: "享受最後一晚的東京氛圍。", link: "" }
+		{ time: "20:30", title: "入住：池尻大橋住宿", type: "住宿", note: "目黑區，近中目黑，慢活生活感;澀谷站取行李，一站即達。", link: "https://maps.app.goo.gl/GjBECgtTE2eLmLfd9" }
+		{ time: "", title: "備用：中目黑星巴克工坊", type: "餐飲", note: "隈研吾設計，四層樓大型烘焙工房，若體力許可，池尻大橋步行可達", link: "https://maps.app.goo.gl/ai4b2xvnBURHxvYv7" }
             ],
-            "2026-02-08": [
-                 { time: "10:00", title: "前往成田機場", type: "交通", note: "預留時間逛免稅店。", link: "" },
-                 { time: "14:00", title: "飛機起飛 (返台)", type: "交通", note: "平安回家。", link: "" }
+            "D6 2026-02-08(日)": [
+                 { time: "07:30", title: "前往成田機場T1", type: "交通", note: "預留充足報到時間。", link: "" },
+		 { time: "09:15", title: "抵達機場報到 (MM623)", type: "交通", note: "樂桃航空報到時間較嚴格,機場最後採買。", link: "" },
+                 { time: "11:15", title: "飛機起飛 (返台)", type: "交通", note: "結束愉快的東京獨旅。", link: "" },
+		 { time: "11:15", title: "抵達桃園 T1", type: "交通", note: "平安回家。", link: "" }
             ]
         };
+
+
+
 
         const foodDB = [
             { name: "FamiChiki 炸雞", jp: "ファミチキ", price: "¥240", shop: "FamilyMart", icon: "drumstick-bite" },
