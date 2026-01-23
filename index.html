@@ -354,41 +354,66 @@
         // 注意：為了讓你直接能用，我根據檔案內容填入了 Day 1, 2, 5。
         // Day 3, 4 因檔案截圖限制，我預留了格式，你可以很容易把文字貼進去。
         const itineraryDB = {
-            "2026-02-03": [
-                { time: "15:35", title: "桃園 T1 起飛 (IT202)", type: "交通", note: "建議在機場先吃午餐。13:30 抵達機場報到。", link: "geo:25.0797,121.2342" },
+              const itineraryDB = {
+            "D1 2026-02-03(二)": [
+                { time: "15:35", title: "桃園 T1 起飛 (IT202)", type: "交通", note: "建議在機場先吃午餐。13:30 抵達機場報到。車程4小時", link: "geo:25.0797,121.2342" },
                 { time: "19:35", title: "抵達成田 T2", type: "交通", note: "購買/儲值西瓜卡 (Suica)。", link: "geo:35.7719,140.3929" },
                 { time: "20:30", title: "搭乘 Skyliner 往市區", type: "交通", note: "車上可先吃點輕食。車程約 45 分鐘。", link: "" },
-                { time: "21:45", title: "入住：四谷京阪飯店", type: "住宿", note: "飯店旁 LIFE 超市買水果、水當宵夜。", link: "https://www.google.com/maps/search/?api=1&query=Hotel+Keihan+Yotsuya" }
+                { time: "21:45", title: "入住：四谷京阪飯店", type: "住宿", note: "地點適中，四谷站周邊安靜安全，步行3分鐘可達,飯店旁 LIFE 超市買水果、水當宵夜。", link: "https://www.google.com/maps/search/?api=1&query=Hotel+Keihan+Yotsuya" }
             ],
-            "2026-02-04": [
-                { time: "09:30", title: "上野東照宮", type: "景點", note: "金色殿宇與牡丹園。記得買御守。", link: "https://www.google.com/maps/search/?api=1&query=Ueno+Toshogu" },
-                { time: "11:00", title: "不忍池 / 弁天堂", type: "景點", note: "散步拍照，欣賞蓮花池枯景。", link: "" },
-                { time: "12:30", title: "午餐：伊豆榮 梅川亭", type: "餐飲", note: "百年鰻魚飯老店，就在公園內。", link: "" },
-                { time: "14:00", title: "淺草寺 / 雷門", type: "景點", note: "人多注意隨身物品。仲見世通吃人形燒。", link: "" },
-                { time: "16:30", title: "神田明神", type: "景點", note: "LoveLive 與 IT 保護神，動漫迷聖地。", link: "" }
+            "D2 2026-02-04(三)": [
+                { time: "09:30", title: "上野東照宮", type: "景點", note: "金碧輝煌的江戶建築與牡丹花園(花期約至2月中旬)。記得買御守。", link: "https://www.google.com/maps/search/?api=1&query=Ueno+Toshogu" },
+                { time: "10:30", title: "上野恩賜公園/不忍池/弁天堂", type: "景點", note: "都市中的巨大蓮池、鳥類觀察、辯天堂&散步拍照，欣賞蓮花池枯景。", link: "https://maps.app.goo.gl/yszrTSGJHqnUEafx6" },
+                { time: "11:00", title: "阿美橫丁 (Ameyoko)午餐：伊豆榮 梅川亭", type: "餐飲", note: "有許多平價美食，但較吵雜。若喜安靜，可選公園周邊餐廳。百年鰻魚飯老店，就在公園內。", link: "https://maps.app.goo.gl/NGaycu43nBPtTqsNA" },
+                { time: "11:30", title: "淺草寺", type: "景點", note: "人多注意隨身物品。江戶風情、紅色巨大燈籠，仲見世通吃人形燒。", link: "https://maps.app.goo.gl/8pe8xihZNRryDym49" "雷門", type: "景點", note: "購買龜十銅鑼燒。", link: "https://maps.app.goo.gl/BNKfeX7mUEHGByeXA"},
+		{ time: "13:00", title: "午餐 (淺草周邊)", type: "餐飲", note: "建議尋找在地特色料理", link: "" },
+		{ time: "14:30", title: "隅田川公園 / 遠眺晴空塔", type: "觀光", note: "拍照打卡、享受河岸景觀", link: "https://maps.app.goo.gl/yh6KkMkUUGxsTLmS8" },
+               
             ],
             // 中間日期若有詳細資料，可直接依照格式複製貼上
-            "2026-02-05": [
-                { time: "10:00", title: "明治神宮", type: "景點", note: "享受森林芬多精，參觀御苑。", link: "" },
-                { time: "12:30", title: "午餐：AFURI 柚子拉麵", type: "餐飲", note: "清爽柚子鹽口味，適合女生。", link: "" },
-                { time: "14:30", title: "澀谷 Sky", type: "景點", note: "需預約。俯瞰東京全景。", link: "" }
+		
+            "D3 2026-02-05(四)": [
+                { time: "09:00", title: "皇居(二重橋/外苑)", type: "園林", note: "必須穿好走路的鞋子，必帶護照;護城河、舊江戶城石垣、日式回遊庭園，皇居一般參觀（桔梗門排隊）預估2h。", link: "https://maps.app.goo.gl/aBduEnbBHGJzouJs6" }
+		{ time: "10:00", title: "皇居東御苑", type: "景點", note: "2/6 東御苑休園但導覽有開。根岸 (ねぎし) 牛舌定食。", link: "https://maps.app.goo.gl/FygtJpQu3mdwyTw89" }
+		{ time: "11:00", title: "午餐：東京車站一番街", type: "備用", note: "集合全日本伴手禮與動漫周邊。六厘舍沾麵 (有單人位),根岸牛舌定食 (有單人位)", link: "https://maps.app.goo.gl/GqciMbwJqLLZLAo66" },
+		{ time: "14:00", title: "東京大神宮", type: "觀光", note: "「東京伊勢神宮」，東京最強結緣神社，日式庭園極美。預估45'", link: "https://maps.app.goo.gl/ErsbsZ1Z1gBcBjRv6" },
+		{ time: "15:00", title: "秋葉原無線電會館", type: "景點", note: "感受獨特的電玩與模型文化。Acos (秋葉原店)、Yodobashi Camera (秋葉原店) 6樓~搖曳露營週邊", link: "https://maps.app.goo.gl/EskakxeeJR1CZgMe9" }
+		{ time: "", title: "K-BOOKS 秋葉原本館", type: "景點", note: "志摩凜與機車的 1/10 比例經典公仔較有機會在這裡看到現貨。", link: "https://maps.app.goo.gl/zHJDrGLgBqdnwcKTA" }
+		{ time: "", title: "駿河屋 (Surugaya) 或 らしんばん (Lashinbang)", type: "景點", note: "絕版或價格較親民的二手公仔（如景品類、一番賞獎項），這兩間二手大店是尋寶的好地方。。", link: "" },
+		{ time: "16:30", title: "神田神社", type: "景點", note: "艷麗的朱紅建築、江戶總鎮守，附近有神保町咖哩或藪蕎麥", link: "https://maps.app.goo.gl/sbfT3dKmLdgggpoYA" }
+		{ time: "17:30", title: "晚餐：AFURI 柚子拉麵", type: "餐飲", note: "神田 藪蕎麥 (百年店)；附近美食：神保町咖哩 或 淺草今半(壽喜燒)", link: "" },
+		{ time: "18:00", title: "東京巨蛋", type: "景點", note: "現代化氣墊式巨蛋建築、周邊園區，戶外拍照，可至 LaQua 購物，如有展覽可參觀。", link: https://maps.app.goo.gl/eihL6ojSfB3mkTNN8"" },		
             ],
-            "2026-02-06": [
-                { time: "09:00", title: "東京巨蛋", type: "景點", note: "周邊巡禮，如有展覽可參觀。", link: "" },
-                { time: "13:00", title: "皇居東御苑", type: "景點", note: "歷史建築與庭園。", link: "" }
+            "D4 2026-02-06(五)": [
+                { time: "09:00", title: "明治神宮", type: "景點", note: "廣闊森林、大型木造鳥居、清幽參道，都市森林漫步，參觀御苑。預估1.5h", link: "https://maps.app.goo.gl/D3g7ArbSWXScqAwNA" },
+		{ time: "10:45", title: "明治神宮棒球場", type: "景點", note: "歷史悠久的球場，熱血應援氣氛，朝聖棒球聖地與 LaQua購物", link: "https://maps.app.goo.gl/oqFeUcYJTugQyMvD8" },
+		{ time: "13:00", title: "新宿御苑", type: "景點", note: "法式、英式、日式三種風格庭園與溫室，《言葉之庭》取景地，極美。預估2h", link: "https://maps.app.goo.gl/13MAYfjRqU8eGufK7" }, 
+		{ time: "16:30", title: "思出橫丁 (傍晚景)", type: "景點", note: "體驗昭和懷舊窄巷、日式居酒屋街、復古風情", link: "https://maps.app.goo.gl/oN9UoGPSXBfTw7i77" },
+		{ time: "17:30", title: "Sports wear Disc. Alpen Tokyo", type: "購物", note: "露營用品店，或L-Breath", link: "https://maps.app.goo.gl/FaPNF1L5gWQxXt6s9" },
+                { time: "18:30", title: "東京都廳展望室", type: "餐飲", note: "免費高空看新宿夜景 (45樓)", link: "https://maps.app.goo.gl/azRNSfdihufA5vfD6" },
+                { time: "17:30", title: "晚餐：AFURI 柚子拉麵", type: "餐飲", note: "清爽柚子鹽口味，適合女生。", link: "" },                		            
             ],
-            "2026-02-07": [
+            "D5 2026-02-07(六)": [
                 { time: "09:00", title: "退房 & 行李寄送", type: "交通", note: "建議將行李寄放在「澀谷站」。換宿至池尻大橋。", link: "" },
-                { time: "10:30", title: "東京鐵塔 (拍照打卡)", type: "景點", note: "攝影點：芝公園階梯或停車場出口。", link: "https://www.google.com/maps/search/?api=1&query=Tokyo+Tower" },
+                { time: "10:30", title: "東京鐵塔/芝公園", type: "景點", note: "東京象徵,攝影點：芝公園階梯或停車場出口經典位。", link: "https://www.google.com/maps/search/?api=1&query=Tokyo+Tower" },
                 { time: "12:30", title: "午餐：炸牛排 Motomura", type: "餐飲", note: "口感軟嫩，記得排隊。", link: "" },
-                { time: "14:00", title: "國立新美術館", type: "景點", note: "黑川紀章設計。大廳拍照像雜誌封面。", link: "https://www.google.com/maps/search/?api=1&query=The+National+Art+Center" },
-                { time: "19:30", title: "晚餐：AFURI 或 居酒屋", type: "餐飲", note: "享受最後一晚的東京氛圍。", link: "" }
+                { time: "14:00", title: "國立新美術館", type: "景點", note: "黑川紀章大作，波浪形玻璃帷幕建築。攝影：黑川紀章設計的倒建築光影；國立新美術館的內部空間非常宏偉，即便不進展場，光在大廳與咖啡廳區域拍照就非常像雜誌封面。", link: "https://www.google.com/maps/search/?api=1&query=The+National+Art+Center" },
+		{ time: "15:30", title: "竹下通、表參道", type: "景點", note: "時尚品牌旗艦店建築、現代設計感。表參道之丘 (安藤忠雄作品)", link: "https://maps.app.goo.gl/xM7uVPQU45TG2vcTA" }
+		{ time: "17:30", title: "澀谷Sky", type: "景點", note: "需預約。日落俯瞰東京全景，無票則改去 Hikarie 11F。", link: "https://maps.app.goo.gl/9rUemZVCs48y8XXP7" }
+                { time: "", title: "涉谷交叉點", type: "景點", note: "世界最繁忙路口、澀谷 Scramble", link: "https://maps.app.goo.gl/aV6aoPqCjV8fERau8" }
+		{ time: "19:30", title: "晚餐：敘敘苑(單人窗位) 或 挽肉與米", type: "餐飲", note: "享受最後一晚的東京氛圍。", link: "" }
+		{ time: "20:30", title: "入住：池尻大橋住宿", type: "住宿", note: "目黑區，近中目黑，慢活生活感;澀谷站取行李，一站即達。", link: "https://maps.app.goo.gl/GjBECgtTE2eLmLfd9" }
+		{ time: "", title: "備用：中目黑星巴克工坊", type: "餐飲", note: "隈研吾設計，四層樓大型烘焙工房，若體力許可，池尻大橋步行可達", link: "https://maps.app.goo.gl/ai4b2xvnBURHxvYv7" }
             ],
-            "2026-02-08": [
-                 { time: "10:00", title: "前往成田機場", type: "交通", note: "預留時間逛免稅店。", link: "" },
-                 { time: "14:00", title: "飛機起飛 (返台)", type: "交通", note: "平安回家。", link: "" }
+            "D6 2026-02-08(日)": [
+                 { time: "07:30", title: "前往成田機場T1", type: "交通", note: "預留充足報到時間。", link: "" },
+		 { time: "09:15", title: "抵達機場報到 (MM623)", type: "交通", note: "樂桃航空報到時間較嚴格,機場最後採買。", link: "" },
+                 { time: "11:15", title: "飛機起飛 (返台)", type: "交通", note: "結束愉快的東京獨旅。", link: "" },
+		 { time: "11:15", title: "抵達桃園 T1", type: "交通", note: "平安回家。", link: "" }
             ]
         };
+
+
 
         const foodDB = [
             { name: "FamiChiki 炸雞", jp: "ファミチキ", price: "¥240", shop: "FamilyMart", icon: "drumstick-bite" },
@@ -523,476 +548,6 @@
             // 這裡可以擴充 LocalStorage 儲存功能，讓重新整理後資料還在
         }
 
-    </script>
-</body>
-</html>
-            <span class="block text-[10px]">D1</span><span class="font-bold">2/03</span>
-        </button>
-        <button onclick="switchDay(2, '2026.02.04 (週三)', '3°C/10°C', '發熱衣+層次穿法', this)" class="nav-btn flex-shrink-0 w-20 py-3 rounded-2xl bg-white/20 text-white border border-white/10 text-center transition-all">
-            <span class="block text-[10px]">D2</span><span class="font-bold">2/04</span>
-        </button>
-        <button onclick="switchDay(3, '2026.02.05 (週四)', '4°C/11°C', '防風外套+手套', this)" class="nav-btn flex-shrink-0 w-20 py-3 rounded-2xl bg-white/20 text-white border border-white/10 text-center transition-all">
-            <span class="block text-[10px]">D3</span><span class="font-bold">2/05</span>
-        </button>
-        <button onclick="switchDay(4, '2026.02.06 (週五)', '1°C/9°C', '最冷！暖暖包+毛帽', this)" class="nav-btn flex-shrink-0 w-20 py-3 rounded-2xl bg-white/20 text-white border border-white/10 text-center transition-all">
-            <span class="block text-[10px]">D4</span><span class="font-bold">2/06</span>
-        </button>
-        <button onclick="switchDay(5, '2026.02.07 (週六)', '5°C/12°C', '洋蔥式穿搭', this)" class="nav-btn flex-shrink-0 w-20 py-3 rounded-2xl bg-white/20 text-white border border-white/10 text-center transition-all">
-            <span class="block text-[10px]">D5</span><span class="font-bold">2/07</span>
-        </button>
-        <button onclick="switchDay(6, '2026.02.08 (週日)', '4°C/10°C', '機艙舒適裝', this)" class="nav-btn flex-shrink-0 w-20 py-3 rounded-2xl bg-white/20 text-white border border-white/10 text-center transition-all">
-            <span class="block text-[10px]">D6</span><span class="font-bold">2/08</span>
-        </button>
-    </div>
-
-    <main class="px-6" id="app-content">
-
-        <div id="panel-1" class="day-panel active timeline-container">
-            <div class="relative mb-8">
-                <div class="timeline-dot"></div>
-                <div class="glass p-6 ml-2">
-                    <div class="flex justify-between items-start mb-2"><span class="text-sm font-bold text-gray-400">15:35 - 19:35</span><a href="https://www.google.com/maps/search/成田機場" class="text-xs bg-slate-100 px-2 py-1 rounded font-bold">📍 導航</a></div>
-                    <h3 class="text-xl font-black mb-3">TPE ✈️ NRT 虎航 IT202</h3>
-                    <div class="grid grid-cols-2 gap-2 mt-4">
-                        <button onclick="alert('✨ 特色：虎航直飛、抵達成田 T2。建議降落後快速下機衝海關。')" class="bg-[#7B969A]/10 text-[#7B969A] py-2 rounded-xl text-xs font-bold">✨ 特色</button>
-                        <button onclick="alert('📝 備註：Skyliner 櫃檯換票、Suica 儲值、預計搭乘 20:30 左右班次')" class="bg-gray-100 text-gray-600 py-2 rounded-xl text-xs font-bold">📝 備註</button>
-                    </div>
-                </div>
-            </div>
-            <div class="relative mb-8">
-                <div class="timeline-dot"></div>
-                <div class="glass p-6 ml-2">
-                    <div class="flex justify-between items-start mb-2"><span class="text-sm font-bold text-gray-400">21:30</span><a href="https://www.google.com/maps/search/Hotel+Keihan+Tokyo+Yotsuya" class="text-xs bg-slate-100 px-2 py-1 rounded font-bold">📍 導航</a></div>
-                    <h3 class="text-xl font-black mb-3">飯店 Check-in</h3>
-                    <div class="grid grid-cols-2 gap-2 mt-4">
-                        <button onclick="alert('✨ 特色：東京四谷京阪飯店、2026年首選 solo 飯店')" class="bg-[#7B969A]/10 text-[#7B969A] py-2 rounded-xl text-xs font-bold">✨ 特色</button>
-                        <button onclick="alert('📝 備註：飯店對面有 LIFE 超市開到深夜，晚餐可在這解決。')" class="bg-gray-100 text-gray-600 py-2 rounded-xl text-xs font-bold">📝 備註</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="panel-2" class="day-panel timeline-container">
-            <div class="relative mb-8">
-                <div class="timeline-dot"></div>
-                <div class="glass p-6 ml-2">
-                    <div class="flex justify-between items-start mb-2"><span class="text-sm font-bold text-gray-400">09:00</span><a href="https://www.google.com/maps/search/淺草寺" class="text-xs bg-slate-100 px-2 py-1 rounded font-bold">📍 導航</a></div>
-                    <h3 class="text-xl font-black mb-3">淺草寺、雷門</h3>
-                    <div class="grid grid-cols-2 gap-2">
-                        <button onclick="alert('✨ 特色：經典雷門燈籠、仲見世通買御守')" class="bg-[#7B969A]/10 text-[#7B969A] py-2 rounded-xl text-xs font-bold">✨ 特色</button>
-                        <button onclick="alert('📝 備註：早餐：龜十銅鑼燒。')" class="bg-gray-100 text-gray-600 py-2 rounded-xl text-xs font-bold">📝 備註</button>
-                    </div>
-                </div>
-            </div>
-            <div class="relative mb-8">
-                <div class="timeline-dot"></div>
-                <div class="glass p-6 ml-2">
-                    <div class="flex justify-between items-start mb-2"><span class="text-sm font-bold text-gray-400">14:00</span><a href="https://www.google.com/maps/search/神田明神" class="text-xs bg-slate-100 px-2 py-1 rounded font-bold">📍 導航</a></div>
-                    <h3 class="text-xl font-black mb-3">神田神社 (神田明神)</h3>
-                    <div class="grid grid-cols-2 gap-2">
-                        <button onclick="alert('✨ 特色：電子產品守護、IT 護身符')" class="bg-[#7B969A]/10 text-[#7B969A] py-2 rounded-xl text-xs font-bold">✨ 特色</button>
-                        <button onclick="alert('📝 備註：午餐：神田 藪蕎麥')" class="bg-gray-100 text-gray-600 py-2 rounded-xl text-xs font-bold">📝 備註</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="panel-3" class="day-panel timeline-container">
-            <div class="relative mb-8">
-                <div class="timeline-dot"></div>
-                <div class="glass p-6 ml-2 border-l-8 border-[#7B969A]">
-                    <div class="flex justify-between items-start mb-2"><span class="text-sm font-bold text-gray-400">08:20</span><a href="https://www.google.com/maps/search/皇居+桔梗門" class="text-xs bg-slate-100 px-2 py-1 rounded font-bold">📍 導航</a></div>
-                    <h3 class="text-xl font-black mb-3">皇居東御苑 & 桔梗門</h3>
-                    <div class="grid grid-cols-2 gap-2">
-                        <button onclick="alert('✨ 特色：現場排隊導覽、江戶城舊址')" class="bg-[#7B969A]/10 text-[#7B969A] py-2 rounded-xl text-xs font-bold">✨ 特色</button>
-                        <button onclick="alert('📝 備註：必帶護照！早起排隊。')" class="bg-gray-100 text-gray-600 py-2 rounded-xl text-xs font-bold">📝 備註</button>
-                    </div>
-                </div>
-            </div>
-            <div class="relative mb-8">
-                <div class="timeline-dot"></div>
-                <div class="glass p-6 ml-2">
-                    <div class="flex justify-between items-start mb-2"><span class="text-sm font-bold text-gray-400">14:00</span><a href="https://www.google.com/maps/search/上野東照宮" class="text-xs bg-slate-100 px-2 py-1 rounded font-bold">📍 導航</a></div>
-                    <h3 class="text-xl font-black mb-3">上野東照宮、不忍池</h3>
-                    <div class="grid grid-cols-2 gap-2">
-                        <button onclick="alert('✨ 特色：金色殿宇、冬牡丹花展')" class="bg-[#7B969A]/10 text-[#7B969A] py-2 rounded-xl text-xs font-bold">✨ 特色</button>
-                        <button onclick="alert('📝 備註：午餐：上野 韻松亭豆懷石')" class="bg-gray-100 text-gray-600 py-2 rounded-xl text-xs font-bold">📝 備註</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="panel-4" class="day-panel timeline-container">
-            <div class="relative mb-8">
-                <div class="timeline-dot"></div>
-                <div class="glass p-6 ml-2">
-                    <div class="flex justify-between items-start mb-2"><span class="text-sm font-bold text-gray-400">10:00</span><a href="https://www.google.com/maps/search/明治神宮" class="text-xs bg-slate-100 px-2 py-1 rounded font-bold">📍 導航</a></div>
-                    <h3 class="text-xl font-black mb-3">明治神宮 & 原宿</h3>
-                    <div class="grid grid-cols-2 gap-2">
-                        <button onclick="alert('✨ 特色：都市森林、大型鳥居、求姻緣/平安')" class="bg-[#7B969A]/10 text-[#7B969A] py-2 rounded-xl text-xs font-bold">✨ 特色</button>
-                        <button onclick="alert('📝 備註：竹下通、表參道散策。今日最冷注意保暖。')" class="bg-gray-100 text-gray-600 py-2 rounded-xl text-xs font-bold">📝 備註</button>
-                    </div>
-                </div>
-            </div>
-            <div class="relative mb-8">
-                <div class="timeline-dot"></div>
-                <div class="glass p-6 ml-2">
-                    <div class="flex justify-between items-start mb-2"><span class="text-sm font-bold text-gray-400">17:00</span><a href="https://www.google.com/maps/search/Shibuya+Sky" class="text-xs bg-slate-100 px-2 py-1 rounded font-bold">📍 導航</a></div>
-                    <h3 class="text-xl font-black mb-3">澀谷展望台 SHIBUYA SKY</h3>
-                    <div class="grid grid-cols-2 gap-2">
-                        <button onclick="alert('✨ 特色：360度東京夜景、俯瞰十字路口')" class="bg-[#7B969A]/10 text-[#7B969A] py-2 rounded-xl text-xs font-bold">✨ 特色</button>
-                        <button onclick="alert('📝 備註：需提前訂票！室外極冷，一定要穿厚羽絨。')" class="bg-gray-100 text-gray-600 py-2 rounded-xl text-xs font-bold">📝 備註</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="panel-5" class="day-panel timeline-container">
-            <div class="relative mb-8">
-                <div class="timeline-dot"></div>
-                <div class="glass p-6 ml-2">
-                    <div class="flex justify-between items-start mb-2"><span class="text-sm font-bold text-gray-400">11:00</span><a href="https://www.google.com/maps/search/中野百老匯" class="text-xs bg-slate-100 px-2 py-1 rounded font-bold">📍 導航</a></div>
-                    <h3 class="text-xl font-black mb-3">中野百老匯 & 新宿</h3>
-                    <div class="grid grid-cols-2 gap-2">
-                        <button onclick="alert('✨ 特色：動漫天堂、挖寶好去處')" class="bg-[#7B969A]/10 text-[#7B969A] py-2 rounded-xl text-xs font-bold">✨ 特色</button>
-                        <button onclick="alert('📝 備註：新宿百貨公司購物、購買藥妝伴手禮。')" class="bg-gray-100 text-gray-600 py-2 rounded-xl text-xs font-bold">📝 備註</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="panel-6" class="day-panel timeline-container">
-            <div class="relative mb-8">
-                <div class="timeline-dot"></div>
-                <div class="glass p-6 ml-2">
-                    <div class="flex justify-between items-start mb-2"><span class="text-sm font-bold text-gray-400">10:00</span><a href="https://www.google.com/maps/search/築地市場" class="text-xs bg-slate-100 px-2 py-1 rounded font-bold">📍 導航</a></div>
-                    <h3 class="text-xl font-black mb-3">築地場外市場 & 銀座</h3>
-                    <div class="grid grid-cols-2 gap-2">
-                        <button onclick="alert('✨ 特色：海鮮早午餐、高質感商店街')" class="bg-[#7B969A]/10 text-[#7B969A] py-2 rounded-xl text-xs font-bold">✨ 特色</button>
-                        <button onclick="alert('📝 備註：最後採買。準備前往成田機場。')" class="bg-gray-100 text-gray-600 py-2 rounded-xl text-xs font-bold">📝 備註</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </main>
-
-    <div class="fixed bottom-24 left-1/2 -translate-x-1/2 w-[90%] flex gap-2 z-[2000]">
-        <a href="https://translate.google.com/?sl=zh-TW&tl=ja&op=translate" class="flex-1 bg-white/90 backdrop-blur shadow-lg py-3 rounded-2xl flex items-center justify-center gap-2 font-bold text-[#7B969A] border border-[#7B969A]/20 text-xs">
-            🗣️ 中翻日對話
-        </a>
-        <a href="https://www.google.com/search?q=google+translate+voice+recognition" class="flex-1 bg-[#7B969A] shadow-lg py-3 rounded-2xl flex items-center justify-center gap-2 font-bold text-white text-xs">
-            🎙️ 聽日文辨識
-        </a>
-    </div>
-
-    <nav class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[92%] h-16 glass shadow-2xl z-[3000] flex justify-around items-center px-6">
-        <button class="flex flex-col items-center" onclick="window.scrollTo({top:0, behavior:'smooth'})"><span class="text-xl">📍</span><span class="text-[9px] font-bold">行程表</span></button>
-        <button onclick="alert('匯率參考：1 JPY ≈ 0.21 TWD (2026即時估計)')" class="flex flex-col items-center"><span class="text-xl">💰</span><span class="text-[9px] font-bold">匯率/工具</span></button>
-        <button onclick="window.scrollTo({top:0, behavior:'smooth'})" class="flex flex-col items-center"><span class="text-xl">🔝</span><span class="text-[9px] font-bold">回頂部</span></button>
-    </nav>
-
-    <script>
-        function switchDay(dayNum, fullDate, temp, wear, btn) {
-            document.getElementById('current-date-full').innerText = fullDate;
-            document.getElementById('temp-display').innerText = temp;
-            document.getElementById('wear-display').innerText = wear;
-
-            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active', 'bg-white', 'text-[#7B969A]'));
-            btn.classList.add('active', 'bg-white', 'text-[#7B969A]');
-
-            document.querySelectorAll('.day-panel').forEach(p => p.classList.remove('active'));
-            const targetPanel = document.getElementById('panel-' + dayNum);
-            if(targetPanel) {
-                targetPanel.classList.add('active');
-            }
-
-            window.scrollTo({top: 0, behavior: 'smooth'});
-        }
-    </script>
-</body>
-</html>
-            <p id="temp-display" class="text-2xl font-black">2°C / 8°C</p>
-            <p id="wear-display" class="text-[11px] font-bold mt-1 leading-tight text-white/90">發熱衣+羊毛+厚羽絨</p>
-        </div>
-    </header>
-
-    <div class="flex overflow-x-auto gap-4 px-6 mb-10 no-scrollbar">
-        <button onclick="switchDay(1, '2026.02.03 (週二)', '2°C/8°C', '發熱衣+羊毛+厚羽絨', this)" class="nav-btn active flex-shrink-0 w-24 py-5 rounded-3xl bg-white/10 text-white border border-white/10 text-center shadow-lg">
-            <span class="block text-[11px] opacity-70">DAY 1</span><span class="text-xl font-black italic">2/03</span>
-        </button>
-        <button onclick="switchDay(2, '2026.02.04 (週三)', '3°C/10°C', '層次穿法+暖暖包', this)" class="nav-btn flex-shrink-0 w-24 py-5 rounded-3xl bg-white/10 text-white border border-white/10 text-center shadow-lg">
-            <span class="block text-[11px] opacity-70">DAY 2</span><span class="text-xl font-black italic">2/04</span>
-        </button>
-        <button onclick="switchDay(3, '2026.02.05 (週四)', '4°C/11°C', '防風外套+手套', this)" class="nav-btn flex-shrink-0 w-24 py-5 rounded-3xl bg-white/10 text-white border border-white/10 text-center shadow-lg">
-            <span class="block text-[11px] opacity-70">DAY 3</span><span class="text-xl font-black italic">2/05</span>
-        </button>
-        <button onclick="switchDay(4, '2026.02.06 (週五)', '1°C/9°C', '極寒！毛帽+耳罩', this)" class="nav-btn flex-shrink-0 w-24 py-5 rounded-3xl bg-white/10 text-white border border-white/10 text-center shadow-lg">
-            <span class="block text-[11px] opacity-70">DAY 4</span><span class="text-xl font-black italic">2/06</span>
-        </button>
-        <button onclick="switchDay(5, '2026.02.07 (週六)', '5°C/12°C', '洋蔥式+輕裝行走', this)" class="nav-btn flex-shrink-0 w-24 py-5 rounded-3xl bg-white/10 text-white border border-white/10 text-center shadow-lg">
-            <span class="block text-[11px] opacity-70">DAY 5</span><span class="text-xl font-black italic">2/07</span>
-        </button>
-        <button onclick="switchDay(6, '2026.02.08 (週日)', '4°C/10°C', '準備機艙舒適裝', this)" class="nav-btn flex-shrink-0 w-24 py-5 rounded-3xl bg-white/10 text-white border border-white/10 text-center shadow-lg">
-            <span class="block text-[11px] opacity-70">DAY 6</span><span class="text-xl font-black italic">2/08</span>
-        </button>
-    </div>
-
-    <main class="px-6" id="app-content">
-
-        <div id="panel-1" class="day-panel active timeline-wrapper">
-            <div class="timeline-line"></div>
-            <div class="relative mb-12">
-                <div class="time-bubble">15:35</div>
-                <div class="glass p-7 ml-3">
-                    <div class="flex justify-between items-center mb-3 text-sm font-black text-[#7B969A]"><span>IT202 虎航</span><a href="https://www.google.com/maps/search/桃園國際機場第一航廈" class="bg-slate-100 px-3 py-1.5 rounded-full shadow-sm">📍 導航</a></div>
-                    <h3 class="text-3xl font-black mb-5">桃園機場 ✈️ 成田</h3>
-                    <div class="grid grid-cols-2 gap-4">
-                        <button onclick="alert('✨ 特色：虎航 IT202、松山-羽田 (備案：桃園-成田)')" class="bg-[#7B969A]/15 text-[#7B969A] py-3.5 rounded-2xl font-black text-sm">✨ 特色</button>
-                        <button onclick="alert('📝 備註：領行李、搭Skyliner前往飯店。宵夜：LIFE超市、LAWSON炸雞君。')" class="bg-slate-100 text-slate-500 py-3.5 rounded-2xl font-black text-sm">📝 備註</button>
-                    </div>
-                </div>
-            </div>
-            <div class="relative mb-12">
-                <div class="time-bubble">21:00</div>
-                <div class="glass p-7 ml-3">
-                    <div class="flex justify-between items-center mb-3 text-sm font-black text-[#7B969A]"><span>HOTEL</span><a href="https://www.google.com/maps/search/Hotel+Keihan+Tokyo+Yotsuya" class="bg-slate-100 px-3
-            <p id="temp-display" class="text-2xl font-black">2°C / 8°C</p>
-            <p id="wear-display" class="text-[10px] font-medium mt-1 leading-tight">厚羽絨+防風發熱衣</p>
-        </div>
-    </header>
-
-    <div class="flex overflow-x-auto gap-3 px-6 mb-8 no-scrollbar">
-        <button onclick="switchDay(1, '2026.02.03 (週二)', '2°C/8°C', '厚羽絨+防風發熱衣', this)" class="nav-btn active flex-shrink-0 w-20 py-4 rounded-2xl bg-white/10 text-white border border-white/5 text-center transition-all">
-            <span class="block text-[10px] opacity-60">D1</span><span class="text-lg font-bold">2/03</span>
-        </button>
-        <button onclick="switchDay(2, '2026.02.04 (週三)', '3°C/10°C', '層次穿法+暖暖包', this)" class="nav-btn flex-shrink-0 w-20 py-4 rounded-2xl bg-white/10 text-white border border-white/5 text-center transition-all">
-            <span class="block text-[10px] opacity-60">D2</span><span class="text-lg font-bold">2/04</span>
-        </button>
-        <button onclick="switchDay(3, '2026.02.05 (週四)', '4°C/11°C', '防風外套+圍巾', this)" class="nav-btn flex-shrink-0 w-20 py-4 rounded-2xl bg-white/10 text-white border border-white/5 text-center transition-all">
-            <span class="block text-[10px] opacity-60">D3</span><span class="text-lg font-bold">2/05</span>
-        </button>
-        <button onclick="switchDay(4, '2026.02.06 (週五)', '1°C/9°C', '極寒！毛帽+手套', this)" class="nav-btn flex-shrink-0 w-20 py-4 rounded-2xl bg-white/10 text-white border border-white/5 text-center transition-all">
-            <span class="block text-[10px] opacity-60">D4</span><span class="text-lg font-bold">2/06</span>
-        </button>
-        <button onclick="switchDay(5, '2026.02.07 (週六)', '5°C/12°C', '洋蔥式穿法', this)" class="nav-btn flex-shrink-0 w-20 py-4 rounded-2xl bg-white/10 text-white border border-white/5 text-center transition-all">
-            <span class="block text-[10px] opacity-60">D5</span><span class="text-lg font-bold">2/07</span>
-        </button>
-        <button onclick="switchDay(6, '2026.02.08 (週日)', '4°C/10°C', '機場舒適裝', this)" class="nav-btn flex-shrink-0 w-20 py-4 rounded-2xl bg-white/10 text-white border border-white/5 text-center transition-all">
-            <span class="block text-[10px] opacity-60">D6</span><span class="text-lg font-bold">2/08</span>
-        </button>
-    </div>
-
-    <main class="px-6" id="app-content">
-
-        <div id="panel-1" class="day-panel active timeline-wrapper">
-            <div class="timeline-line"></div>
-            <div class="relative mb-10">
-                <div class="time-bubble">15:35</div>
-                <div class="glass p-6">
-                    <div class="flex justify-between items-start mb-2"><span class="text-xs font-bold text-[#7B969A]">FLIGHT IT202</span><a href="https://www.google.com/maps/search/桃園機場" class="text-xs bg-slate-100 px-3 py-1 rounded-full font-bold">📍 導航</a></div>
-                    <h3 class="text-2xl font-black mb-4">桃園機場 ✈️ 成田</h3>
-                    <div class="grid grid-cols-2 gap-3 mt-4">
-                        <button onclick="alert('✨ 特色：虎航直飛、一航出境')" class="bg-[#7B969A]/10 text-[#7B969A] py-3 rounded-xl font-bold">✨ 特色</button>
-                        <button onclick="alert('📝 備註：領行李、搭Skyliner、Suica儲值、LIFE超市宵夜')" class="bg-gray-100 text-gray-600 py-3 rounded-xl font-bold">📝 備註</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="panel-2" class="day-panel timeline-wrapper">
-            <div class="timeline-line"></div>
-            <div class="relative mb-10">
-                <div class="time-bubble">09:00</div>
-                <div class="glass p-6">
-                    <div class="flex justify-between mb-2 text-xs font-bold text-[#7B969A]"><span>ASAKUSA</span><a href="https://www.google.com/maps/search/淺草寺">📍 導航</a></div>
-                    <h3 class="text-2xl font-black mb-4">淺草寺、雷門</h3>
-                    <div class="grid grid-cols-2 gap-3">
-                        <button onclick="alert('✨ 特色：東京地標、雷門燈籠、仲見世通')" class="bg-[#7B969A]/10 text-[#7B969A] py-3 rounded-xl font-bold">✨ 特色</button>
-                        <button onclick="alert('📝 備註：早餐：龜十銅鑼燒。拍完照往淺草神社。')" class="bg-gray-100 text-gray-600 py-3 rounded-xl font-bold">📝 備註</button>
-                    </div>
-                </div>
-            </div>
-            <div class="relative mb-10">
-                <div class="time-bubble">11:30</div>
-                <div class="glass p-6">
-                    <div class="flex justify-between mb-2 text-xs font-bold text-[#7B969A]"><span>SHRINE</span><a href="https://www.google.com/maps/search/神田神社">📍 導航</a></div>
-                    <h3 class="text-2xl font-black mb-4">神田神社</h3>
-                    <div class="grid grid-cols-2 gap-3">
-                        <button onclick="alert('✨ 特色：江戶總鎮守、動漫迷聖地')" class="bg-[#7B969A]/10 text-[#7B969A] py-3 rounded-xl font-bold">✨ 特色</button>
-                        <button onclick="alert('📝 備註：午餐：神田 藪蕎麥 (百年名店)')" class="bg-gray-100 text-gray-600 py-3 rounded-xl font-bold">📝 備註</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="panel-3" class="day-panel timeline-wrapper">
-            <div class="timeline-line"></div>
-            <div class="relative mb-10">
-                <div class="time-bubble">09:30</div>
-                <div class="glass p-6">
-                    <div class="flex justify-between mb-2 text-xs font-bold text-[#7B969A]"><span>UENO</span><a href="https://www.google.com/maps/search/上野東照宮">📍 導航</a></div>
-                    <h3 class="text-2xl font-black mb-4">東照宮、不忍池</h3>
-                    <div class="grid grid-cols-2 gap-3">
-                        <button onclick="alert('✨ 特色：金色殿宇、冬牡丹花')" class="bg-[#7B969A]/10 text-[#7B969A] py-3 rounded-xl font-bold">✨ 特色</button>
-                        <button onclick="alert('📝 備註：午餐：上野 韻松亭。享受園林景觀。')" class="bg-gray-100 text-gray-600 py-3 rounded-xl font-bold">📝 備註</button>
-                    </div>
-                </div>
-            </div>
-            <div class="relative mb-10">
-                <div class="time-bubble">13:30</div>
-                <div class="glass p-6 border-l-8 border-red-500">
-                    <div class="flex justify-between mb-2 text-xs font-bold text-[#7B969A]"><span>PALACE</span><a href="https://www.google.com/maps/search/皇居桔梗門">📍 導航</a></div>
-                    <h3 class="text-2xl font-black mb-4">皇居導覽 (預約制)</h3>
-                    <div class="grid grid-cols-2 gap-3">
-                        <button onclick="alert('✨ 特色：宮殿巡禮、二重橋')" class="bg-[#7B969A]/10 text-[#7B969A] py-3 rounded-xl font-bold">✨ 特色</button>
-                        <button onclick="alert('📝 備註：必帶護照！08:20 桔梗門现场排號。')" class="bg-gray-100 text-gray-600 py-3 rounded-xl font-bold">📝 備註</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="panel-4" class="day-panel timeline-wrapper">
-            <div class="timeline-line"></div>
-            <div class="relative mb-10">
-                <div class="time-bubble">09:00</div>
-                <div class="glass p-6">
-                    <div class="flex justify-between mb-2 text-xs font-bold text-[#7B969A]"><span>PARK</span><a href="https://www.google.com/maps/search/新宿御苑">📍 導航</a></div>
-                    <h3 class="text-2xl font-black mb-4">新宿御苑</h3>
-                    <div class="grid grid-cols-2 gap-3">
-                        <button onclick="alert('✨ 特色：言葉之庭場景、大溫室')" class="bg-[#7B969A]/10 text-[#7B969A] py-3 rounded-xl font-bold">✨ 特色</button>
-                        <button onclick="alert('📝 備註：冬季溫室溫暖好拍。早餐：超市輕食。')" class="bg-gray-100 text-gray-600 py-3 rounded-xl font-bold">📝 備
-        <button onclick="switchDay(1, '2026.02.03 (週二)', '2°C/8°C', '厚羽絨+圍巾', this)" class="nav-btn active flex-shrink-0 w-20 py-3 rounded-2xl bg-white/20 text-white border border-white/10 text-center transition-all">
-            <span class="block text-[10px]">D1</span><span class="font-bold">2/03</span>
-        </button>
-        <button onclick="switchDay(2, '2026.02.04 (週三)', '3°C/10°C', '發熱衣+層次穿法', this)" class="nav-btn flex-shrink-0 w-20 py-3 rounded-2xl bg-white/20 text-white border border-white/10 text-center transition-all">
-            <span class="block text-[10px]">D2</span><span class="font-bold">2/04</span>
-        </button>
-        <button onclick="switchDay(3, '2026.02.05 (週四)', '4°C/11°C', '防風外套+手套', this)" class="nav-btn flex-shrink-0 w-20 py-3 rounded-2xl bg-white/20 text-white border border-white/10 text-center transition-all">
-            <span class="block text-[10px]">D3</span><span class="font-bold">2/05</span>
-        </button>
-        <button onclick="switchDay(4, '2026.02.06 (週五)', '1°C/9°C', '最冷！暖暖包+毛帽', this)" class="nav-btn flex-shrink-0 w-20 py-3 rounded-2xl bg-white/20 text-white border border-white/10 text-center transition-all">
-            <span class="block text-[10px]">D4</span><span class="font-bold">2/06</span>
-        </button>
-        <button onclick="switchDay(5, '2026.02.07 (週六)', '5°C/12°C', '洋蔥式穿搭', this)" class="nav-btn flex-shrink-0 w-20 py-3 rounded-2xl bg-white/20 text-white border border-white/10 text-center transition-all">
-            <span class="block text-[10px]">D5</span><span class="font-bold">2/07</span>
-        </button>
-        <button onclick="switchDay(6, '2026.02.08 (週日)', '4°C/10°C', '機艙舒適裝', this)" class="nav-btn flex-shrink-0 w-20 py-3 rounded-2xl bg-white/20 text-white border border-white/10 text-center transition-all">
-            <span class="block text-[10px]">D6</span><span class="font-bold">2/08</span>
-        </button>
-    </div>
-
-    <main class="px-6" id="app-content">
-
-        <div id="panel-1" class="day-panel active timeline-container">
-            <div class="relative mb-8">
-                <div class="timeline-dot"></div>
-                <div class="glass p-6 ml-2">
-                    <div class="flex justify-between items-start mb-2"><span class="text-sm font-bold text-gray-400">15:35 - 19:35</span><a href="https://maps.google.com/?q=Narita+Airport" class="text-xs bg-slate-100 px-2 py-1 rounded font-bold">📍 導航</a></div>
-                    <h3 class="text-xl font-black mb-3">TPE ✈️ NRT 虎航 IT202</h3>
-                    <div class="grid grid-cols-2 gap-2 mt-4">
-                        <button onclick="alert('✨ 特色：長榮航站二、虎航直飛、成田機場 T2')" class="bg-[#7B969A]/10 text-[#7B969A] py-2 rounded-xl text-xs font-bold">✨ 特色</button>
-                        <button onclick="alert('📝 備註：領行李、搭 Skyliner 前往市區、Suica 儲值、LIFE 超市宵夜')" class="bg-gray-100 text-gray-600 py-2 rounded-xl text-xs font-bold">📝 備註</button>
-                    </div>
-                </div>
-            </div>
-            <div class="relative mb-8">
-                <div class="timeline-dot"></div>
-                <div class="glass p-6 ml-2">
-                    <div class="flex justify-between items-start mb-2"><span class="text-sm font-bold text-gray-400">21:00</span><a href="https://maps.google.com/?q=Hotel+Keihan+Tokyo+Yotsuya" class="text-xs bg-slate-100 px-2 py-1 rounded font-bold">📍 導航</a></div>
-                    <h3 class="text-xl font-black mb-3">飯店 Check-in</h3>
-                    <div class="grid grid-cols-2 gap-2 mt-4">
-                        <button onclick="alert('✨ 特色：東京四谷京阪飯店、生活機能強')" class="bg-[#7B969A]/10 text-[#7B969A] py-2 rounded-xl text-xs font-bold">✨ 特色</button>
-                        <button onclick="alert('📝 備註：四谷站步行3分鐘，附近有利久牛舌、LIFE超市')" class="bg-gray-100 text-gray-600 py-2 rounded-xl text-xs font-bold">📝 備註</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="panel-2" class="day-panel timeline-container">
-            <div class="relative mb-8">
-                <div class="timeline-dot"></div>
-                <div class="glass p-6 ml-2">
-                    <div class="flex justify-between items-start mb-2"><span class="text-sm font-bold text-gray-400">09:00</span><a href="https://maps.google.com/?q=Sensoji+Temple" class="text-xs bg-slate-100 px-2 py-1 rounded font-bold">📍 導航</a></div>
-                    <h3 class="text-xl font-black mb-3">淺草寺、雷門</h3>
-                    <div class="grid grid-cols-2 gap-2">
-                        <button onclick="alert('✨ 特色：東京最古老寺廟、巨大燈籠、必拍地標')" class="bg-[#7B969A]/10 text-[#7B969A] py-2 rounded-xl text-xs font-bold">✨ 特色</button>
-                        <button onclick="alert('📝 備註：早餐：龜十銅鑼燒。避開人潮建議早點到。')" class="bg-gray-100 text-gray-600 py-2 rounded-xl text-xs font-bold">📝 備註</button>
-                    </div>
-                </div>
-            </div>
-            <div class="relative mb-8">
-                <div class="timeline-dot"></div>
-                <div class="glass p-6 ml-2">
-                    <div class="flex justify-between items-start mb-2"><span class="text-sm font-bold text-gray-400">11:30</span><a href="https://maps.google.com/?q=Kanda+Myojin" class="text-xs bg-slate-100 px-2 py-1 rounded font-bold">📍 導航</a></div>
-                    <h3 class="text-xl font-black mb-3">神田神社 (神田明神)</h3>
-                    <div class="grid grid-cols-2 gap-2">
-                        <button onclick="alert('✨ 特色：江戶總鎮守、動漫迷聖地、IT護身符')" class="bg-[#7B969A]/10 text-[#7B969A] py-2 rounded-xl text-xs font-bold">✨ 特色</button>
-                        <button onclick="alert('📝 備註：午餐：神田 藪蕎麥 (百年名店)')" class="bg-gray-100 text-gray-600 py-2 rounded-xl text-xs font-bold">📝 備註</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="panel-3" class="day-panel timeline-container">
-            <div class="relative mb-8">
-                <div class="timeline-dot"></div>
-                <div class="glass p-6 ml-2">
-                    <div class="flex justify-between items-start mb-2"><span class="text-sm font-bold text-gray-400">09:30</span><a href="https://maps.google.com/?q=Ueno+Toshogu" class="text-xs bg-slate-100 px-2 py-1 rounded font-bold">📍 導航</a></div>
-                    <h3 class="text-xl font-black mb-3">上野東照宮、不忍池</h3>
-                    <div class="grid grid-cols-2 gap-2">
-                        <button onclick="alert('✨ 特色：金色殿宇、冬牡丹花展、平緩園林')" class="bg-[#7B969A]/10 text-[#7B969A] py-2 rounded-xl text-xs font-bold">✨ 特色</button>
-                        <button onclick="alert('📝 備註：攝影點：金色門、冬牡丹。午餐：上野 韻松亭豆懷石')" class="bg-gray-100 text-gray-600 py-2 rounded-xl text-xs font-bold">📝 備註</button>
-                    </div>
-                </div>
-            </div>
-            <div class="relative mb-8">
-                <div class="timeline-dot"></div>
-                <div class="glass p-6 ml-2 border-l-8 border-red-500">
-                    <div class="flex justify-between items-start mb-2"><span class="text-sm font-bold text-gray-400">13:30</span><a href="https://maps.google.com/?q=Imperial+Palace+East+Garden" class="text-xs bg-slate-100 px-2 py-1 rounded font-bold">📍 導航</a></div>
-                    <h3 class="text-xl font-black mb-3">皇居東御苑 & 桔梗門</h3>
-                    <div class="grid grid-cols-2 gap-2">
-                        <button onclick="alert('✨ 特色：二重橋、宮殿外觀、江戶城舊址')" class="bg-[#7B969A]/10 text-[#7B969A] py-2 rounded-xl text-xs font-bold">✨ 特色</button>
-                        <button onclick="alert('📝 備註：必需帶護照！08:20 桔梗門現場排號碼牌導覽。')" class="bg-gray-100 text-gray-600 py-2 rounded-xl text-xs font-bold">📝 備註</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        </main>
-
-    <div class="fixed bottom-24 left-1/2 -translate-x-1/2 w-[90%] flex gap-2 z-[2000]">
-        <a href="https://translate.google.com/?sl=zh-TW&tl=ja&op=translate" class="flex-1 bg-white/90 backdrop-blur shadow-lg py-3 rounded-2xl flex items-center justify-center gap-2 font-bold text-[#7B969A] border border-[#7B969A]/20 text-xs">
-            🗣️ 中翻日對話
-        </a>
-        <a href="https://www.google.com/search?q=google+translate+voice+recognition" class="flex-1 bg-[#7B969A] shadow-lg py-3 rounded-2xl flex items-center justify-center gap-2 font-bold text-white text-xs">
-            🎙️ 聽日文辨識
-        </a>
-    </div>
-
-    <nav class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[92%] h-16 glass shadow-2xl z-[3000] flex justify-around items-center px-6">
-        <button class="flex flex-col items-center"><span class="text-xl">📍</span><span class="text-[9px] font-bold">行程表</span></button>
-        <button onclick="alert('開啟匯率：1 JPY ≈ 0.21 TWD')" class="flex flex-col items-center"><span class="text-xl">💰</span><span class="text-[9px] font-bold">分帳工具</span></button>
-        <button onclick="window.scrollTo({top:0, behavior:'smooth'})" class="flex flex-col items-center"><span class="text-xl">🔝</span><span class="text-[9px] font-bold">回頂部</span></button>
-    </nav>
-
-    <script>
-        function switchDay(dayNum, fullDate, temp, wear, btn) {
-            // Header Update
-            document.getElementById('current-date-full').innerText = fullDate;
-            document.getElementById('temp-display').innerText = temp;
-            document.getElementById('wear-display').innerText = wear;
-
-            // Nav Switch
-            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active', 'bg-white', 'text-[#7B969A]'));
-            btn.classList.add('active', 'bg-white', 'text-[#7B969A]');
-
-            // Panel Switch
-            document.querySelectorAll('.day-panel').forEach(p => p.classList.remove('active'));
-            document.getElementById('panel-' + dayNum).classList.add('active');
-
-            window.scrollTo({top: 0, behavior: 'smooth'});
-        }
     </script>
 </body>
 </html>
