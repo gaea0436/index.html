@@ -4,19 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>東京舒心遊</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
+        /* --- 莫蘭迪色系定義區 (Morandi Palette) --- */
         :root {
-            --primary: #7A90A4; /* 莫蘭迪深藍 */
-            --secondary: #B4C5D0; /* 莫蘭迪淺藍 */
-            --accent: #D8A49B; /* 莫蘭迪粉 (重點提示) */
-            --bg: #F5F5F0; /* 溫暖米白 */
-            --card-bg: #FFFFFF;
-            --text-main: #4A4A4A;
-            --text-sub: #888888;
-            --shadow: 0 4px 12px rgba(122, 144, 164, 0.15);
+            /* 主色調：石板灰藍 (寧靜、沈穩) */
+            --primary: #6C8494; 
+            --primary-light: #9FB1BD; 
+            
+            /* 背景底色：燕麥灰白 (溫暖、高級) */
+            --bg: #F0EFE9; 
+            
+            /* 卡片背景：柔白 */
+            --card-bg: #FCFCFA;
+            
+            /* 強調色：乾燥玫瑰 (用於美食、重點) */
+            --accent-pink: #C5A099;
+            --accent-pink-bg: #F2E6E4; /* 淺粉底色 */
+            
+            /* 輔助色：鼠尾草綠 (用於交通/順利) */
+            --accent-green: #97A79D;
+            --accent-green-bg: #E3EBE6;
+            
+            /* 文字顏色：深灰 (不使用純黑) */
+            --text-main: #555555;
+            --text-light: #888888;
+            
+            /* 陰影：更柔和的霧感陰影 */
+            --shadow: 0 8px 20px rgba(108, 132, 148, 0.12);
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -27,13 +44,65 @@
             color: var(--text-main);
             margin: 0;
             padding: 0;
-            padding-bottom: 80px; /* 留給底部導航 */
+            padding-bottom: 90px;
             overscroll-behavior-y: none;
         }
 
-        /* Header Area */
+        /* --- Header 設計 --- */
         header {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: var(--primary); /* 純色底更有質感 */
+            color: #fff;
+            padding: 25px 24px 40px;
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+
+        .header-top { display: flex; justify-content: space-between; align-items: flex-end; }
+        .trip-date { font-size: 0.9rem; opacity: 0.8; letter-spacing: 1px; font-weight: 300; }
+        h2 { margin: 5px 0 0; font-weight: 500; letter-spacing: 1px; }
+
+        /* 天氣卡片 - 懸浮感設計 */
+        .weather-card {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            margin-top: 20px;
+            padding: 15px 20px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .temp-main { font-size: 2rem; font-weight: 300; }
+        .temp-desc { font-size: 0.85rem; opacity: 0.9; }
+        .clothing-tip { font-size: 0.8rem; background: #fff; color: var(--primary); padding: 6px 12px; border-radius: 20px; font-weight: 500; }
+
+        /* --- 內容區 --- */
+        .tab-content { display: none; padding: 24px; animation: fadeIn 0.4s ease; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- 行程卡片 (Timeline) --- */
+        .date-divider {
+            text-align: center;
+            margin: 20px 0 15px;
+            position: relative;
+        }
+        .date-divider span {
+            background: var(--primary);
+            color: #fff;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 10px rgba(108, 132, 148, 0.2);
+        }
+
+        .timeline-item {
+            background: var(--card-bg);
+            border-radius: 20px;
             color: white;
             padding: 20px 20px 30px;
             border-bottom-left-radius: 24px;
