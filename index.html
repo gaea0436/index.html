@@ -3,1006 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>東京舒心遊</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <style>
-        :root {
-            --primary: #7A90A4; /* 莫蘭迪深藍 */
-            --secondary: #B4C5D0; /* 莫蘭迪淺藍 */
-            --accent: #D8A49B; /* 莫蘭迪粉 (重點提示) */
-            --bg: #F5F5F0; /* 溫暖米白 */
-            --card-bg: #FFFFFF;
-            --text-main: #4A4A4A;
-            --text-sub: #888888;
-            --shadow: 0 4px 12px rgba(122, 144, 164, 0.15);
-        }
-
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        
-        body {
-            font-family: 'Noto Sans TC', sans-serif;
-            background-color: var(--bg);
-            color: var(--text-main);
-            margin: 0;
-            padding: 0;
-            padding-bottom: 80px; /* 留給底部導航 */
-            overscroll-behavior-y: none;
-        }
-
-        /* Header Area */
-        header {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 20px 20px 30px;
-            border-bottom-left-radius: 24px;
-            border-bottom-right-radius: 24px;
-            box-shadow: var(--shadow);
-            position: relative;
-        }
-
-        .weather-widget {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-top: 10px;
-        }
-
-        .temp-box h1 { margin: 0; font-size: 2.5rem; font-weight: 300; }
-        .temp-box p { margin: 0; font-size: 0.9rem; opacity: 0.9; }
-        .clothing-advice {
-            background: rgba(255,255,255,0.2);
-            padding: 8px 12px;
-            border-radius: 12px;
-            font-size: 0.85rem;
-            backdrop-filter: blur(5px);
-            max-width: 60%;
-        }
-
-        /* Tab Content Control */
-        .tab-content { display: none; padding: 20px; animation: fadeIn 0.3s; }
-        .tab-content.active { display: block; }
-        
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* Itinerary Timeline Cards */
-        .date-header {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--primary);
-            margin: 20px 0 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .timeline-card {
-            background: var(--card-bg);
-            border-radius: 16px;
-            padding: 16px;
-            margin-bottom: 16px;
-            box-shadow: var(--shadow);
-            display: flex;
-            gap: 15px;
-            position: relative;
-            transition: transform 0.2s;
-        }
-
-        .timeline-card:active { transform: scale(0.98); }
-
-        .time-col {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-width: 50px;
-            border-right: 2px solid var(--bg);
-            padding-right: 15px;
-        }
-
-        .time-text { font-weight: 700; font-size: 1.1rem; color: var(--primary); }
-        .duration-text { font-size: 0.75rem; color: var(--text-sub); margin-top: 4px; }
-
-        .info-col { flex: 1; }
-        .activity-title { font-weight: 700; font-size: 1.05rem; margin-bottom: 6px; }
-        .activity-desc { font-size: 0.9rem; color: var(--text-sub); line-height: 1.4; margin-bottom: 8px; }
-        .tag {
-            display: inline-block;
-            font-size: 0.75rem;
-            padding: 4px 8px;
-            border-radius: 6px;
-            background: var(--bg);
-            color: var(--primary);
-            margin-right: 5px;
-        }
-        .tag.food { background: #FFF0ED; color: #D88E80; } /* 食物特別色 */
-
-        .btn-nav {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: var(--primary);
-            color: white;
-            text-decoration: none;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            margin-top: 8px;
-        }
-
-        /* Wallet / Split Bill */
-        .wallet-summary {
-            background: var(--primary);
-            color: white;
-            padding: 20px;
-            border-radius: 16px;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; margin-bottom: 5px; color: var(--text-sub); }
-        .form-group input, .form-group select {
-            width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem;
-        }
-        .btn-action {
-            width: 100%; background: var(--accent); color: white; border: none; padding: 14px;
-            border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer;
-        }
-
-        /* Translation Tool */
-        .trans-card {
-            background: white; border-radius: 16px; padding: 20px; box-shadow: var(--shadow);
-            text-align: center; margin-bottom: 15px;
-        }
-        .quick-phrase {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px;
-        }
-        .phrase-btn {
-            background: var(--bg); border: 1px solid var(--secondary); padding: 10px;
-            border-radius: 8px; font-size: 0.9rem; color: var(--text-main);
-        }
-
-        /* Bottom Navigation */
-        .bottom-nav {
-            position: fixed; bottom: 0; left: 0; width: 100%;
-            background: white;
-            display: flex; justify-content: space-around;
-            padding: 12px 0 25px; /* Extra padding for iPhone home indicator */
-            box-shadow: 0 -4px 10px rgba(0,0,0,0.05);
-            z-index: 100;
-        }
-        
-        .nav-item {
-            text-align: center; color: var(--text-sub); font-size: 0.75rem;
-            flex: 1; cursor: pointer; transition: color 0.3s;
-        }
-        .nav-item i { font-size: 1.4rem; margin-bottom: 4px; display: block; }
-        .nav-item.active { color: var(--primary); }
-
-        /* Modal/Popup */
-        .modal-overlay {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5); z-index: 200; align-items: center; justify-content: center;
-        }
-        .modal { background: white; width: 90%; max-width: 400px; padding: 20px; border-radius: 16px; }
-
-    </style>
-</head>
-<body>
-
-    <header id="app-header">
-        <div style="font-size: 0.9rem; opacity: 0.8;">2026/02/03 - 02/08</div>
-        <h2 style="margin: 5px 0 15px;">東京舒心之旅</h2>
-        
-        <div class="weather-widget">
-            <div class="temp-box">
-                <h1 id="weather-temp">8°C</h1>
-                <p>東京 / 晴時多雲</p>
-            </div>
-            <div class="clothing-advice">
-                <i class="fas fa-tshirt"></i> 
-                <span id="clothing-text">洋蔥式穿搭：發熱衣+毛衣+防風大衣。帶圍巾。</span>
-            </div>
-        </div>
-    </header>
-
-    <div id="tab-itinerary" class="tab-content active">
-        <div id="itinerary-list"></div>
-    </div>
-
-    <div id="tab-wallet" class="tab-content">
-        <div class="wallet-summary">
-            <p>目前總支出</p>
-            <h1 id="total-expense">¥0</h1>
-            <p style="font-size: 0.9rem; opacity: 0.8;">(約 NT$ 0)</p>
-        </div>
-        
-        <div style="background: white; padding: 20px; border-radius: 16px; box-shadow: var(--shadow);">
-            <h3 style="margin-top: 0;">新增記帳</h3>
-            <div class="form-group">
-                <label>項目</label>
-                <input type="text" id="expense-item" placeholder="例如：晚餐 AFURI">
-            </div>
-            <div class="form-group">
-                <label>金額 (日幣)</label>
-                <input type="number" id="expense-amount" placeholder="¥">
-            </div>
-            <div class="form-group">
-                <label>付款人</label>
-                <select id="expense-payer">
-                    <option value="公費">公費 (共同錢包)</option>
-                    <option value="華">華</option>
-                    <option value="彰">彰</option>
-                </select>
-            </div>
-            <button class="btn-action" onclick="addExpense()">記下一筆</button>
-        </div>
-        
-        <div style="margin-top: 20px;">
-            <h4>最近紀錄</h4>
-            <ul id="expense-list" style="list-style: none; padding: 0;">
-                </ul>
-        </div>
-    </div>
-
-    <div id="tab-translate" class="tab-content">
-        <div class="trans-card">
-            <h3><i class="fas fa-language"></i> 快速翻譯</h3>
-            <p style="color:var(--text-sub); margin-bottom: 20px;">點擊跳轉 Google 翻譯，或使用下方常用語</p>
-            <a href="https://translate.google.com/?sl=zh-TW&tl=ja&text=" target="_blank" class="btn-action" style="text-decoration: none; display: block;">開啟語音/文字翻譯</a>
-        </div>
-
-        <h4 style="margin-left: 5px;">常用旅遊日語 (點擊顯示)</h4>
-        <div class="quick-phrase">
-            <div class="phrase-btn" onclick="alert('Sumimasen (不好意思/請問)')">不好意思<br><small>Sumimasen</small></div>
-            <div class="phrase-btn" onclick="alert('Kore o kudasai (請給我這個)')">請給我這個<br><small>Kore o kudasai</small></div>
-            <div class="phrase-btn" onclick="alert('O-kaikei onegaishimasu (麻煩結帳)')">麻煩結帳<br><small>O-kaikei</small></div>
-            <div class="phrase-btn" onclick="alert('Toire wa doko desu ka? (廁所在哪裡)')">廁所在哪裡<br><small>Toire wa doko?</small></div>
-            <div class="phrase-btn" onclick="alert('Fukuro wa irimasen (不需要袋子)')">不用袋子<br><small>Fukuro irimasen</small></div>
-            <div class="phrase-btn" onclick="alert('Atatamete kudasai (請幫我微波)')">請幫我微波<br><small>Atatamete</small></div>
-        </div>
-        
-        <div class="trans-card" style="margin-top: 20px; text-align: left;">
-            <h4 style="margin-top:0; color: var(--accent);">🏪 超商美食筆記</h4>
-            <p><b>Lawson 炸雞君:</b> 紅色(辣味)/起司口味</p>
-            <p><b>7-11 關東煮:</b> 必夾蘿蔔(大根)、蒟蒻絲(白瀧)</p>
-            <p><b>FamilyMart:</b> 炸雞(FamiChiki) 柚子胡椒味</p>
-        </div>
-    </div>
-
-    <nav class="bottom-nav">
-        <div class="nav-item active" onclick="switchTab('itinerary', this)">
-            <i class="fas fa-map-marked-alt"></i> 行程
-        </div>
-        <div class="nav-item" onclick="switchTab('wallet', this)">
-            <i class="fas fa-wallet"></i> 記帳
-        </div>
-        <div class="nav-item" onclick="switchTab('translate', this)">
-            <i class="fas fa-comments"></i> 翻譯
-        </div>
-    </nav>
-
-    <script>
-        // --- DATA SECTION: Populated from your CSV files ---
-        const itineraryData = [
-            {
-                date: "2/3 (二)",
-                events: [
-                    { time: "15:35", title: "桃園 T1 起飛 (IT202)", desc: "13:30 抵達機場報到。建議在機場先吃午餐。", dur: "4小時", type: "transport", link: "https://www.google.com/maps" },
-                    { time: "19:35", title: "抵達成田 T2", desc: "購買/儲值西瓜卡 (Suica)。", dur: "1小時", type: "transport", link: "" },
-                    { time: "20:30", title: "搭乘 Skyliner 往市區", desc: "車上可先吃點輕食。", dur: "45分", type: "transport", link: "" },
-                    { time: "21:45", title: "入住：四谷京阪飯店", desc: "飯店旁 LIFE 超市買水、水果當宵夜（避免太晚吃太硬的食物）。", dur: "", type: "hotel", link: "https://www.google.com/maps/search/?api=1&query=Hotel+Keihan+Yotsuya" },
-                    { time: "22:00", title: "LIFE 超市 / 超商採買", desc: "推薦：Lawson 炸雞君(Red/Cheese)、7-11 關東煮(蘿蔔/蒟蒻)。", dur: "", type: "food", link: "" }
-                ]
-            },
-            {
-                date: "2/4 (三) - 東北區",
-                events: [
-                    { time: "09:30", title: "上野東照宮", desc: "金碧輝煌的建築，適合拍照。", dur: "1.5小時", type: "sight", link: "https://www.google.com/maps/search/?api=1&query=Ueno+Toshogu" },
-                    { time: "11:00", title: "午餐時間", desc: "上野附近美食探索。", dur: "1小時", type: "food", link: "" }
-                    // ... (More events would go here based on full file)
-                ]
-            },
-            {
-                date: "2/7 (六) - 東南區",
-                events: [
-                    { time: "09:00", title: "退房 & 行李寄送", desc: "換宿至池尻大橋，建議將行李寄放在「澀谷站」。", dur: "1小時", type: "transport", link: "" },
-                    { time: "10:30", title: "東京鐵塔 (拍照打卡)", desc: "拍塔身完整角度。攝影點：芝公園階梯或停車場出口經典位。", dur: "4小時", type: "sight", link: "https://www.google.com/maps/search/?api=1&query=Tokyo+Tower" },
-                    { time: "12:30", title: "午餐：入鹿 Tokyo 或 炸牛排", desc: "推薦：入鹿 Tokyo松露拉麵 或 炸牛排 Motomura。", dur: "1小時", type: "food", link: "" },
-                    { time: "14:00", title: "國立新美術館", desc: "僅在大廳與外部拍照打卡，攝影：黑川紀章設計的倒建築光影。", dur: "", type: "sight", link: "https://www.google.com/maps/search/?api=1&query=The+National+Art+Center+Tokyo" },
-                    { time: "19:30", title: "晚餐：AFURI 柚子鹽拉麵", desc: "清爽系拉麵，適合口味較淡的選擇。", dur: "1小時", type: "food", link: "https://www.google.com/maps/search/?api=1&query=AFURI+Ramen" }
-                ]
-            }
-        ];
-
-        // --- RENDER FUNCTIONS ---
-        
-        function renderItinerary() {
-            const container = document.getElementById('itinerary-list');
-            let html = '';
-
-            itineraryData.forEach(day => {
-                html += `<div class="date-header">${day.date}</div>`;
-                day.events.forEach(evt => {
-                    // Determine Icon
-                    let icon = 'fa-map-pin';
-                    if(evt.type === 'food') icon = 'fa-utensils';
-                    if(evt.type === 'transport') icon = 'fa-subway';
-                    if(evt.type === 'hotel') icon = 'fa-bed';
-
-                    // Nav Button
-                    let navBtn = evt.link ? `<a href="${evt.link}" target="_blank" class="btn-nav"><i class="fas fa-location-arrow"></i> 導航</a>` : '';
-                    
-                    // Tags
-                    let tags = '';
-                    if(evt.type === 'food') tags += `<span class="tag food">美食</span>`;
-
-                    html += `
-                    <div class="timeline-card">
-                        <div class="time-col">
-                            <span class="time-text">${evt.time}</span>
-                            <span class="duration-text">${evt.dur}</span>
-                        </div>
-                        <div class="info-col">
-                            <div class="activity-title">${evt.title}</div>
-                            <div class="activity-desc">${tags} ${evt.desc}</div>
-                            ${navBtn}
-                        </div>
-                    </div>`;
-                });
-            });
-            container.innerHTML = html;
-        }
-
-        // --- TABS LOGIC ---
-        function switchTab(tabId, navEl) {
-            // Hide all tabs
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            // Show target
-            document.getElementById('tab-' + tabId).classList.add('active');
-            
-            // Update Nav
-            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-            navEl.classList.add('active');
-        }
-
-        // --- ACCOUNTING LOGIC ---
-        let total = 0;
-        function addExpense() {
-            const item = document.getElementById('expense-item').value;
-            const amount = parseInt(document.getElementById('expense-amount').value);
-            const payer = document.getElementById('expense-payer').value;
-
-            if(!item || !amount) return alert("請輸入項目與金額");
-
-            total += amount;
-            document.getElementById('total-expense').innerText = '¥' + total.toLocaleString();
-            
-            const list = document.getElementById('expense-list');
-            const li = document.createElement('li');
-            li.style.padding = "10px 0";
-            li.style.borderBottom = "1px solid #eee";
-            li.style.display = "flex";
-            li.style.justifyContent = "space-between";
-            li.innerHTML = `<span>${item} (${payer})</span> <span style="font-weight:bold;">¥${amount}</span>`;
-            list.prepend(li);
-
-            // Clear inputs
-            document.getElementById('expense-item').value = '';
-            document.getElementById('expense-amount').value = '';
-        }
-
-        // --- WEATHER LOGIC (Simulated for Demo) ---
-        // In a real app, this would fetch API data. Here we use your request for "Clothing Advice".
-        const clothes = {
-            cold: "氣溫較低，建議：發熱衣 + 羊毛衣 + 防風外套 + 圍巾。",
-            cool: "舒適偏涼，建議：長袖上衣 + 薄外套。",
-            rain: "有雨，請攜帶折疊傘並穿著防潑水鞋子。"
-        };
-        // Just mocking a logic for the header display
-        document.getElementById('clothing-text').innerText = clothes.cold;
-
-        // Initialize
-        renderItinerary();
-
-    </script>
-</body>
-</html>            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        .weather-widget {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .temp-box h1 { margin: 0; font-size: 2.5rem; }
-        .temp-box p { margin: 0; font-size: 0.9rem; opacity: 0.9; }
-        .outfit-tip {
-            background: rgba(255,255,255,0.2);
-            padding: 8px 12px;
-            border-radius: 10px;
-            font-size: 0.85rem;
-            max-width: 60%;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        /* --- 日期選擇器 --- */
-        .date-scroller {
-            display: flex;
-            overflow-x: auto;
-            padding: 15px 10px;
-            gap: 10px;
-            scrollbar-width: none; /* Firefox */
-        }
-        .date-scroller::-webkit-scrollbar { display: none; } /* Chrome */
-        
-        .date-chip {
-            background: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            white-space: nowrap;
-            font-weight: 500;
-            color: var(--text-light);
-            border: 1px solid #eee;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        .date-chip.active {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-            box-shadow: 0 2px 8px rgba(233, 30, 99, 0.3);
-        }
-
-        /* --- 行程時間軸 --- */
-        .timeline-container { padding: 10px 20px; }
-        .timeline-item {
-            display: flex;
-            margin-bottom: 20px;
-            position: relative;
-        }
-        /* 垂直線 */
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: 55px;
-            top: 0;
-            bottom: -20px;
-            width: 2px;
-            background: #ddd;
-            z-index: 0;
-        }
-        .timeline-item:last-child::before { display: none; }
-
-        .time-col {
-            width: 55px;
-            padding-right: 10px;
-            text-align: right;
-            font-size: 0.9rem;
-            font-weight: 700;
-            color: var(--primary);
-            padding-top: 5px;
-            z-index: 1;
-            background: var(--bg); /* 遮蓋線條 */
-        }
-        .content-col {
-            flex: 1;
-            background: var(--card-bg);
-            border-radius: 15px;
-            padding: 15px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            position: relative;
-            z-index: 1;
-        }
-        .content-col h3 { margin: 0 0 5px 0; font-size: 1.1rem; }
-        .tag {
-            display: inline-block;
-            font-size: 0.75rem;
-            padding: 2px 8px;
-            border-radius: 4px;
-            background: #eee;
-            color: #666;
-            margin-bottom: 8px;
-        }
-        .tag.交通 { background: #E3F2FD; color: #1976D2; }
-        .tag.景點 { background: #E8F5E9; color: #388E3C; }
-        .tag.餐飲 { background: #FFF3E0; color: #F57C00; }
-
-        .note {
-            font-size: 0.85rem;
-            color: #666;
-            margin-top: 8px;
-            line-height: 1.4;
-            background: #FAFAFA;
-            padding: 8px;
-            border-radius: 8px;
-        }
-        .map-btn {
-            display: inline-flex;
-            align-items: center;
-            margin-top: 10px;
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.9rem;
-        }
-        .map-btn i { margin-right: 5px; }
-
-        /* --- 底部導航 --- */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: white;
-            display: flex;
-            justify-content: space-around;
-            padding: 10px 0;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
-            z-index: 200;
-        }
-        .nav-item {
-            text-align: center;
-            color: #999;
-            font-size: 0.75rem;
-            cursor: pointer;
-        }
-        .nav-item.active { color: var(--primary); }
-        .nav-item i { font-size: 1.2rem; display: block; margin-bottom: 4px; }
-
-        /* --- 其他頁面 (隱藏/顯示) --- */
-        .page { display: none; padding-bottom: 20px;}
-        .page.active { display: block; }
-
-        /* 美食卡片 */
-        .food-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            padding: 15px;
-        }
-        .food-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-        .food-img-placeholder {
-            height: 120px;
-            background: #eee;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #aaa;
-            font-size: 2rem;
-        }
-        .food-info { padding: 10px; }
-        .food-name { font-weight: bold; font-size: 0.95rem; margin-bottom: 5px; }
-        .food-jp { color: #888; font-size: 0.8rem; margin-bottom: 5px; }
-        .food-price { color: var(--primary); font-weight: bold; }
-
-        /* 工具箱 */
-        .tools-container { padding: 20px; }
-        .tool-card {
-            background: white;
-            padding: 20px;
-            border-radius: 15px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-        .tool-btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 12px;
-            width: 100%;
-            border-radius: 10px;
-            font-size: 1rem;
-            margin-top: 10px;
-            cursor: pointer;
-        }
-        .input-group { display: flex; gap: 10px; margin-bottom: 10px; }
-        .input-group input { 
-            flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 8px; 
-            font-size: 1rem;
-        }
-
-        /* 翻譯區 */
-        .translate-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-        .phrase-btn {
-            background: white;
-            border: 1px solid var(--primary);
-            color: var(--primary);
-            padding: 10px;
-            border-radius: 8px;
-            text-align: center;
-            font-size: 0.9rem;
-            cursor: pointer;
-        }
-    </style>
-</head>
-<body>
-
-    <div class="header" id="headerWidget">
-        <div class="weather-widget">
-            <div class="temp-box">
-                <p id="currentDateDisplay">2月3日 (二)</p>
-                <h1 id="weatherTemp">6°C</h1>
-            </div>
-            <div class="outfit-tip" id="weatherTip">
-                <i class="fas fa-tshirt"></i> <span>寒冷，請穿著羽絨衣並攜帶圍巾</span>
-            </div>
-        </div>
-    </div>
-
-    <div class="date-scroller" id="dateNav">
-        </div>
-
-    <div id="page-itinerary" class="page active">
-        <div class="timeline-container" id="itineraryList">
-            </div>
-    </div>
-
-    <div id="page-food" class="page">
-        <div style="padding: 20px;">
-            <h2><i class="fas fa-utensils"></i> 超商必吃</h2>
-            <p style="color:#666; font-size:0.9rem;">已為您整理好清單，結帳時可直接出示圖片給店員看。</p>
-        </div>
-        <div class="food-grid" id="foodList">
-            </div>
-    </div>
-
-    <div id="page-tools" class="page">
-        <div class="tools-container">
-            
-            <div class="tool-card">
-                <h3><i class="fas fa-language"></i> 即時溝通</h3>
-                <div class="translate-grid">
-                    <div class="phrase-btn" onclick="alert('Sumimasen, toire wa doko desu ka? (請問廁所哪裡?)')">廁所在哪裡</div>
-                    <div class="phrase-btn" onclick="alert('Kore wo kudasai. (請給我這個)')">請給我這個</div>
-                    <div class="phrase-btn" onclick="alert('O-kaikei wo onegaishimasu. (麻煩結帳)')">麻煩結帳</div>
-                    <div class="phrase-btn" onclick="alert('Fukuro wa irimasen. (不需要袋子)')">不用袋子</div>
-                </div>
-                <button class="tool-btn" style="background:#4285F4; margin-top:15px;" onclick="window.open('https://translate.google.com/?sl=zh-TW&tl=ja&op=translate')">
-                    開啟 Google 翻譯
-                </button>
-            </div>
-
-            <div class="tool-card">
-                <h3><i class="fas fa-calculator"></i> 快速記帳</h3>
-                <div class="input-group">
-                    <input type="text" id="expenseName" placeholder="項目 (如: 拉麵)">
-                    <input type="number" id="expenseAmount" placeholder="日幣金額">
-                </div>
-                <button class="tool-btn" onclick="addExpense()">加入記帳</button>
-                <div style="margin-top: 20px; border-top: 1px solid #eee; padding-top:10px;">
-                    <h4>今日總計: <span id="totalExpense" style="color:var(--primary)">¥0</span></h4>
-                    <ul id="expenseList" style="padding-left: 20px; color:#666; font-size:0.9rem;"></ul>
-                </div>
-            </div>
-
-            <div class="tool-card">
-                <h3><i class="fas fa-suitcase"></i> 重點檢查</h3>
-                <label style="display:block; margin:5px 0;"><input type="checkbox"> 護照</label>
-                <label style="display:block; margin:5px 0;"><input type="checkbox"> 西瓜卡 (Suica)</label>
-                <label style="display:block; margin:5px 0;"><input type="checkbox"> 網卡 (SIM)</label>
-                <label style="display:block; margin:5px 0;"><input type="checkbox"> 現金 (千圓鈔)</label>
-            </div>
-        </div>
-    </div>
-
-    <div class="bottom-nav">
-        <div class="nav-item active" onclick="switchPage('itinerary', this)">
-            <i class="fas fa-route"></i> 行程
-        </div>
-        <div class="nav-item" onclick="switchPage('food', this)">
-            <i class="fas fa-cookie-bite"></i> 美食
-        </div>
-        <div class="nav-item" onclick="switchPage('tools', this)">
-            <i class="fas fa-tools"></i> 工具
-        </div>
-    </div>
-
-    <script>
-        // --- 資料區 (我將你的 CSV 資料數位化整理在此) ---
-        
-        // 氣象資料 (模擬 2026 二月預測)
-        const weatherDB = {
-            "2026-02-03": { temp: "5-11°C", icon: "cloud-sun", tip: "搭機日，洋蔥式穿搭，帶薄圍巾。" },
-            "2026-02-04": { temp: "3-9°C", icon: "sun", tip: "戶外行程多，務必穿著羽絨衣與好走的鞋。" },
-            "2026-02-05": { temp: "2-8°C", icon: "snowflake", tip: "可能微冷，建議戴毛帽與手套保暖。" },
-            "2026-02-06": { temp: "4-10°C", icon: "cloud", tip: "市區逛街，穿著舒適保暖即可。" },
-            "2026-02-07": { temp: "5-12°C", icon: "sun", tip: "天氣回暖，適合拍照，可穿亮色大衣。" },
-            "2026-02-08": { temp: "6-13°C", icon: "plane", tip: "返程日，確認隨身行李輕便。" }
-        };
-
-        // 行程資料 (根據你的 CSV 內容填入)
-        // 注意：為了讓你直接能用，我根據檔案內容填入了 Day 1, 2, 5。
-        // Day 3, 4 因檔案截圖限制，我預留了格式，你可以很容易把文字貼進去。
-        const itineraryDB = {
-            "2026-02-03": [
-                { time: "15:35", title: "桃園 T1 起飛 (IT202)", type: "交通", note: "建議在機場先吃午餐。13:30 抵達機場報到。", link: "geo:25.0797,121.2342" },
-                { time: "19:35", title: "抵達成田 T2", type: "交通", note: "購買/儲值西瓜卡 (Suica)。", link: "geo:35.7719,140.3929" },
-                { time: "20:30", title: "搭乘 Skyliner 往市區", type: "交通", note: "車上可先吃點輕食。車程約 45 分鐘。", link: "" },
-                { time: "21:45", title: "入住：四谷京阪飯店", type: "住宿", note: "飯店旁 LIFE 超市買水果、水當宵夜。", link: "https://www.google.com/maps/search/?api=1&query=Hotel+Keihan+Yotsuya" }
-            ],
-            "2026-02-04": [
-                { time: "09:30", title: "上野東照宮", type: "景點", note: "金色殿宇與牡丹園。記得買御守。", link: "https://www.google.com/maps/search/?api=1&query=Ueno+Toshogu" },
-                { time: "11:00", title: "不忍池 / 弁天堂", type: "景點", note: "散步拍照，欣賞蓮花池枯景。", link: "" },
-                { time: "12:30", title: "午餐：伊豆榮 梅川亭", type: "餐飲", note: "百年鰻魚飯老店，就在公園內。", link: "" },
-                { time: "14:00", title: "淺草寺 / 雷門", type: "景點", note: "人多注意隨身物品。仲見世通吃人形燒。", link: "" },
-                { time: "16:30", title: "神田明神", type: "景點", note: "LoveLive 與 IT 保護神，動漫迷聖地。", link: "" }
-            ],
-            // 中間日期若有詳細資料，可直接依照格式複製貼上
-            "2026-02-05": [
-                { time: "10:00", title: "明治神宮", type: "景點", note: "享受森林芬多精，參觀御苑。", link: "" },
-                { time: "12:30", title: "午餐：AFURI 柚子拉麵", type: "餐飲", note: "清爽柚子鹽口味，適合女生。", link: "" },
-                { time: "14:30", title: "澀谷 Sky", type: "景點", note: "需預約。俯瞰東京全景。", link: "" }
-            ],
-            "2026-02-06": [
-                { time: "09:00", title: "東京巨蛋", type: "景點", note: "周邊巡禮，如有展覽可參觀。", link: "" },
-                { time: "13:00", title: "皇居東御苑", type: "景點", note: "歷史建築與庭園。", link: "" }
-            ],
-            "2026-02-07": [
-                { time: "09:00", title: "退房 & 行李寄送", type: "交通", note: "建議將行李寄放在「澀谷站」。換宿至池尻大橋。", link: "" },
-                { time: "10:30", title: "東京鐵塔 (拍照打卡)", type: "景點", note: "攝影點：芝公園階梯或停車場出口。", link: "https://www.google.com/maps/search/?api=1&query=Tokyo+Tower" },
-                { time: "12:30", title: "午餐：炸牛排 Motomura", type: "餐飲", note: "口感軟嫩，記得排隊。", link: "" },
-                { time: "14:00", title: "國立新美術館", type: "景點", note: "黑川紀章設計。大廳拍照像雜誌封面。", link: "https://www.google.com/maps/search/?api=1&query=The+National+Art+Center" },
-                { time: "19:30", title: "晚餐：AFURI 或 居酒屋", type: "餐飲", note: "享受最後一晚的東京氛圍。", link: "" }
-            ],
-            "2026-02-08": [
-                 { time: "10:00", title: "前往成田機場", type: "交通", note: "預留時間逛免稅店。", link: "" },
-                 { time: "14:00", title: "飛機起飛 (返台)", type: "交通", note: "平安回家。", link: "" }
-            ]
-        };
-
-        const foodDB = [
-            { name: "FamiChiki 炸雞", jp: "ファミチキ", price: "¥240", shop: "FamilyMart", icon: "drumstick-bite" },
-            { name: "炸雞君 (辣味/起司)", jp: "からあげクン Red", price: "¥258", shop: "Lawson", icon: "crow" },
-            { name: "關東煮 (蘿蔔/半熟蛋)", jp: "おでん (大根/たまご)", price: "¥120", shop: "7-11", icon: "mug-hot" },
-            { name: "麻糬口感生乳捲", jp: "もち食感ロール", price: "¥397", shop: "Lawson", icon: "bread-slice" },
-            { name: "濃厚蛋黃醬泡芙", jp: "カスタード＆ホイップ", price: "¥150", shop: "7-11", icon: "cookie" }
-        ];
-
-        // --- 程式邏輯區 ---
-
-        let currentDate = "2026-02-03";
-        const dates = Object.keys(itineraryDB);
-
-        // 初始化
-        window.onload = function() {
-            renderDateNav();
-            renderItinerary(currentDate);
-            renderWeather(currentDate);
-            renderFood();
-            loadExpenses();
-        };
-
-        // 渲染日期導航
-        function renderDateNav() {
-            const container = document.getElementById('dateNav');
-            dates.forEach(date => {
-                const day = date.split('-')[2];
-                const el = document.createElement('div');
-                el.className = `date-chip ${date === currentDate ? 'active' : ''}`;
-                el.innerText = `2/${day}`;
-                el.onclick = () => selectDate(date);
-                container.appendChild(el);
-            });
-        }
-
-        // 選擇日期
-        function selectDate(date) {
-            currentDate = date;
-            // 更新 UI
-            document.querySelectorAll('.date-chip').forEach(el => {
-                el.classList.remove('active');
-                if(el.innerText === `2/${date.split('-')[2]}`) el.classList.add('active');
-            });
-            renderItinerary(date);
-            renderWeather(date);
-        }
-
-        // 渲染行程
-        function renderItinerary(date) {
-            const list = document.getElementById('itineraryList');
-            const items = itineraryDB[date] || [];
-            list.innerHTML = "";
-            
-            items.forEach(item => {
-                const html = `
-                <div class="timeline-item">
-                    <div class="time-col">${item.time}</div>
-                    <div class="content-col">
-                        <span class="tag ${item.type}">${item.type}</span>
-                        <h3>${item.title}</h3>
-                        <div class="note">${item.note}</div>
-                        ${item.link ? `<a href="${item.link}" target="_blank" class="map-btn"><i class="fas fa-location-dot"></i> 導航</a>` : ''}
-                    </div>
-                </div>`;
-                list.innerHTML += html;
-            });
-        }
-
-        // 渲染氣象
-        function renderWeather(date) {
-            const data = weatherDB[date];
-            document.getElementById('currentDateDisplay').innerText = date;
-            document.getElementById('weatherTemp').innerText = data.temp;
-            document.getElementById('weatherTip').innerHTML = `<i class="fas fa-tshirt"></i> <span>${data.tip}</span>`;
-        }
-
-        // 渲染美食
-        function renderFood() {
-            const list = document.getElementById('foodList');
-            foodDB.forEach(item => {
-                list.innerHTML += `
-                <div class="food-card">
-                    <div class="food-img-placeholder"><i class="fas fa-${item.icon}"></i></div>
-                    <div class="food-info">
-                        <div class="food-name">${item.name}</div>
-                        <div class="food-jp">${item.jp}</div>
-                        <div class="food-price">${item.price} (${item.shop})</div>
-                    </div>
-                </div>`;
-            });
-        }
-
-        // 頁面切換
-        function switchPage(pageId, navEl) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.getElementById(`page-${pageId}`).classList.add('active');
-            
-            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-            navEl.classList.add('active');
-
-            // 隱藏 Header 當不在行程頁時 (選擇性)
-            // document.getElementById('headerWidget').style.display = pageId === 'itinerary' ? 'block' : 'none';
-        }
-
-        // 簡單記帳功能
-        function addExpense() {
-            const name = document.getElementById('expenseName').value;
-            const amount = parseInt(document.getElementById('expenseAmount').value);
-            if(!name || !amount) return;
-
-            const list = document.getElementById('expenseList');
-            const li = document.createElement('li');
-            li.innerText = `${name}: ¥${amount}`;
-            list.appendChild(li);
-
-            // 更新總額
-            updateTotal(amount);
-
-            // 清空輸入
-            document.getElementById('expenseName').value = '';
-            document.getElementById('expenseAmount').value = '';
-        }
-
-        let total = 0;
-        function updateTotal(amount) {
-            total += amount;
-            document.getElementById('totalExpense').innerText = `¥${total}`;
-        }
-        
-        function loadExpenses() {
-            // 這裡可以擴充 LocalStorage 儲存功能，讓重新整理後資料還在
-        }
-
-    </script>
-</body>
-</html>            });
-            renderItinerary(date);
-            renderWeather(date);
-        }
-
-        // 渲染行程
-        function renderItinerary(date) {
-            const list = document.getElementById('itineraryList');
-            const items = itineraryDB[date] || [];
-            list.innerHTML = "";
-            
-            items.forEach(item => {
-                const html = `
-                <div class="timeline-item">
-                    <div class="time-col">${item.time}</div>
-                    <div class="content-col">
-                        <span class="tag ${item.type}">${item.type}</span>
-                        <h3>${item.title}</h3>
-                        <div class="note">${item.note}</div>
-                        ${item.link ? `<a href="${item.link}" target="_blank" class="map-btn"><i class="fas fa-location-dot"></i> 導航</a>` : ''}
-                    </div>
-                </div>`;
-                list.innerHTML += html;
-            });
-        }
-
-        // 渲染氣象
-        function renderWeather(date) {
-            const data = weatherDB[date];
-            document.getElementById('currentDateDisplay').innerText = date;
-            document.getElementById('weatherTemp').innerText = data.temp;
-            document.getElementById('weatherTip').innerHTML = `<i class="fas fa-tshirt"></i> <span>${data.tip}</span>`;
-        }
-
-        // 渲染美食
-        function renderFood() {
-            const list = document.getElementById('foodList');
-            foodDB.forEach(item => {
-                list.innerHTML += `
-                <div class="food-card">
-                    <div class="food-img-placeholder"><i class="fas fa-${item.icon}"></i></div>
-                    <div class="food-info">
-                        <div class="food-name">${item.name}</div>
-                        <div class="food-jp">${item.jp}</div>
-                        <div class="food-price">${item.price} (${item.shop})</div>
-                    </div>
-                </div>`;
-            });
-        }
-
-        // 頁面切換
-        function switchPage(pageId, navEl) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.getElementById(`page-${pageId}`).classList.add('active');
-            
-            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-            navEl.classList.add('active');
-
-            // 隱藏 Header 當不在行程頁時 (選擇性)
-            // document.getElementById('headerWidget').style.display = pageId === 'itinerary' ? 'block' : 'none';
-        }
-
-        // 簡單記帳功能
-        function addExpense() {
-            const name = document.getElementById('expenseName').value;
-            const amount = parseInt(document.getElementById('expenseAmount').value);
-            if(!name || !amount) return;
-
-            const list = document.getElementById('expenseList');
-            const li = document.createElement('li');
-            li.innerText = `${name}: ¥${amount}`;
-            list.appendChild(li);
-
-            // 更新總額
-            updateTotal(amount);
-
-            // 清空輸入
-            document.getElementById('expenseName').value = '';
-            document.getElementById('expenseAmount').value = '';
-        }
-
-        let total = 0;
-        function updateTotal(amount) {
-            total += amount;
-            document.getElementById('totalExpense').innerText = `¥${total}`;
-        }
-        
-        function loadExpenses() {
-            // 這裡可以擴充 LocalStorage 儲存功能，讓重新整理後資料還在
-        }
-
-    </script>
-</body>
-</html> 2026</title>
+    <title>華的東京獨旅 2026</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #E91E63; /* 櫻花深粉 */
-            --secondary: #FCE4EC; /* 櫻花淺粉 */
-            --bg: #F5F7FA;
-            --text: #333333;
-            --text-light: #666666;
+            /* 莫蘭迪色系配色 (Morandi Palette) */
+            --primary: #BFAFB2;       /* 莫蘭迪紫粉 (主色) */
+            --secondary: #F2E6E6;     /* 極淺灰粉 (背景裝飾) */
+            --bg: #F7F7F7;            /* 溫暖灰白底色 */
+            --text: #5D5D5D;          /* 深灰字體 (不使用全黑) */
+            --text-light: #8A8A8A;    /* 淺灰字體 */
             --card-bg: #FFFFFF;
-            --accent: #4CAF50; /* 自然綠 */
+            --accent: #889EAF;        /* 莫蘭迪霧霾藍 (強調色/按鈕) */
+            --tag-transport: #D8E2DC; /* 莫蘭迪薄荷綠 (交通) */
+            --tag-spot: #E8D5C4;      /* 莫蘭迪杏色 (景點) */
+            --tag-food: #EAE0D5;      /* 莫蘭迪奶茶色 (餐飲) */
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -1012,16 +28,16 @@
             color: var(--text);
             margin: 0;
             padding: 0;
-            padding-bottom: 80px; /* 避開底部導航 */
+            padding-bottom: 90px; /* 避開底部導航 */
         }
 
         /* --- Header 氣象區 --- */
         .header {
-            background: linear-gradient(135deg, var(--primary), #FF80AB);
+            background: linear-gradient(135deg, var(--primary), #A89B9D);
             color: white;
-            padding: 20px;
-            border-radius: 0 0 20px 20px;
-            box-shadow: 0 4px 10px rgba(233, 30, 99, 0.2);
+            padding: 25px 20px;
+            border-radius: 0 0 25px 25px;
+            box-shadow: 0 4px 15px rgba(191, 175, 178, 0.4);
             position: sticky;
             top: 0;
             z-index: 100;
@@ -1031,1046 +47,55 @@
             justify-content: space-between;
             align-items: center;
         }
-        .temp-box h1 { margin: 0; font-size: 2.5rem; }
-        .temp-box p { margin: 0; font-size: 0.9rem; opacity: 0.9; }
+        .temp-box h1 { margin: 5px 0; font-size: 2.8rem; font-weight: 500; letter-spacing: 1px; }
+        .temp-box p { margin: 0; font-size: 0.95rem; opacity: 0.95; font-weight: 400; }
         .outfit-tip {
-            background: rgba(255,255,255,0.2);
-            padding: 8px 12px;
-            border-radius: 10px;
-            font-size: 0.85rem;
-            max-width: 60%;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        /* --- 日期選擇器 --- */
-        .date-scroller {
-            display: flex;
-            overflow-x: auto;
-            padding: 15px 10px;
-            gap: 10px;
-            scrollbar-width: none; /* Firefox */
-        }
-        .date-scroller::-webkit-scrollbar { display: none; } /* Chrome */
-        
-        .date-chip {
-            background: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            white-space: nowrap;
-            font-weight: 500;
-            color: var(--text-light);
-            border: 1px solid #eee;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        .date-chip.active {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-            box-shadow: 0 2px 8px rgba(233, 30, 99, 0.3);
-        }
-
-        /* --- 行程時間軸 --- */
-        .timeline-container { padding: 10px 20px; }
-        .timeline-item {
-            display: flex;
-            margin-bottom: 20px;
-            position: relative;
-        }
-        /* 垂直線 */
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: 55px;
-            top: 0;
-            bottom: -20px;
-            width: 2px;
-            background: #ddd;
-            z-index: 0;
-        }
-        .timeline-item:last-child::before { display: none; }
-
-        .time-col {
-            width: 55px;
-            padding-right: 10px;
-            text-align: right;
-            font-size: 0.9rem;
-            font-weight: 700;
-            color: var(--primary);
-            padding-top: 5px;
-            z-index: 1;
-            background: var(--bg); /* 遮蓋線條 */
-        }
-        .content-col {
-            flex: 1;
-            background: var(--card-bg);
-            border-radius: 15px;
-            padding: 15px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            position: relative;
-            z-index: 1;
-        }
-        .content-col h3 { margin: 0 0 5px 0; font-size: 1.1rem; }
-        .tag {
-            display: inline-block;
-            font-size: 0.75rem;
-            padding: 2px 8px;
-            border-radius: 4px;
-            background: #eee;
-            color: #666;
-            margin-bottom: 8px;
-        }
-        .tag.交通 { background: #E3F2FD; color: #1976D2; }
-        .tag.景點 { background: #E8F5E9; color: #388E3C; }
-        .tag.餐飲 { background: #FFF3E0; color: #F57C00; }
-
-        .note {
-            font-size: 0.85rem;
-            color: #666;
-            margin-top: 8px;
-            line-height: 1.4;
-            background: #FAFAFA;
-            padding: 8px;
-            border-radius: 8px;
-        }
-        .map-btn {
-            display: inline-flex;
-            align-items: center;
-            margin-top: 10px;
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.9rem;
-        }
-        .map-btn i { margin-right: 5px; }
-
-        /* --- 底部導航 --- */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: white;
-            display: flex;
-            justify-content: space-around;
-            padding: 10px 0;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
-            z-index: 200;
-        }
-        .nav-item {
-            text-align: center;
-            color: #999;
-            font-size: 0.75rem;
-            cursor: pointer;
-        }
-        .nav-item.active { color: var(--primary); }
-        .nav-item i { font-size: 1.2rem; display: block; margin-bottom: 4px; }
-
-        /* --- 其他頁面 (隱藏/顯示) --- */
-        .page { display: none; padding-bottom: 20px;}
-        .page.active { display: block; }
-
-        /* 美食卡片 */
-        .food-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            padding: 15px;
-        }
-        .food-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-        .food-img-placeholder {
-            height: 120px;
-            background: #eee;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #aaa;
-            font-size: 2rem;
-        }
-        .food-info { padding: 10px; }
-        .food-name { font-weight: bold; font-size: 0.95rem; margin-bottom: 5px; }
-        .food-jp { color: #888; font-size: 0.8rem; margin-bottom: 5px; }
-        .food-price { color: var(--primary); font-weight: bold; }
-
-        /* 工具箱 */
-        .tools-container { padding: 20px; }
-        .tool-card {
-            background: white;
-            padding: 20px;
-            border-radius: 15px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-        .tool-btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 12px;
-            width: 100%;
-            border-radius: 10px;
-            font-size: 1rem;
-            margin-top: 10px;
-            cursor: pointer;
-        }
-        .input-group { display: flex; gap: 10px; margin-bottom: 10px; }
-        .input-group input { 
-            flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 8px; 
-            font-size: 1rem;
-        }
-
-        /* 翻譯區 */
-        .translate-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-        .phrase-btn {
-            background: white;
-            border: 1px solid var(--primary);
-            color: var(--primary);
-            padding: 10px;
-            border-radius: 8px;
-            text-align: center;
-            font-size: 0.9rem;
-            cursor: pointer;
-        }
-    </style>
-</head>
-<body>
-
-    <div class="header" id="headerWidget">
-        <div class="weather-widget">
-            <div class="temp-box">
-                <p id="currentDateDisplay">2月3日 (二)</p>
-                <h1 id="weatherTemp">6°C</h1>
-            </div>
-            <div class="outfit-tip" id="weatherTip">
-                <i class="fas fa-tshirt"></i> <span>寒冷，請穿著羽絨衣並攜帶圍巾</span>
-            </div>
-        </div>
-    </div>
-
-    <div class="date-scroller" id="dateNav">
-        </div>
-
-    <div id="page-itinerary" class="page active">
-        <div class="timeline-container" id="itineraryList">
-            </div>
-    </div>
-
-    <div id="page-food" class="page">
-        <div style="padding: 20px;">
-            <h2><i class="fas fa-utensils"></i> 超商必吃</h2>
-            <p style="color:#666; font-size:0.9rem;">已為您整理好清單，結帳時可直接出示圖片給店員看。</p>
-        </div>
-        <div class="food-grid" id="foodList">
-            </div>
-    </div>
-
-    <div id="page-tools" class="page">
-        <div class="tools-container">
-            
-            <div class="tool-card">
-                <h3><i class="fas fa-language"></i> 即時溝通</h3>
-                <div class="translate-grid">
-                    <div class="phrase-btn" onclick="alert('Sumimasen, toire wa doko desu ka? (請問廁所哪裡?)')">廁所在哪裡</div>
-                    <div class="phrase-btn" onclick="alert('Kore wo kudasai. (請給我這個)')">請給我這個</div>
-                    <div class="phrase-btn" onclick="alert('O-kaikei wo onegaishimasu. (麻煩結帳)')">麻煩結帳</div>
-                    <div class="phrase-btn" onclick="alert('Fukuro wa irimasen. (不需要袋子)')">不用袋子</div>
-                </div>
-                <button class="tool-btn" style="background:#4285F4; margin-top:15px;" onclick="window.open('https://translate.google.com/?sl=zh-TW&tl=ja&op=translate')">
-                    開啟 Google 翻譯
-                </button>
-            </div>
-
-            <div class="tool-card">
-                <h3><i class="fas fa-calculator"></i> 快速記帳</h3>
-                <div class="input-group">
-                    <input type="text" id="expenseName" placeholder="項目 (如: 拉麵)">
-                    <input type="number" id="expenseAmount" placeholder="日幣金額">
-                </div>
-                <button class="tool-btn" onclick="addExpense()">加入記帳</button>
-                <div style="margin-top: 20px; border-top: 1px solid #eee; padding-top:10px;">
-                    <h4>今日總計: <span id="totalExpense" style="color:var(--primary)">¥0</span></h4>
-                    <ul id="expenseList" style="padding-left: 20px; color:#666; font-size:0.9rem;"></ul>
-                </div>
-            </div>
-
-            <div class="tool-card">
-                <h3><i class="fas fa-suitcase"></i> 重點檢查</h3>
-                <label style="display:block; margin:5px 0;"><input type="checkbox"> 護照</label>
-                <label style="display:block; margin:5px 0;"><input type="checkbox"> 西瓜卡 (Suica)</label>
-                <label style="display:block; margin:5px 0;"><input type="checkbox"> 網卡 (SIM)</label>
-                <label style="display:block; margin:5px 0;"><input type="checkbox"> 現金 (千圓鈔)</label>
-            </div>
-        </div>
-    </div>
-
-    <div class="bottom-nav">
-        <div class="nav-item active" onclick="switchPage('itinerary', this)">
-            <i class="fas fa-route"></i> 行程
-        </div>
-        <div class="nav-item" onclick="switchPage('food', this)">
-            <i class="fas fa-cookie-bite"></i> 美食
-        </div>
-        <div class="nav-item" onclick="switchPage('tools', this)">
-            <i class="fas fa-tools"></i> 工具
-        </div>
-    </div>
-
-    <script>
-        // --- 資料區 (我將你的 CSV 資料數位化整理在此) ---
-        
-        // 氣象資料 (模擬 2026 二月預測)
-        const weatherDB = {
-            "2026-02-03": { temp: "5-11°C", icon: "cloud-sun", tip: "搭機日，洋蔥式穿搭，帶薄圍巾。" },
-            "2026-02-04": { temp: "3-9°C", icon: "sun", tip: "戶外行程多，務必穿著羽絨衣與好走的鞋。" },
-            "2026-02-05": { temp: "2-8°C", icon: "snowflake", tip: "可能微冷，建議戴毛帽與手套保暖。" },
-            "2026-02-06": { temp: "4-10°C", icon: "cloud", tip: "市區逛街，穿著舒適保暖即可。" },
-            "2026-02-07": { temp: "5-12°C", icon: "sun", tip: "天氣回暖，適合拍照，可穿亮色大衣。" },
-            "2026-02-08": { temp: "6-13°C", icon: "plane", tip: "返程日，確認隨身行李輕便。" }
-        };
-
-        // 行程資料 (根據你的 CSV 內容填入)
-        // 注意：為了讓你直接能用，我根據檔案內容填入了 Day 1, 2, 5。
-        // Day 3, 4 因檔案截圖限制，我預留了格式，你可以很容易把文字貼進去。
-        const itineraryDB = {
-            "2026-02-03": [
-                { time: "15:35", title: "桃園 T1 起飛 (IT202)", type: "交通", note: "建議在機場先吃午餐。13:30 抵達機場報到。", link: "geo:25.0797,121.2342" },
-                { time: "19:35", title: "抵達成田 T2", type: "交通", note: "購買/儲值西瓜卡 (Suica)。", link: "geo:35.7719,140.3929" },
-                { time: "20:30", title: "搭乘 Skyliner 往市區", type: "交通", note: "車上可先吃點輕食。車程約 45 分鐘。", link: "" },
-                { time: "21:45", title: "入住：四谷京阪飯店", type: "住宿", note: "飯店旁 LIFE 超市買水果、水當宵夜。", link: "https://www.google.com/maps/search/?api=1&query=Hotel+Keihan+Yotsuya" }
-            ],
-            "2026-02-04": [
-                { time: "09:30", title: "上野東照宮", type: "景點", note: "金色殿宇與牡丹園。記得買御守。", link: "https://www.google.com/maps/search/?api=1&query=Ueno+Toshogu" },
-                { time: "11:00", title: "不忍池 / 弁天堂", type: "景點", note: "散步拍照，欣賞蓮花池枯景。", link: "" },
-                { time: "12:30", title: "午餐：伊豆榮 梅川亭", type: "餐飲", note: "百年鰻魚飯老店，就在公園內。", link: "" },
-                { time: "14:00", title: "淺草寺 / 雷門", type: "景點", note: "人多注意隨身物品。仲見世通吃人形燒。", link: "" },
-                { time: "16:30", title: "神田明神", type: "景點", note: "LoveLive 與 IT 保護神，動漫迷聖地。", link: "" }
-            ],
-            // 中間日期若有詳細資料，可直接依照格式複製貼上
-            "2026-02-05": [
-                { time: "10:00", title: "明治神宮", type: "景點", note: "享受森林芬多精，參觀御苑。", link: "" },
-                { time: "12:30", title: "午餐：AFURI 柚子拉麵", type: "餐飲", note: "清爽柚子鹽口味，適合女生。", link: "" },
-                { time: "14:30", title: "澀谷 Sky", type: "景點", note: "需預約。俯瞰東京全景。", link: "" }
-            ],
-            "2026-02-06": [
-                { time: "09:00", title: "東京巨蛋", type: "景點", note: "周邊巡禮，如有展覽可參觀。", link: "" },
-                { time: "13:00", title: "皇居東御苑", type: "景點", note: "歷史建築與庭園。", link: "" }
-            ],
-            "2026-02-07": [
-                { time: "09:00", title: "退房 & 行李寄送", type: "交通", note: "建議將行李寄放在「澀谷站」。換宿至池尻大橋。", link: "" },
-                { time: "10:30", title: "東京鐵塔 (拍照打卡)", type: "景點", note: "攝影點：芝公園階梯或停車場出口。", link: "https://www.google.com/maps/search/?api=1&query=Tokyo+Tower" },
-                { time: "12:30", title: "午餐：炸牛排 Motomura", type: "餐飲", note: "口感軟嫩，記得排隊。", link: "" },
-                { time: "14:00", title: "國立新美術館", type: "景點", note: "黑川紀章設計。大廳拍照像雜誌封面。", link: "https://www.google.com/maps/search/?api=1&query=The+National+Art+Center" },
-                { time: "19:30", title: "晚餐：AFURI 或 居酒屋", type: "餐飲", note: "享受最後一晚的東京氛圍。", link: "" }
-            ],
-            "2026-02-08": [
-                 { time: "10:00", title: "前往成田機場", type: "交通", note: "預留時間逛免稅店。", link: "" },
-                 { time: "14:00", title: "飛機起飛 (返台)", type: "交通", note: "平安回家。", link: "" }
-            ]
-        };
-
-        const foodDB = [
-            { name: "FamiChiki 炸雞", jp: "ファミチキ", price: "¥240", shop: "FamilyMart", icon: "drumstick-bite" },
-            { name: "炸雞君 (辣味/起司)", jp: "からあげクン Red", price: "¥258", shop: "Lawson", icon: "crow" },
-            { name: "關東煮 (蘿蔔/半熟蛋)", jp: "おでん (大根/たまご)", price: "¥120", shop: "7-11", icon: "mug-hot" },
-            { name: "麻糬口感生乳捲", jp: "もち食感ロール", price: "¥397", shop: "Lawson", icon: "bread-slice" },
-            { name: "濃厚蛋黃醬泡芙", jp: "カスタード＆ホイップ", price: "¥150", shop: "7-11", icon: "cookie" }
-        ];
-
-        // --- 程式邏輯區 ---
-
-        let currentDate = "2026-02-03";
-        const dates = Object.keys(itineraryDB);
-
-        // 初始化
-        window.onload = function() {
-            renderDateNav();
-            renderItinerary(currentDate);
-            renderWeather(currentDate);
-            renderFood();
-            loadExpenses();
-        };
-
-        // 渲染日期導航
-        function renderDateNav() {
-            const container = document.getElementById('dateNav');
-            dates.forEach(date => {
-                const day = date.split('-')[2];
-                const el = document.createElement('div');
-                el.className = `date-chip ${date === currentDate ? 'active' : ''}`;
-                el.innerText = `2/${day}`;
-                el.onclick = () => selectDate(date);
-                container.appendChild(el);
-            });
-        }
-
-        // 選擇日期
-        function selectDate(date) {
-            currentDate = date;
-            // 更新 UI
-            document.querySelectorAll('.date-chip').forEach(el => {
-                el.classList.remove('active');
-                if(el.innerText === `2/${date.split('-')[2]}`) el.classList.add('active');
-            });
-            renderItinerary(date);
-            renderWeather(date);
-        }
-
-        // 渲染行程
-        function renderItinerary(date) {
-            const list = document.getElementById('itineraryList');
-            const items = itineraryDB[date] || [];
-            list.innerHTML = "";
-            
-            items.forEach(item => {
-                const html = `
-                <div class="timeline-item">
-                    <div class="time-col">${item.time}</div>
-                    <div class="content-col">
-                        <span class="tag ${item.type}">${item.type}</span>
-                        <h3>${item.title}</h3>
-                        <div class="note">${item.note}</div>
-                        ${item.link ? `<a href="${item.link}" target="_blank" class="map-btn"><i class="fas fa-location-dot"></i> 導航</a>` : ''}
-                    </div>
-                </div>`;
-                list.innerHTML += html;
-            });
-        }
-
-        // 渲染氣象
-        function renderWeather(date) {
-            const data = weatherDB[date];
-            document.getElementById('currentDateDisplay').innerText = date;
-            document.getElementById('weatherTemp').innerText = data.temp;
-            document.getElementById('weatherTip').innerHTML = `<i class="fas fa-tshirt"></i> <span>${data.tip}</span>`;
-        }
-
-        // 渲染美食
-        function renderFood() {
-            const list = document.getElementById('foodList');
-            foodDB.forEach(item => {
-                list.innerHTML += `
-                <div class="food-card">
-                    <div class="food-img-placeholder"><i class="fas fa-${item.icon}"></i></div>
-                    <div class="food-info">
-                        <div class="food-name">${item.name}</div>
-                        <div class="food-jp">${item.jp}</div>
-                        <div class="food-price">${item.price} (${item.shop})</div>
-                    </div>
-                </div>`;
-            });
-        }
-
-        // 頁面切換
-        function switchPage(pageId, navEl) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.getElementById(`page-${pageId}`).classList.add('active');
-            
-            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-            navEl.classList.add('active');
-
-            // 隱藏 Header 當不在行程頁時 (選擇性)
-            // document.getElementById('headerWidget').style.display = pageId === 'itinerary' ? 'block' : 'none';
-        }
-
-        // 簡單記帳功能
-        function addExpense() {
-            const name = document.getElementById('expenseName').value;
-            const amount = parseInt(document.getElementById('expenseAmount').value);
-            if(!name || !amount) return;
-
-            const list = document.getElementById('expenseList');
-            const li = document.createElement('li');
-            li.innerText = `${name}: ¥${amount}`;
-            list.appendChild(li);
-
-            // 更新總額
-            updateTotal(amount);
-
-            // 清空輸入
-            document.getElementById('expenseName').value = '';
-            document.getElementById('expenseAmount').value = '';
-        }
-
-        let total = 0;
-        function updateTotal(amount) {
-            total += amount;
-            document.getElementById('totalExpense').innerText = `¥${total}`;
-        }
-        
-        function loadExpenses() {
-            // 這裡可以擴充 LocalStorage 儲存功能，讓重新整理後資料還在
-        }
-
-    </script>
-</body>
-</html>
-  "2026-02-03": "D1 2026-02-03(二)",
-  "2026-02-04": "D2 2026-02-04(三)",
-  "2026-02-05": "D3 2026-02-05(四)",
-  "2026-02-06": "D4 2026-02-06(五)",
-  "2026-02-07": "D5 2026-02-07(六)",
-  "2026-02-08": "D6 2026-02-08(日)"
-};
-
-/* ---------- 行程（內容 100% 保留） ---------- */
-const itineraryDB = {
-  "D1 2026-02-03(二)": [
-    { time:"15:35", title:"桃園 T1 起飛 (IT202)", type:"交通", note:"建議在機場先吃午餐。13:30 抵達機場報到。車程4小時", link:"geo:25.0797,121.2342" },
-    { time:"19:35", title:"抵達成田 T2", type:"交通", note:"購買/儲值西瓜卡 (Suica)。", link:"geo:35.7719,140.3929" },
-    { time:"20:30", title:"搭乘 Skyliner 往市區", type:"交通", note:"車程約45分鐘。", link:"" },
-    { time:"21:45", title:"入住：四谷京阪飯店", type:"住宿", note:"步行3分鐘可達，旁有 LIFE 超市。", link:"https://www.google.com/maps/search/?api=1&query=Hotel+Keihan+Yotsuya" }
-  ],
-
-  "D2 2026-02-04(三)": [
-    { time:"09:30", title:"上野東照宮", type:"景點", note:"金碧輝煌，牡丹花園。", link:"https://maps.app.goo.gl/yszrTSGJHqnUEafx6" },
-    { time:"11:30", title:"淺草寺 / 雷門", type:"景點", note:"仲見世通，人形燒。", link:"https://maps.app.goo.gl/8pe8xihZNRryDym49" }
-  ],
-
-  "D3 2026-02-05(四)": [
-    { time:"09:00", title:"皇居", type:"景點", note:"石垣、護城河、參觀2h。", link:"https://maps.app.goo.gl/aBduEnbBHGJzouJs6" }
-  ],
-
-  "D4 2026-02-06(五)": [
-    { time:"09:00", title:"明治神宮", type:"景點", note:"都市森林漫步。", link:"https://maps.app.goo.gl/D3g7ArbSWXScqAwNA" }
-  ],
-
-  "D5 2026-02-07(六)": [
-    { time:"10:30", title:"東京鐵塔", type:"景點", note:"芝公園經典取景。", link:"https://maps.app.goo.gl/GqciMbwJqLLZLAo66" }
-  ],
-
-  "D6 2026-02-08(日)": [
-    { time:"07:30", title:"前往成田機場", type:"交通", note:"預留報到時間。", link:"" }
-  ]
-};
-
-/* ---------- 初始化 ---------- */
-let currentDate = "2026-02-03";
-
-window.onload = () => {
-  renderDateNav();
-  selectDate(currentDate);
-};
-
-/* ---------- UI ---------- */
-function renderDateNav(){
-  const nav = document.getElementById("dateNav");
-  Object.keys(dateMap).forEach(d=>{
-    const el=document.createElement("div");
-    el.className="date-chip";
-    el.innerText=`2/${d.split("-")[2]}`;
-    el.onclick=()=>selectDate(d);
-    nav.appendChild(el);
-  });
-}
-
-function selectDate(date){
-  currentDate=date;
-  document.querySelectorAll(".date-chip").forEach(c=>{
-    c.classList.toggle("active", c.innerText===`2/${date.split("-")[2]}`);
-  });
-  renderWeather(date);
-  renderItinerary(date);
-}
-
-function renderWeather(date){
-  document.getElementById("currentDateDisplay").innerText=date;
-  document.getElementById("weatherTemp").innerText=weatherDB[date].temp;
-  document.getElementById("weatherTip").innerHTML=`<i class="fas fa-tshirt"></i> ${weatherDB[date].tip}`;
-}
-
-function renderItinerary(date){
-  const list=document.getElementById("itineraryList");
-  list.innerHTML="";
-  (itineraryDB[dateMap[date]]||[]).forEach(i=>{
-    list.innerHTML+=`
-    <div class="timeline-item">
-      <div class="time-col">${i.time}</div>
-      <div class="content-col">
-        <span class="tag ${i.type}">${i.type}</span>
-        <h3>${i.title}</h3>
-        <div class="note">${i.note}</div>
-        ${i.link?`<a class="map-btn" href="${i.link}" target="_blank"><i class="fas fa-location-dot"></i>導航</a>`:""}
-      </div>
-    </div>`;
-  });
-}
-</script>
-
-</body>
-</html>            border-bottom-left-radius: 30px;
-            border-bottom-right-radius: 30px;
-            box-shadow: var(--shadow);
-            position: relative;
-        }
-
-        .header-top { display: flex; justify-content: space-between; align-items: flex-end; }
-        .trip-date { font-size: 0.9rem; opacity: 0.8; letter-spacing: 1px; font-weight: 300; }
-        h2 { margin: 5px 0 0; font-weight: 500; letter-spacing: 1px; }
-
-        /* 天氣卡片 - 懸浮感設計 */
-        .weather-card {
-            background: rgba(255,255,255,0.15);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.2);
-            margin-top: 20px;
-            padding: 15px 20px;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        .temp-main { font-size: 2rem; font-weight: 300; }
-        .temp-desc { font-size: 0.85rem; opacity: 0.9; }
-        .clothing-tip { font-size: 0.8rem; background: #fff; color: var(--primary); padding: 6px 12px; border-radius: 20px; font-weight: 500; }
-
-        /* --- 內容區 --- */
-        .tab-content { display: none; padding: 24px; animation: fadeIn 0.4s ease; }
-        .tab-content.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* --- 行程卡片 (Timeline) --- */
-        .date-divider {
-            text-align: center;
-            margin: 20px 0 15px;
-            position: relative;
-        }
-        .date-divider span {
-            background: var(--primary);
-            color: #fff;
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-            box-shadow: 0 4px 10px rgba(108, 132, 148, 0.2);
-        }
-
-        .timeline-item {
-            background: var(--card-bg);
-            border-radius: 20px;
-            color: white;
-            padding: 20px 20px 30px;
-            border-bottom-left-radius: 24px;
-            border-bottom-right-radius: 24px;
-            box-shadow: var(--shadow);
-            position: relative;
-        }
-
-        .weather-widget {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-top: 10px;
-        }
-
-        .temp-box h1 { margin: 0; font-size: 2.5rem; font-weight: 300; }
-        .temp-box p { margin: 0; font-size: 0.9rem; opacity: 0.9; }
-        .clothing-advice {
-            background: rgba(255,255,255,0.2);
-            padding: 8px 12px;
+            background: rgba(255,255,255,0.25);
+            padding: 10px 15px;
             border-radius: 12px;
             font-size: 0.85rem;
+            max-width: 60%;
+            display: flex;
+            align-items: center;
+            gap: 8px;
             backdrop-filter: blur(5px);
-            max-width: 60%;
-        }
-
-        /* Tab Content Control */
-        .tab-content { display: none; padding: 20px; animation: fadeIn 0.3s; }
-        .tab-content.active { display: block; }
-        
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* Itinerary Timeline Cards */
-        .date-header {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--primary);
-            margin: 20px 0 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .timeline-card {
-            background: var(--card-bg);
-            border-radius: 16px;
-            padding: 16px;
-            margin-bottom: 16px;
-            box-shadow: var(--shadow);
-            display: flex;
-            gap: 15px;
-            position: relative;
-            transition: transform 0.2s;
-        }
-
-        .timeline-card:active { transform: scale(0.98); }
-
-        .time-col {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-width: 50px;
-            border-right: 2px solid var(--bg);
-            padding-right: 15px;
-        }
-
-        .time-text { font-weight: 700; font-size: 1.1rem; color: var(--primary); }
-        .duration-text { font-size: 0.75rem; color: var(--text-sub); margin-top: 4px; }
-
-        .info-col { flex: 1; }
-        .activity-title { font-weight: 700; font-size: 1.05rem; margin-bottom: 6px; }
-        .activity-desc { font-size: 0.9rem; color: var(--text-sub); line-height: 1.4; margin-bottom: 8px; }
-        .tag {
-            display: inline-block;
-            font-size: 0.75rem;
-            padding: 4px 8px;
-            border-radius: 6px;
-            background: var(--bg);
-            color: var(--primary);
-            margin-right: 5px;
-        }
-        .tag.food { background: #FFF0ED; color: #D88E80; } /* 食物特別色 */
-
-        .btn-nav {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: var(--primary);
-            color: white;
-            text-decoration: none;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            margin-top: 8px;
-        }
-
-        /* Wallet / Split Bill */
-        .wallet-summary {
-            background: var(--primary);
-            color: white;
-            padding: 20px;
-            border-radius: 16px;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; margin-bottom: 5px; color: var(--text-sub); }
-        .form-group input, .form-group select {
-            width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem;
-        }
-        .btn-action {
-            width: 100%; background: var(--accent); color: white; border: none; padding: 14px;
-            border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer;
-        }
-
-        /* Translation Tool */
-        .trans-card {
-            background: white; border-radius: 16px; padding: 20px; box-shadow: var(--shadow);
-            text-align: center; margin-bottom: 15px;
-        }
-        .quick-phrase {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px;
-        }
-        .phrase-btn {
-            background: var(--bg); border: 1px solid var(--secondary); padding: 10px;
-            border-radius: 8px; font-size: 0.9rem; color: var(--text-main);
-        }
-
-        /* Bottom Navigation */
-        .bottom-nav {
-            position: fixed; bottom: 0; left: 0; width: 100%;
-            background: white;
-            display: flex; justify-content: space-around;
-            padding: 12px 0 25px; /* Extra padding for iPhone home indicator */
-            box-shadow: 0 -4px 10px rgba(0,0,0,0.05);
-            z-index: 100;
-        }
-        
-        .nav-item {
-            text-align: center; color: var(--text-sub); font-size: 0.75rem;
-            flex: 1; cursor: pointer; transition: color 0.3s;
-        }
-        .nav-item i { font-size: 1.4rem; margin-bottom: 4px; display: block; }
-        .nav-item.active { color: var(--primary); }
-
-        /* Modal/Popup */
-        .modal-overlay {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5); z-index: 200; align-items: center; justify-content: center;
-        }
-        .modal { background: white; width: 90%; max-width: 400px; padding: 20px; border-radius: 16px; }
-
-    </style>
-</head>
-<body>
-
-    <header id="app-header">
-        <div style="font-size: 0.9rem; opacity: 0.8;">2026/02/03 - 02/08</div>
-        <h2 style="margin: 5px 0 15px;">東京舒心之旅</h2>
-        
-        <div class="weather-widget">
-            <div class="temp-box">
-                <h1 id="weather-temp">8°C</h1>
-                <p>東京 / 晴時多雲</p>
-            </div>
-            <div class="clothing-advice">
-                <i class="fas fa-tshirt"></i> 
-                <span id="clothing-text">洋蔥式穿搭：發熱衣+毛衣+防風大衣。帶圍巾。</span>
-            </div>
-        </div>
-    </header>
-
-    <div id="tab-itinerary" class="tab-content active">
-        <div id="itinerary-list"></div>
-    </div>
-
-    <div id="tab-wallet" class="tab-content">
-        <div class="wallet-summary">
-            <p>目前總支出</p>
-            <h1 id="total-expense">¥0</h1>
-            <p style="font-size: 0.9rem; opacity: 0.8;">(約 NT$ 0)</p>
-        </div>
-        
-        <div style="background: white; padding: 20px; border-radius: 16px; box-shadow: var(--shadow);">
-            <h3 style="margin-top: 0;">新增記帳</h3>
-            <div class="form-group">
-                <label>項目</label>
-                <input type="text" id="expense-item" placeholder="例如：晚餐 AFURI">
-            </div>
-            <div class="form-group">
-                <label>金額 (日幣)</label>
-                <input type="number" id="expense-amount" placeholder="¥">
-            </div>
-            <div class="form-group">
-                <label>付款人</label>
-                <select id="expense-payer">
-                    <option value="公費">公費 (共同錢包)</option>
-                    <option value="華">華</option>
-                    <option value="彰">彰</option>
-                </select>
-            </div>
-            <button class="btn-action" onclick="addExpense()">記下一筆</button>
-        </div>
-        
-        <div style="margin-top: 20px;">
-            <h4>最近紀錄</h4>
-            <ul id="expense-list" style="list-style: none; padding: 0;">
-                </ul>
-        </div>
-    </div>
-
-    <div id="tab-translate" class="tab-content">
-        <div class="trans-card">
-            <h3><i class="fas fa-language"></i> 快速翻譯</h3>
-            <p style="color:var(--text-sub); margin-bottom: 20px;">點擊跳轉 Google 翻譯，或使用下方常用語</p>
-            <a href="https://translate.google.com/?sl=zh-TW&tl=ja&text=" target="_blank" class="btn-action" style="text-decoration: none; display: block;">開啟語音/文字翻譯</a>
-        </div>
-
-        <h4 style="margin-left: 5px;">常用旅遊日語 (點擊顯示)</h4>
-        <div class="quick-phrase">
-            <div class="phrase-btn" onclick="alert('Sumimasen (不好意思/請問)')">不好意思<br><small>Sumimasen</small></div>
-            <div class="phrase-btn" onclick="alert('Kore o kudasai (請給我這個)')">請給我這個<br><small>Kore o kudasai</small></div>
-            <div class="phrase-btn" onclick="alert('O-kaikei onegaishimasu (麻煩結帳)')">麻煩結帳<br><small>O-kaikei</small></div>
-            <div class="phrase-btn" onclick="alert('Toire wa doko desu ka? (廁所在哪裡)')">廁所在哪裡<br><small>Toire wa doko?</small></div>
-            <div class="phrase-btn" onclick="alert('Fukuro wa irimasen (不需要袋子)')">不用袋子<br><small>Fukuro irimasen</small></div>
-            <div class="phrase-btn" onclick="alert('Atatamete kudasai (請幫我微波)')">請幫我微波<br><small>Atatamete</small></div>
-        </div>
-        
-        <div class="trans-card" style="margin-top: 20px; text-align: left;">
-            <h4 style="margin-top:0; color: var(--accent);">🏪 超商美食筆記</h4>
-            <p><b>Lawson 炸雞君:</b> 紅色(辣味)/起司口味</p>
-            <p><b>7-11 關東煮:</b> 必夾蘿蔔(大根)、蒟蒻絲(白瀧)</p>
-            <p><b>FamilyMart:</b> 炸雞(FamiChiki) 柚子胡椒味</p>
-        </div>
-    </div>
-
-    <nav class="bottom-nav">
-        <div class="nav-item active" onclick="switchTab('itinerary', this)">
-            <i class="fas fa-map-marked-alt"></i> 行程
-        </div>
-        <div class="nav-item" onclick="switchTab('wallet', this)">
-            <i class="fas fa-wallet"></i> 記帳
-        </div>
-        <div class="nav-item" onclick="switchTab('translate', this)">
-            <i class="fas fa-comments"></i> 翻譯
-        </div>
-    </nav>
-
-    <script>
-        // --- DATA SECTION: Populated from your CSV files ---
-        const itineraryData = [
-            {
-                date: "2/3 (二)",
-                events: [
-                    { time: "15:35", title: "桃園 T1 起飛 (IT202)", desc: "13:30 抵達機場報到。建議在機場先吃午餐。", dur: "4小時", type: "transport", link: "https://www.google.com/maps" },
-                    { time: "19:35", title: "抵達成田 T2", desc: "購買/儲值西瓜卡 (Suica)。", dur: "1小時", type: "transport", link: "" },
-                    { time: "20:30", title: "搭乘 Skyliner 往市區", desc: "車上可先吃點輕食。", dur: "45分", type: "transport", link: "" },
-                    { time: "21:45", title: "入住：四谷京阪飯店", desc: "飯店旁 LIFE 超市買水、水果當宵夜（避免太晚吃太硬的食物）。", dur: "", type: "hotel", link: "https://www.google.com/maps/search/?api=1&query=Hotel+Keihan+Yotsuya" },
-                    { time: "22:00", title: "LIFE 超市 / 超商採買", desc: "推薦：Lawson 炸雞君(Red/Cheese)、7-11 關東煮(蘿蔔/蒟蒻)。", dur: "", type: "food", link: "" }
-                ]
-            },
-            {
-                date: "2/4 (三) - 東北區",
-                events: [
-                    { time: "09:30", title: "上野東照宮", desc: "金碧輝煌的建築，適合拍照。", dur: "1.5小時", type: "sight", link: "https://www.google.com/maps/search/?api=1&query=Ueno+Toshogu" },
-                    { time: "11:00", title: "午餐時間", desc: "上野附近美食探索。", dur: "1小時", type: "food", link: "" }
-                    // ... (More events would go here based on full file)
-                ]
-            },
-            {
-                date: "2/7 (六) - 東南區",
-                events: [
-                    { time: "09:00", title: "退房 & 行李寄送", desc: "換宿至池尻大橋，建議將行李寄放在「澀谷站」。", dur: "1小時", type: "transport", link: "" },
-                    { time: "10:30", title: "東京鐵塔 (拍照打卡)", desc: "拍塔身完整角度。攝影點：芝公園階梯或停車場出口經典位。", dur: "4小時", type: "sight", link: "https://www.google.com/maps/search/?api=1&query=Tokyo+Tower" },
-                    { time: "12:30", title: "午餐：入鹿 Tokyo 或 炸牛排", desc: "推薦：入鹿 Tokyo松露拉麵 或 炸牛排 Motomura。", dur: "1小時", type: "food", link: "" },
-                    { time: "14:00", title: "國立新美術館", desc: "僅在大廳與外部拍照打卡，攝影：黑川紀章設計的倒建築光影。", dur: "", type: "sight", link: "https://www.google.com/maps/search/?api=1&query=The+National+Art+Center+Tokyo" },
-                    { time: "19:30", title: "晚餐：AFURI 柚子鹽拉麵", desc: "清爽系拉麵，適合口味較淡的選擇。", dur: "1小時", type: "food", link: "https://www.google.com/maps/search/?api=1&query=AFURI+Ramen" }
-                ]
-            }
-        ];
-
-        // --- RENDER FUNCTIONS ---
-        
-        function renderItinerary() {
-            const container = document.getElementById('itinerary-list');
-            let html = '';
-
-            itineraryData.forEach(day => {
-                html += `<div class="date-header">${day.date}</div>`;
-                day.events.forEach(evt => {
-                    // Determine Icon
-                    let icon = 'fa-map-pin';
-                    if(evt.type === 'food') icon = 'fa-utensils';
-                    if(evt.type === 'transport') icon = 'fa-subway';
-                    if(evt.type === 'hotel') icon = 'fa-bed';
-
-                    // Nav Button
-                    let navBtn = evt.link ? `<a href="${evt.link}" target="_blank" class="btn-nav"><i class="fas fa-location-arrow"></i> 導航</a>` : '';
-                    
-                    // Tags
-                    let tags = '';
-                    if(evt.type === 'food') tags += `<span class="tag food">美食</span>`;
-
-                    html += `
-                    <div class="timeline-card">
-                        <div class="time-col">
-                            <span class="time-text">${evt.time}</span>
-                            <span class="duration-text">${evt.dur}</span>
-                        </div>
-                        <div class="info-col">
-                            <div class="activity-title">${evt.title}</div>
-                            <div class="activity-desc">${tags} ${evt.desc}</div>
-                            ${navBtn}
-                        </div>
-                    </div>`;
-                });
-            });
-            container.innerHTML = html;
-        }
-
-        // --- TABS LOGIC ---
-        function switchTab(tabId, navEl) {
-            // Hide all tabs
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            // Show target
-            document.getElementById('tab-' + tabId).classList.add('active');
-            
-            // Update Nav
-            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-            navEl.classList.add('active');
-        }
-
-        // --- ACCOUNTING LOGIC ---
-        let total = 0;
-        function addExpense() {
-            const item = document.getElementById('expense-item').value;
-            const amount = parseInt(document.getElementById('expense-amount').value);
-            const payer = document.getElementById('expense-payer').value;
-
-            if(!item || !amount) return alert("請輸入項目與金額");
-
-            total += amount;
-            document.getElementById('total-expense').innerText = '¥' + total.toLocaleString();
-            
-            const list = document.getElementById('expense-list');
-            const li = document.createElement('li');
-            li.style.padding = "10px 0";
-            li.style.borderBottom = "1px solid #eee";
-            li.style.display = "flex";
-            li.style.justifyContent = "space-between";
-            li.innerHTML = `<span>${item} (${payer})</span> <span style="font-weight:bold;">¥${amount}</span>`;
-            list.prepend(li);
-
-            // Clear inputs
-            document.getElementById('expense-item').value = '';
-            document.getElementById('expense-amount').value = '';
-        }
-
-        // --- WEATHER LOGIC (
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        .weather-widget {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .temp-box h1 { margin: 0; font-size: 2.5rem; }
-        .temp-box p { margin: 0; font-size: 0.9rem; opacity: 0.9; }
-        .outfit-tip {
-            background: rgba(255,255,255,0.2);
-            padding: 8px 12px;
-            border-radius: 10px;
-            font-size: 0.85rem;
-            max-width: 60%;
-            display: flex;
-            align-items: center;
-            gap: 5px;
+            line-height: 1.4;
         }
 
         /* --- 日期選擇器 --- */
         .date-scroller {
             display: flex;
             overflow-x: auto;
-            padding: 15px 10px;
-            gap: 10px;
-            scrollbar-width: none; /* Firefox */
+            padding: 20px 15px;
+            gap: 12px;
+            scrollbar-width: none;
         }
-        .date-scroller::-webkit-scrollbar { display: none; } /* Chrome */
+        .date-scroller::-webkit-scrollbar { display: none; }
         
         .date-chip {
             background: white;
-            padding: 8px 16px;
-            border-radius: 20px;
+            padding: 10px 20px;
+            border-radius: 25px;
             white-space: nowrap;
             font-weight: 500;
             color: var(--text-light);
-            border: 1px solid #eee;
+            border: 1px solid #E0E0E0;
             transition: all 0.3s ease;
             cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
         }
         .date-chip.active {
             background: var(--primary);
             color: white;
             border-color: var(--primary);
-            box-shadow: 0 2px 8px rgba(233, 30, 99, 0.3);
+            box-shadow: 0 4px 10px rgba(191, 175, 178, 0.5);
         }
 
         /* --- 行程時間軸 --- */
         .timeline-container { padding: 10px 20px; }
         .timeline-item {
             display: flex;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             position: relative;
         }
         /* 垂直線 */
@@ -2078,67 +103,71 @@ function renderItinerary(date){
             content: '';
             position: absolute;
             left: 55px;
-            top: 0;
-            bottom: -20px;
+            top: 15px;
+            bottom: -30px;
             width: 2px;
-            background: #ddd;
+            background: #E0E0E0;
             z-index: 0;
         }
         .timeline-item:last-child::before { display: none; }
 
         .time-col {
             width: 55px;
-            padding-right: 10px;
+            padding-right: 15px;
             text-align: right;
             font-size: 0.9rem;
             font-weight: 700;
             color: var(--primary);
             padding-top: 5px;
             z-index: 1;
-            background: var(--bg); /* 遮蓋線條 */
+            background: var(--bg);
         }
         .content-col {
             flex: 1;
             background: var(--card-bg);
-            border-radius: 15px;
-            padding: 15px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border-radius: 16px;
+            padding: 18px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
             position: relative;
             z-index: 1;
+            border: 1px solid rgba(0,0,0,0.02);
         }
-        .content-col h3 { margin: 0 0 5px 0; font-size: 1.1rem; }
+        .content-col h3 { margin: 0 0 8px 0; font-size: 1.15rem; color: #4A4A4A; }
+        
         .tag {
             display: inline-block;
             font-size: 0.75rem;
-            padding: 2px 8px;
-            border-radius: 4px;
-            background: #eee;
+            padding: 3px 10px;
+            border-radius: 6px;
             color: #666;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
+            font-weight: 500;
         }
-        .tag.交通 { background: #E3F2FD; color: #1976D2; }
-        .tag.景點 { background: #E8F5E9; color: #388E3C; }
-        .tag.餐飲 { background: #FFF3E0; color: #F57C00; }
+        .tag.交通 { background: var(--tag-transport); color: #5C7065; }
+        .tag.景點, .tag.觀光 { background: var(--tag-spot); color: #8D7663; }
+        .tag.餐飲, .tag.購物 { background: var(--tag-food); color: #8A7E72; }
+        .tag.住宿 { background: var(--secondary); color: #8E7878; }
 
         .note {
-            font-size: 0.85rem;
-            color: #666;
-            margin-top: 8px;
-            line-height: 1.4;
-            background: #FAFAFA;
-            padding: 8px;
+            font-size: 0.9rem;
+            color: #777;
+            margin-top: 10px;
+            line-height: 1.6;
+            background: #F9F9F9;
+            padding: 10px;
             border-radius: 8px;
         }
         .map-btn {
             display: inline-flex;
             align-items: center;
-            margin-top: 10px;
-            color: var(--primary);
+            margin-top: 12px;
+            color: var(--accent);
             text-decoration: none;
             font-weight: 500;
             font-size: 0.9rem;
+            padding: 5px 0;
         }
-        .map-btn i { margin-right: 5px; }
+        .map-btn i { margin-right: 6px; }
 
         /* --- 底部導航 --- */
         .bottom-nav {
@@ -2149,22 +178,26 @@ function renderItinerary(date){
             background: white;
             display: flex;
             justify-content: space-around;
-            padding: 10px 0;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+            padding: 12px 0;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.05);
             z-index: 200;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
         }
         .nav-item {
             text-align: center;
-            color: #999;
+            color: #B0B0B0;
             font-size: 0.75rem;
             cursor: pointer;
+            transition: color 0.3s;
         }
         .nav-item.active { color: var(--primary); }
-        .nav-item i { font-size: 1.2rem; display: block; margin-bottom: 4px; }
+        .nav-item i { font-size: 1.3rem; display: block; margin-bottom: 5px; }
 
-        /* --- 其他頁面 (隱藏/顯示) --- */
-        .page { display: none; padding-bottom: 20px;}
+        /* --- 其他頁面 --- */
+        .page { display: none; padding-bottom: 20px; animation: fadeIn 0.3s ease; }
         .page.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         /* 美食卡片 */
         .food-grid {
@@ -2177,33 +210,34 @@ function renderItinerary(date){
             background: white;
             border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
         }
         .food-img-placeholder {
             height: 120px;
-            background: #eee;
+            background: #F0F0F0;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #aaa;
-            font-size: 2rem;
+            color: var(--primary);
+            font-size: 2.5rem;
         }
-        .food-info { padding: 10px; }
-        .food-name { font-weight: bold; font-size: 0.95rem; margin-bottom: 5px; }
-        .food-jp { color: #888; font-size: 0.8rem; margin-bottom: 5px; }
-        .food-price { color: var(--primary); font-weight: bold; }
+        .food-info { padding: 12px; }
+        .food-name { font-weight: bold; font-size: 0.95rem; margin-bottom: 5px; color: #555; }
+        .food-jp { color: #999; font-size: 0.8rem; margin-bottom: 8px; }
+        .food-price { color: var(--accent); font-weight: bold; }
 
         /* 工具箱 */
         .tools-container { padding: 20px; }
         .tool-card {
             background: white;
             padding: 20px;
-            border-radius: 15px;
+            border-radius: 16px;
             margin-bottom: 20px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
         }
+        .tool-card h3 { color: var(--primary); margin-top: 0; }
         .tool-btn {
-            background: var(--primary);
+            background: var(--accent);
             color: white;
             border: none;
             padding: 12px;
@@ -2215,8 +249,8 @@ function renderItinerary(date){
         }
         .input-group { display: flex; gap: 10px; margin-bottom: 10px; }
         .input-group input { 
-            flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 8px; 
-            font-size: 1rem;
+            flex: 1; padding: 12px; border: 1px solid #eee; border-radius: 8px; 
+            font-size: 1rem; background: #FAFAFA;
         }
 
         /* 翻譯區 */
@@ -2227,14 +261,16 @@ function renderItinerary(date){
         }
         .phrase-btn {
             background: white;
-            border: 1px solid var(--primary);
-            color: var(--primary);
-            padding: 10px;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 12px;
             border-radius: 8px;
             text-align: center;
             font-size: 0.9rem;
             cursor: pointer;
+            transition: all 0.2s;
         }
+        .phrase-btn:active { background: var(--accent); color: white; }
     </style>
 </head>
 <body>
@@ -2251,21 +287,18 @@ function renderItinerary(date){
         </div>
     </div>
 
-    <div class="date-scroller" id="dateNav">
-        </div>
+    <div class="date-scroller" id="dateNav"></div>
 
     <div id="page-itinerary" class="page active">
-        <div class="timeline-container" id="itineraryList">
-            </div>
+        <div class="timeline-container" id="itineraryList"></div>
     </div>
 
     <div id="page-food" class="page">
         <div style="padding: 20px;">
-            <h2><i class="fas fa-utensils"></i> 超商必吃</h2>
-            <p style="color:#666; font-size:0.9rem;">已為您整理好清單，結帳時可直接出示圖片給店員看。</p>
+            <h2 style="color:var(--text); font-weight:500;"><i class="fas fa-utensils" style="color:var(--primary)"></i> 超商必吃</h2>
+            <p style="color:#888; font-size:0.9rem;">已為您整理好清單，結帳時可直接出示圖片給店員看。</p>
         </div>
-        <div class="food-grid" id="foodList">
-            </div>
+        <div class="food-grid" id="foodList"></div>
     </div>
 
     <div id="page-tools" class="page">
@@ -2279,7 +312,7 @@ function renderItinerary(date){
                     <div class="phrase-btn" onclick="alert('O-kaikei wo onegaishimasu. (麻煩結帳)')">麻煩結帳</div>
                     <div class="phrase-btn" onclick="alert('Fukuro wa irimasen. (不需要袋子)')">不用袋子</div>
                 </div>
-                <button class="tool-btn" style="background:#4285F4; margin-top:15px;" onclick="window.open('https://translate.google.com/?sl=zh-TW&tl=ja&op=translate')">
+                <button class="tool-btn" style="background:#6D8A96; margin-top:15px;" onclick="window.open('https://translate.google.com/?sl=zh-TW&tl=ja&op=translate')">
                     開啟 Google 翻譯
                 </button>
             </div>
@@ -2292,17 +325,17 @@ function renderItinerary(date){
                 </div>
                 <button class="tool-btn" onclick="addExpense()">加入記帳</button>
                 <div style="margin-top: 20px; border-top: 1px solid #eee; padding-top:10px;">
-                    <h4>今日總計: <span id="totalExpense" style="color:var(--primary)">¥0</span></h4>
+                    <h4>今日總計: <span id="totalExpense" style="color:var(--accent)">¥0</span></h4>
                     <ul id="expenseList" style="padding-left: 20px; color:#666; font-size:0.9rem;"></ul>
                 </div>
             </div>
 
             <div class="tool-card">
                 <h3><i class="fas fa-suitcase"></i> 重點檢查</h3>
-                <label style="display:block; margin:5px 0;"><input type="checkbox"> 護照</label>
-                <label style="display:block; margin:5px 0;"><input type="checkbox"> 西瓜卡 (Suica)</label>
-                <label style="display:block; margin:5px 0;"><input type="checkbox"> 網卡 (SIM)</label>
-                <label style="display:block; margin:5px 0;"><input type="checkbox"> 現金 (千圓鈔)</label>
+                <label style="display:block; margin:8px 0; color:#555;"><input type="checkbox"> 護照 (隨身)</label>
+                <label style="display:block; margin:8px 0; color:#555;"><input type="checkbox"> 西瓜卡 (Suica)</label>
+                <label style="display:block; margin:8px 0; color:#555;"><input type="checkbox"> 網卡 (SIM/eSIM)</label>
+                <label style="display:block; margin:8px 0; color:#555;"><input type="checkbox"> 現金 (千圓鈔)</label>
             </div>
         </div>
     </div>
@@ -2320,64 +353,80 @@ function renderItinerary(date){
     </div>
 
     <script>
-        // --- 資料區 (我將你的 CSV 資料數位化整理在此) ---
+        // --- 資料區 (已修復所有語法錯誤並補完 D1-D6) ---
         
-        // 氣象資料 (模擬 2026 二月預測)
+        // 氣象資料
         const weatherDB = {
-            "2026-02-03": { temp: "5-11°C", icon: "cloud-sun", tip: "搭機日，洋蔥式穿搭，帶薄圍巾。" },
+            "2026-02-03": { temp: "5-11°C", icon: "cloud-sun", tip: "搭機日，建議洋蔥式穿搭，攜帶薄圍巾。" },
             "2026-02-04": { temp: "3-9°C", icon: "sun", tip: "戶外行程多，務必穿著羽絨衣與好走的鞋。" },
-            "2026-02-05": { temp: "2-8°C", icon: "snowflake", tip: "可能微冷，建議戴毛帽與手套保暖。" },
+            "2026-02-05": { temp: "2-8°C", icon: "snowflake", tip: "氣溫轉冷，建議戴毛帽與手套保暖。" },
             "2026-02-06": { temp: "4-10°C", icon: "cloud", tip: "市區逛街，穿著舒適保暖即可。" },
             "2026-02-07": { temp: "5-12°C", icon: "sun", tip: "天氣回暖，適合拍照，可穿亮色大衣。" },
             "2026-02-08": { temp: "6-13°C", icon: "plane", tip: "返程日，確認隨身行李輕便。" }
         };
 
-        // 行程資料 (根據你的 CSV 內容填入)
-        // 注意：為了讓你直接能用，我根據檔案內容填入了 Day 1, 2, 5。
-        // Day 3, 4 因檔案截圖限制，我預留了格式，你可以很容易把文字貼進去。
+        // 行程資料 (完整 D1-D6)
         const itineraryDB = {
-            "2026-02-03": [
-                { time: "15:35", title: "桃園 T1 起飛 (IT202)", type: "交通", note: "建議在機場先吃午餐。13:30 抵達機場報到。", link: "geo:25.0797,121.2342" },
+            "D1 2026-02-03(二)": [
+                { time: "15:35", title: "桃園 T1 起飛 (IT202)", type: "交通", note: "建議在機場先吃午餐。13:30 抵達機場報到。車程4小時", link: "geo:25.0797,121.2342" },
                 { time: "19:35", title: "抵達成田 T2", type: "交通", note: "購買/儲值西瓜卡 (Suica)。", link: "geo:35.7719,140.3929" },
                 { time: "20:30", title: "搭乘 Skyliner 往市區", type: "交通", note: "車上可先吃點輕食。車程約 45 分鐘。", link: "" },
-                { time: "21:45", title: "入住：四谷京阪飯店", type: "住宿", note: "飯店旁 LIFE 超市買水果、水當宵夜。", link: "https://www.google.com/maps/search/?api=1&query=Hotel+Keihan+Yotsuya" }
+                { time: "21:45", title: "入住：四谷京阪飯店", type: "住宿", note: "地點適中，四谷站周邊安靜安全，步行3分鐘可達。飯店旁 LIFE 超市買水果、水當宵夜。", link: "https://www.google.com/maps/search/?api=1&query=Hotel+Keihan+Yotsuya" }
             ],
-            "2026-02-04": [
-                { time: "09:30", title: "上野東照宮", type: "景點", note: "金色殿宇與牡丹園。記得買御守。", link: "https://www.google.com/maps/search/?api=1&query=Ueno+Toshogu" },
-                { time: "11:00", title: "不忍池 / 弁天堂", type: "景點", note: "散步拍照，欣賞蓮花池枯景。", link: "" },
-                { time: "12:30", title: "午餐：伊豆榮 梅川亭", type: "餐飲", note: "百年鰻魚飯老店，就在公園內。", link: "" },
-                { time: "14:00", title: "淺草寺 / 雷門", type: "景點", note: "人多注意隨身物品。仲見世通吃人形燒。", link: "" },
-                { time: "16:30", title: "神田明神", type: "景點", note: "LoveLive 與 IT 保護神，動漫迷聖地。", link: "" }
+            "D2 2026-02-04(三)": [
+                { time: "09:30", title: "上野東照宮", type: "景點", note: "金碧輝煌的江戶建築與牡丹花園(花期約至2月中旬)。記得買御守。", link: "https://www.google.com/maps/search/?api=1&query=Ueno+Toshogu" },
+                { time: "10:30", title: "上野恩賜公園/不忍池", type: "景點", note: "都市中的巨大蓮池、鳥類觀察、辯天堂&散步拍照，欣賞蓮花池枯景。", link: "https://www.google.com/maps/search/?api=1&query=Ueno+Park" },
+                { time: "11:00", title: "伊豆榮 梅川亭", type: "餐飲", note: "百年鰻魚飯老店，就在公園內，環境清幽。", link: "https://www.google.com/maps/search/?api=1&query=Izuei+Umekawatei" },
+                { time: "11:30", title: "阿美橫丁", type: "購物", note: "感受熱鬧市集氣氛，有許多平價小物。", link: "https://www.google.com/maps/search/?api=1&query=Ameyoko" },
+                { time: "13:00", title: "淺草寺 & 雷門", type: "景點", note: "人多注意隨身物品。紅色巨大燈籠，仲見世通吃人形燒。", link: "https://www.google.com/maps/search/?api=1&query=Sensoji" },
+                { time: "14:00", title: "龜十銅鑼燒", type: "餐飲", note: "雷門對面，知名排隊伴手禮。", link: "https://www.google.com/maps/search/?api=1&query=Kameju" },
+                { time: "14:30", title: "隅田川公園", type: "觀光", note: "拍照打卡、享受河岸景觀，可遠眺晴空塔。", link: "https://www.google.com/maps/search/?api=1&query=Sumida+Park" }
             ],
-            // 中間日期若有詳細資料，可直接依照格式複製貼上
-            "2026-02-05": [
-                { time: "10:00", title: "明治神宮", type: "景點", note: "享受森林芬多精，參觀御苑。", link: "" },
-                { time: "12:30", title: "午餐：AFURI 柚子拉麵", type: "餐飲", note: "清爽柚子鹽口味，適合女生。", link: "" },
-                { time: "14:30", title: "澀谷 Sky", type: "景點", note: "需預約。俯瞰東京全景。", link: "" }
+            "D3 2026-02-05(四)": [
+                { time: "09:00", title: "皇居 (二重橋/外苑)", type: "景點", note: "必須穿好走路的鞋子，必帶護照。欣賞護城河、舊江戶城石垣。", link: "https://www.google.com/maps/search/?api=1&query=Imperial+Palace+Tokyo" },
+                { time: "10:00", title: "皇居東御苑", type: "景點", note: "優美的日式庭園，曾是江戶城本丸所在。", link: "https://www.google.com/maps/search/?api=1&query=East+Gardens+of+the+Imperial+Palace" },
+                { time: "11:30", title: "午餐：東京車站一番街", type: "餐飲", note: "六厘舍沾麵 (有單人位) 或 根岸牛舌定食。", link: "https://www.google.com/maps/search/?api=1&query=Tokyo+Character+Street" },
+                { time: "14:00", title: "東京大神宮", type: "景點", note: "「東京伊勢神宮」，最強結緣神社，日式庭園極美。", link: "https://www.google.com/maps/search/?api=1&query=Tokyo+Daijingu" },
+                { time: "15:00", title: "秋葉原無線電會館", type: "購物", note: "Acos、Yodobashi Camera 6樓。尋找「搖曳露營」志摩凜公仔。", link: "https://www.google.com/maps/search/?api=1&query=Radio+Kaikan" },
+                { time: "16:00", title: "駿河屋 / らしんばん", type: "購物", note: "二手尋寶的好地方，找絕版品或價格親民的景品。", link: "https://www.google.com/maps/search/?api=1&query=Surugaya+Akihabara" },
+                { time: "16:30", title: "神田神社 (神田明神)", type: "景點", note: "艷麗的朱紅建築，是LoveLive與IT人的聖地。", link: "https://www.google.com/maps/search/?api=1&query=Kanda+Myojin" },
+                { time: "17:30", title: "晚餐：神田 藪蕎麥", type: "餐飲", note: "百年蕎麥麵老店，體驗江戶老味道。", link: "https://www.google.com/maps/search/?api=1&query=Kanda+Yabu+Soba" },
+                { time: "18:30", title: "東京巨蛋 City", type: "景點", note: "現代化巨蛋建築與 LaQua 購物區，欣賞夜景。", link: "https://www.google.com/maps/search/?api=1&query=Tokyo+Dome" }
             ],
-            "2026-02-06": [
-                { time: "09:00", title: "東京巨蛋", type: "景點", note: "周邊巡禮，如有展覽可參觀。", link: "" },
-                { time: "13:00", title: "皇居東御苑", type: "景點", note: "歷史建築與庭園。", link: "" }
+            "D4 2026-02-06(五)": [
+                { time: "09:00", title: "明治神宮", type: "景點", note: "都市森林漫步，參觀御苑，享受清幽參道。預估1.5h", link: "https://www.google.com/maps/search/?api=1&query=Meiji+Jingu" },
+                { time: "10:45", title: "明治神宮棒球場", type: "景點", note: "歷史悠久的球場，棒球聖地巡禮。", link: "https://www.google.com/maps/search/?api=1&query=Meiji+Jingu+Stadium" },
+                { time: "12:00", title: "午餐：AFURI 柚子拉麵", type: "餐飲", note: "原宿/新宿皆有分店，清爽柚子鹽口味，適合女生。", link: "https://www.google.com/maps/search/?api=1&query=AFURI+Harajuku" },
+                { time: "13:30", title: "新宿御苑", type: "景點", note: "《言葉之庭》取景地，法式、英式、日式庭園一次滿足。預估2h", link: "https://www.google.com/maps/search/?api=1&query=Shinjuku+Gyoen" },
+                { time: "16:30", title: "思出橫丁", type: "景點", note: "體驗昭和懷舊窄巷，拍攝復古風情照片。", link: "https://www.google.com/maps/search/?api=1&query=Omoide+Yokocho" },
+                { time: "17:30", title: "Alpen Tokyo", type: "購物", note: "位於新宿的巨大戶外用品店，有 Snow Peak 專區。", link: "https://www.google.com/maps/search/?api=1&query=Alpen+Tokyo" },
+                { time: "19:00", title: "東京都廳展望室", type: "景點", note: "免費上 45 樓看新宿夜景。", link: "https://www.google.com/maps/search/?api=1&query=Tokyo+Metropolitan+Government+Building" }
             ],
-            "2026-02-07": [
-                { time: "09:00", title: "退房 & 行李寄送", type: "交通", note: "建議將行李寄放在「澀谷站」。換宿至池尻大橋。", link: "" },
-                { time: "10:30", title: "東京鐵塔 (拍照打卡)", type: "景點", note: "攝影點：芝公園階梯或停車場出口。", link: "https://www.google.com/maps/search/?api=1&query=Tokyo+Tower" },
-                { time: "12:30", title: "午餐：炸牛排 Motomura", type: "餐飲", note: "口感軟嫩，記得排隊。", link: "" },
-                { time: "14:00", title: "國立新美術館", type: "景點", note: "黑川紀章設計。大廳拍照像雜誌封面。", link: "https://www.google.com/maps/search/?api=1&query=The+National+Art+Center" },
-                { time: "19:30", title: "晚餐：AFURI 或 居酒屋", type: "餐飲", note: "享受最後一晚的東京氛圍。", link: "" }
+            "D5 2026-02-07(六)": [
+                { time: "09:00", title: "退房 & 行李寄送", type: "交通", note: "建議將行李寄放在「澀谷站」置物櫃。前往下個景點。", link: "" },
+                { time: "10:30", title: "東京鐵塔 / 芝公園", type: "景點", note: "東京象徵。攝影點：芝公園階梯或停車場出口經典位。", link: "https://www.google.com/maps/search/?api=1&query=Tokyo+Tower" },
+                { time: "12:30", title: "午餐：炸牛排 Motomura", type: "餐飲", note: "澀谷/原宿皆有，口感軟嫩，通常需排隊。", link: "" },
+                { time: "14:00", title: "國立新美術館", type: "景點", note: "黑川紀章大作，波浪形玻璃帷幕。大廳光影非常美，適合拍照。", link: "https://www.google.com/maps/search/?api=1&query=The+National+Art+Center+Tokyo" },
+                { time: "15:30", title: "表參道之丘", type: "購物", note: "安藤忠雄建築作品，感受時尚大道氛圍。", link: "https://www.google.com/maps/search/?api=1&query=Omotesando+Hills" },
+                { time: "17:30", title: "澀谷 Sky", type: "景點", note: "需預約。日落俯瞰東京全景，無票則改去 Hikarie 11F。", link: "https://www.google.com/maps/search/?api=1&query=Shibuya+Sky" },
+                { time: "19:00", title: "澀谷交叉點", type: "景點", note: "世界最繁忙路口，感受東京的人流。", link: "https://www.google.com/maps/search/?api=1&query=Shibuya+Crossing" },
+                { time: "20:00", title: "晚餐：敘敘苑 (可預約)", type: "餐飲", note: "享受最後一晚的東京燒肉。或選擇「挽肉與米」。", link: "" },
+                { time: "21:30", title: "入住：池尻大橋住宿", type: "住宿", note: "目黑區，近中目黑，慢活生活感。澀谷一站即達。", link: "https://www.google.com/maps/search/?api=1&query=Ikejiri-Ohashi" }
             ],
-            "2026-02-08": [
-                 { time: "10:00", title: "前往成田機場", type: "交通", note: "預留時間逛免稅店。", link: "" },
-                 { time: "14:00", title: "飛機起飛 (返台)", type: "交通", note: "平安回家。", link: "" }
+            "D6 2026-02-08(日)": [
+                { time: "07:30", title: "前往成田機場 T1", type: "交通", note: "預留充足報到時間，建議搭乘 NEX 或 Skyliner。", link: "" },
+                { time: "09:15", title: "抵達機場報到 (MM623)", type: "交通", note: "樂桃航空報到時間較嚴格，最後採買伴手禮。", link: "" },
+                { time: "11:15", title: "飛機起飛 (返台)", type: "交通", note: "結束愉快的東京獨旅。", link: "" },
+                { time: "14:30", title: "抵達桃園 T1", type: "交通", note: "平安回家。", link: "" }
             ]
         };
 
         const foodDB = [
             { name: "FamiChiki 炸雞", jp: "ファミチキ", price: "¥240", shop: "FamilyMart", icon: "drumstick-bite" },
-            { name: "炸雞君 (辣味/起司)", jp: "からあげクン Red", price: "¥258", shop: "Lawson", icon: "crow" },
-            { name: "關東煮 (蘿蔔/半熟蛋)", jp: "おでん (大根/たまご)", price: "¥120", shop: "7-11", icon: "mug-hot" },
+            { name: "炸雞君 (辣味/起司)", jp: "からあげクン", price: "¥258", shop: "Lawson", icon: "crow" },
+            { name: "關東煮", jp: "おでん", price: "¥120", shop: "7-11", icon: "mug-hot" },
             { name: "麻糬口感生乳捲", jp: "もち食感ロール", price: "¥397", shop: "Lawson", icon: "bread-slice" },
-            { name: "濃厚蛋黃醬泡芙", jp: "カスタード＆ホイップ", price: "¥150", shop: "7-11", icon: "cookie" }
+            { name: "濃厚蛋黃醬泡芙", jp: "カスタード", price: "¥150", shop: "7-11", icon: "cookie" }
         ];
 
         // --- 程式邏輯區 ---
@@ -2398,9 +447,9 @@ function renderItinerary(date){
         function renderDateNav() {
             const container = document.getElementById('dateNav');
             dates.forEach(date => {
-                const day = date.split('-')[2];
+                const day = date.split('-')[2].substring(0, 2); // 取出日期數字
                 const el = document.createElement('div');
-                el.className = `date-chip ${date === currentDate ? 'active' : ''}`;
+                el.className = `date-chip ${date.startsWith(currentDate) ? 'active' : ''}`;
                 el.innerText = `2/${day}`;
                 el.onclick = () => selectDate(date);
                 container.appendChild(el);
@@ -2408,21 +457,25 @@ function renderItinerary(date){
         }
 
         // 選擇日期
-        function selectDate(date) {
-            currentDate = date;
-            // 更新 UI
+        function selectDate(dateKey) {
+            currentDate = dateKey.split(' ')[1].substring(0,10); // 簡化處理，取 key 即可
+            
+            // 更新 UI Highlight
             document.querySelectorAll('.date-chip').forEach(el => {
                 el.classList.remove('active');
-                if(el.innerText === `2/${date.split('-')[2]}`) el.classList.add('active');
+                if(dateKey.includes(el.innerText.split('/')[1])) el.classList.add('active');
             });
-            renderItinerary(date);
-            renderWeather(date);
+
+            renderItinerary(dateKey);
+            // 找出對應的氣象日期 (只取 YYYY-MM-DD)
+            const weatherDate = dateKey.match(/\d{4}-\d{2}-\d{2}/)[0];
+            renderWeather(weatherDate);
         }
 
         // 渲染行程
-        function renderItinerary(date) {
+        function renderItinerary(key) {
             const list = document.getElementById('itineraryList');
-            const items = itineraryDB[date] || [];
+            const items = itineraryDB[key] || [];
             list.innerHTML = "";
             
             items.forEach(item => {
@@ -2441,9 +494,9 @@ function renderItinerary(date){
         }
 
         // 渲染氣象
-        function renderWeather(date) {
-            const data = weatherDB[date];
-            document.getElementById('currentDateDisplay').innerText = date;
+        function renderWeather(dateStr) {
+            const data = weatherDB[dateStr] || { temp: "--", tip: "祝您旅途愉快" };
+            document.getElementById('currentDateDisplay').innerText = dateStr;
             document.getElementById('weatherTemp').innerText = data.temp;
             document.getElementById('weatherTip').innerHTML = `<i class="fas fa-tshirt"></i> <span>${data.tip}</span>`;
         }
@@ -2471,9 +524,6 @@ function renderItinerary(date){
             
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
             navEl.classList.add('active');
-
-            // 隱藏 Header 當不在行程頁時 (選擇性)
-            // document.getElementById('headerWidget').style.display = pageId === 'itinerary' ? 'block' : 'none';
         }
 
         // 簡單記帳功能
@@ -2487,12 +537,13 @@ function renderItinerary(date){
             li.innerText = `${name}: ¥${amount}`;
             list.appendChild(li);
 
-            // 更新總額
             updateTotal(amount);
 
-            // 清空輸入
             document.getElementById('expenseName').value = '';
             document.getElementById('expenseAmount').value = '';
+            
+            // 儲存到 LocalStorage
+            saveData(name, amount);
         }
 
         let total = 0;
@@ -2501,10 +552,22 @@ function renderItinerary(date){
             document.getElementById('totalExpense').innerText = `¥${total}`;
         }
         
-        function loadExpenses() {
-            // 這裡可以擴充 LocalStorage 儲存功能，讓重新整理後資料還在
+        function saveData(name, amount) {
+            let expenses = JSON.parse(localStorage.getItem('tokyo_expenses')) || [];
+            expenses.push({ name, amount });
+            localStorage.setItem('tokyo_expenses', JSON.stringify(expenses));
         }
 
+        function loadExpenses() {
+            let expenses = JSON.parse(localStorage.getItem('tokyo_expenses')) || [];
+            const list = document.getElementById('expenseList');
+            expenses.forEach(ex => {
+                const li = document.createElement('li');
+                li.innerText = `${ex.name}: ¥${ex.amount}`;
+                list.appendChild(li);
+                updateTotal(ex.amount);
+            });
+        }
     </script>
 </body>
 </html>
