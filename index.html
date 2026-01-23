@@ -1,4 +1,343 @@
-<style>
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>華的東京獨旅 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #E91E63; /* 櫻花深粉 */
+            --secondary: #FCE4EC; /* 櫻花淺粉 */
+            --bg: #F5F7FA;
+            --text: #333333;
+            --text-light: #666666;
+            --card-bg: #FFFFFF;
+            --accent: #4CAF50; /* 自然綠 */
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            padding-bottom: 80px; /* 避開底部導航 */
+        }
+
+        /* --- Header 氣象區 --- */
+        .header {
+            background: linear-gradient(135deg, var(--primary), #FF80AB);
+            color: white;
+            padding: 20px;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 4px 10px rgba(233, 30, 99, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .weather-widget {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .temp-box h1 { margin: 0; font-size: 2.5rem; }
+        .temp-box p { margin: 0; font-size: 0.9rem; opacity: 0.9; }
+        .outfit-tip {
+            background: rgba(255,255,255,0.2);
+            padding: 8px 12px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            max-width: 60%;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* --- 日期選擇器 --- */
+        .date-scroller {
+            display: flex;
+            overflow-x: auto;
+            padding: 15px 10px;
+            gap: 10px;
+            scrollbar-width: none; /* Firefox */
+        }
+        .date-scroller::-webkit-scrollbar { display: none; } /* Chrome */
+        
+        .date-chip {
+            background: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            white-space: nowrap;
+            font-weight: 500;
+            color: var(--text-light);
+            border: 1px solid #eee;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .date-chip.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            box-shadow: 0 2px 8px rgba(233, 30, 99, 0.3);
+        }
+
+        /* --- 行程時間軸 --- */
+        .timeline-container { padding: 10px 20px; }
+        .timeline-item {
+            display: flex;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        /* 垂直線 */
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 55px;
+            top: 0;
+            bottom: -20px;
+            width: 2px;
+            background: #ddd;
+            z-index: 0;
+        }
+        .timeline-item:last-child::before { display: none; }
+
+        .time-col {
+            width: 55px;
+            padding-right: 10px;
+            text-align: right;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--primary);
+            padding-top: 5px;
+            z-index: 1;
+            background: var(--bg); /* 遮蓋線條 */
+        }
+        .content-col {
+            flex: 1;
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            position: relative;
+            z-index: 1;
+        }
+        .content-col h3 { margin: 0 0 5px 0; font-size: 1.1rem; }
+        .tag {
+            display: inline-block;
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            background: #eee;
+            color: #666;
+            margin-bottom: 8px;
+        }
+        .tag.交通 { background: #E3F2FD; color: #1976D2; }
+        .tag.景點 { background: #E8F5E9; color: #388E3C; }
+        .tag.餐飲 { background: #FFF3E0; color: #F57C00; }
+
+        .note {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 8px;
+            line-height: 1.4;
+            background: #FAFAFA;
+            padding: 8px;
+            border-radius: 8px;
+        }
+        .map-btn {
+            display: inline-flex;
+            align-items: center;
+            margin-top: 10px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        .map-btn i { margin-right: 5px; }
+
+        /* --- 底部導航 --- */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+            z-index: 200;
+        }
+        .nav-item {
+            text-align: center;
+            color: #999;
+            font-size: 0.75rem;
+            cursor: pointer;
+        }
+        .nav-item.active { color: var(--primary); }
+        .nav-item i { font-size: 1.2rem; display: block; margin-bottom: 4px; }
+
+        /* --- 其他頁面 (隱藏/顯示) --- */
+        .page { display: none; padding-bottom: 20px;}
+        .page.active { display: block; }
+
+        /* 美食卡片 */
+        .food-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            padding: 15px;
+        }
+        .food-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .food-img-placeholder {
+            height: 120px;
+            background: #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #aaa;
+            font-size: 2rem;
+        }
+        .food-info { padding: 10px; }
+        .food-name { font-weight: bold; font-size: 0.95rem; margin-bottom: 5px; }
+        .food-jp { color: #888; font-size: 0.8rem; margin-bottom: 5px; }
+        .food-price { color: var(--primary); font-weight: bold; }
+
+        /* 工具箱 */
+        .tools-container { padding: 20px; }
+        .tool-card {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .tool-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            border-radius: 10px;
+            font-size: 1rem;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .input-group { display: flex; gap: 10px; margin-bottom: 10px; }
+        .input-group input { 
+            flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 8px; 
+            font-size: 1rem;
+        }
+
+        /* 翻譯區 */
+        .translate-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .phrase-btn {
+            background: white;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header" id="headerWidget">
+        <div class="weather-widget">
+            <div class="temp-box">
+                <p id="currentDateDisplay">2月3日 (二)</p>
+                <h1 id="weatherTemp">6°C</h1>
+            </div>
+            <div class="outfit-tip" id="weatherTip">
+                <i class="fas fa-tshirt"></i> <span>寒冷，請穿著羽絨衣並攜帶圍巾</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="date-scroller" id="dateNav">
+        </div>
+
+    <div id="page-itinerary" class="page active">
+        <div class="timeline-container" id="itineraryList">
+            </div>
+    </div>
+
+    <div id="page-food" class="page">
+        <div style="padding: 20px;">
+            <h2><i class="fas fa-utensils"></i> 超商必吃</h2>
+            <p style="color:#666; font-size:0.9rem;">已為您整理好清單，結帳時可直接出示圖片給店員看。</p>
+        </div>
+        <div class="food-grid" id="foodList">
+            </div>
+    </div>
+
+    <div id="page-tools" class="page">
+        <div class="tools-container">
+            
+            <div class="tool-card">
+                <h3><i class="fas fa-language"></i> 即時溝通</h3>
+                <div class="translate-grid">
+                    <div class="phrase-btn" onclick="alert('Sumimasen, toire wa doko desu ka? (請問廁所哪裡?)')">廁所在哪裡</div>
+                    <div class="phrase-btn" onclick="alert('Kore wo kudasai. (請給我這個)')">請給我這個</div>
+                    <div class="phrase-btn" onclick="alert('O-kaikei wo onegaishimasu. (麻煩結帳)')">麻煩結帳</div>
+                    <div class="phrase-btn" onclick="alert('Fukuro wa irimasen. (不需要袋子)')">不用袋子</div>
+                </div>
+                <button class="tool-btn" style="background:#4285F4; margin-top:15px;" onclick="window.open('https://translate.google.com/?sl=zh-TW&tl=ja&op=translate')">
+                    開啟 Google 翻譯
+                </button>
+            </div>
+
+            <div class="tool-card">
+                <h3><i class="fas fa-calculator"></i> 快速記帳</h3>
+                <div class="input-group">
+                    <input type="text" id="expenseName" placeholder="項目 (如: 拉麵)">
+                    <input type="number" id="expenseAmount" placeholder="日幣金額">
+                </div>
+                <button class="tool-btn" onclick="addExpense()">加入記帳</button>
+                <div style="margin-top: 20px; border-top: 1px solid #eee; padding-top:10px;">
+                    <h4>今日總計: <span id="totalExpense" style="color:var(--primary)">¥0</span></h4>
+                    <ul id="expenseList" style="padding-left: 20px; color:#666; font-size:0.9rem;"></ul>
+                </div>
+            </div>
+
+            <div class="tool-card">
+                <h3><i class="fas fa-suitcase"></i> 重點檢查</h3>
+                <label style="display:block; margin:5px 0;"><input type="checkbox"> 護照</label>
+                <label style="display:block; margin:5px 0;"><input type="checkbox"> 西瓜卡 (Suica)</label>
+                <label style="display:block; margin:5px 0;"><input type="checkbox"> 網卡 (SIM)</label>
+                <label style="display:block; margin:5px 0;"><input type="checkbox"> 現金 (千圓鈔)</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom-nav">
+        <div class="nav-item active" onclick="switchPage('itinerary', this)">
+            <i class="fas fa-route"></i> 行程
+        </div>
+        <div class="nav-item" onclick="switchPage('food', this)">
+            <i class="fas fa-cookie-bite"></i> 美食
+        </div>
+        <div class="nav-item" onclick="switchPage('tools', this)">
+            <i class="fas fa-tools"></i> 工具
+        </div>
+    </div>
+
+    <style>
         :root {
             /* --- 莫蘭迪藍色系配色盤 --- */
             --primary: #6B8E9E; /* 主色：莫蘭迪灰藍 (Dusty Slate Blue) - 用於標題、按鈕、激活狀態 */
@@ -311,3 +650,5 @@
             margin-right: 10px;
         }
     </style>
+</body>
+</html>
