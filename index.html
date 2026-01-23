@@ -3,38 +3,411 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>華的東京獨旅 2026</title>
+    <title>東京舒心遊</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
         :root {
-            --primary: #E91E63; /* 櫻花深粉 */
-            --secondary: #FCE4EC; /* 櫻花淺粉 */
-            --bg: #F5F7FA;
-            --text: #333333;
-            --text-light: #666666;
+            --primary: #7A90A4; /* 莫蘭迪深藍 */
+            --secondary: #B4C5D0; /* 莫蘭迪淺藍 */
+            --accent: #D8A49B; /* 莫蘭迪粉 (重點提示) */
+            --bg: #F5F5F0; /* 溫暖米白 */
             --card-bg: #FFFFFF;
-            --accent: #4CAF50; /* 自然綠 */
+            --text-main: #4A4A4A;
+            --text-sub: #888888;
+            --shadow: 0 4px 12px rgba(122, 144, 164, 0.15);
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
         body {
             font-family: 'Noto Sans TC', sans-serif;
             background-color: var(--bg);
-            color: var(--text);
+            color: var(--text-main);
             margin: 0;
             padding: 0;
-            padding-bottom: 80px; /* 避開底部導航 */
+            padding-bottom: 80px; /* 留給底部導航 */
+            overscroll-behavior-y: none;
         }
 
-        /* --- Header 氣象區 --- */
-        .header {
-            background: linear-gradient(135deg, var(--primary), #FF80AB);
+        /* Header Area */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 20px 20px 30px;
+            border-bottom-left-radius: 24px;
+            border-bottom-right-radius: 24px;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+
+        .weather-widget {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+
+        .temp-box h1 { margin: 0; font-size: 2.5rem; font-weight: 300; }
+        .temp-box p { margin: 0; font-size: 0.9rem; opacity: 0.9; }
+        .clothing-advice {
+            background: rgba(255,255,255,0.2);
+            padding: 8px 12px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            backdrop-filter: blur(5px);
+            max-width: 60%;
+        }
+
+        /* Tab Content Control */
+        .tab-content { display: none; padding: 20px; animation: fadeIn 0.3s; }
+        .tab-content.active { display: block; }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Itinerary Timeline Cards */
+        .date-header {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 20px 0 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .timeline-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 16px;
+            box-shadow: var(--shadow);
+            display: flex;
+            gap: 15px;
+            position: relative;
+            transition: transform 0.2s;
+        }
+
+        .timeline-card:active { transform: scale(0.98); }
+
+        .time-col {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 50px;
+            border-right: 2px solid var(--bg);
+            padding-right: 15px;
+        }
+
+        .time-text { font-weight: 700; font-size: 1.1rem; color: var(--primary); }
+        .duration-text { font-size: 0.75rem; color: var(--text-sub); margin-top: 4px; }
+
+        .info-col { flex: 1; }
+        .activity-title { font-weight: 700; font-size: 1.05rem; margin-bottom: 6px; }
+        .activity-desc { font-size: 0.9rem; color: var(--text-sub); line-height: 1.4; margin-bottom: 8px; }
+        .tag {
+            display: inline-block;
+            font-size: 0.75rem;
+            padding: 4px 8px;
+            border-radius: 6px;
+            background: var(--bg);
+            color: var(--primary);
+            margin-right: 5px;
+        }
+        .tag.food { background: #FFF0ED; color: #D88E80; } /* 食物特別色 */
+
+        .btn-nav {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-top: 8px;
+        }
+
+        /* Wallet / Split Bill */
+        .wallet-summary {
+            background: var(--primary);
             color: white;
             padding: 20px;
-            border-radius: 0 0 20px 20px;
-            box-shadow: 0 4px 10px rgba(233, 30, 99, 0.2);
-            position: sticky;
+            border-radius: 16px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; color: var(--text-sub); }
+        .form-group input, .form-group select {
+            width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem;
+        }
+        .btn-action {
+            width: 100%; background: var(--accent); color: white; border: none; padding: 14px;
+            border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer;
+        }
+
+        /* Translation Tool */
+        .trans-card {
+            background: white; border-radius: 16px; padding: 20px; box-shadow: var(--shadow);
+            text-align: center; margin-bottom: 15px;
+        }
+        .quick-phrase {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px;
+        }
+        .phrase-btn {
+            background: var(--bg); border: 1px solid var(--secondary); padding: 10px;
+            border-radius: 8px; font-size: 0.9rem; color: var(--text-main);
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed; bottom: 0; left: 0; width: 100%;
+            background: white;
+            display: flex; justify-content: space-around;
+            padding: 12px 0 25px; /* Extra padding for iPhone home indicator */
+            box-shadow: 0 -4px 10px rgba(0,0,0,0.05);
+            z-index: 100;
+        }
+        
+        .nav-item {
+            text-align: center; color: var(--text-sub); font-size: 0.75rem;
+            flex: 1; cursor: pointer; transition: color 0.3s;
+        }
+        .nav-item i { font-size: 1.4rem; margin-bottom: 4px; display: block; }
+        .nav-item.active { color: var(--primary); }
+
+        /* Modal/Popup */
+        .modal-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); z-index: 200; align-items: center; justify-content: center;
+        }
+        .modal { background: white; width: 90%; max-width: 400px; padding: 20px; border-radius: 16px; }
+
+    </style>
+</head>
+<body>
+
+    <header id="app-header">
+        <div style="font-size: 0.9rem; opacity: 0.8;">2026/02/03 - 02/08</div>
+        <h2 style="margin: 5px 0 15px;">東京舒心之旅</h2>
+        
+        <div class="weather-widget">
+            <div class="temp-box">
+                <h1 id="weather-temp">8°C</h1>
+                <p>東京 / 晴時多雲</p>
+            </div>
+            <div class="clothing-advice">
+                <i class="fas fa-tshirt"></i> 
+                <span id="clothing-text">洋蔥式穿搭：發熱衣+毛衣+防風大衣。帶圍巾。</span>
+            </div>
+        </div>
+    </header>
+
+    <div id="tab-itinerary" class="tab-content active">
+        <div id="itinerary-list"></div>
+    </div>
+
+    <div id="tab-wallet" class="tab-content">
+        <div class="wallet-summary">
+            <p>目前總支出</p>
+            <h1 id="total-expense">¥0</h1>
+            <p style="font-size: 0.9rem; opacity: 0.8;">(約 NT$ 0)</p>
+        </div>
+        
+        <div style="background: white; padding: 20px; border-radius: 16px; box-shadow: var(--shadow);">
+            <h3 style="margin-top: 0;">新增記帳</h3>
+            <div class="form-group">
+                <label>項目</label>
+                <input type="text" id="expense-item" placeholder="例如：晚餐 AFURI">
+            </div>
+            <div class="form-group">
+                <label>金額 (日幣)</label>
+                <input type="number" id="expense-amount" placeholder="¥">
+            </div>
+            <div class="form-group">
+                <label>付款人</label>
+                <select id="expense-payer">
+                    <option value="公費">公費 (共同錢包)</option>
+                    <option value="華">華</option>
+                    <option value="彰">彰</option>
+                </select>
+            </div>
+            <button class="btn-action" onclick="addExpense()">記下一筆</button>
+        </div>
+        
+        <div style="margin-top: 20px;">
+            <h4>最近紀錄</h4>
+            <ul id="expense-list" style="list-style: none; padding: 0;">
+                </ul>
+        </div>
+    </div>
+
+    <div id="tab-translate" class="tab-content">
+        <div class="trans-card">
+            <h3><i class="fas fa-language"></i> 快速翻譯</h3>
+            <p style="color:var(--text-sub); margin-bottom: 20px;">點擊跳轉 Google 翻譯，或使用下方常用語</p>
+            <a href="https://translate.google.com/?sl=zh-TW&tl=ja&text=" target="_blank" class="btn-action" style="text-decoration: none; display: block;">開啟語音/文字翻譯</a>
+        </div>
+
+        <h4 style="margin-left: 5px;">常用旅遊日語 (點擊顯示)</h4>
+        <div class="quick-phrase">
+            <div class="phrase-btn" onclick="alert('Sumimasen (不好意思/請問)')">不好意思<br><small>Sumimasen</small></div>
+            <div class="phrase-btn" onclick="alert('Kore o kudasai (請給我這個)')">請給我這個<br><small>Kore o kudasai</small></div>
+            <div class="phrase-btn" onclick="alert('O-kaikei onegaishimasu (麻煩結帳)')">麻煩結帳<br><small>O-kaikei</small></div>
+            <div class="phrase-btn" onclick="alert('Toire wa doko desu ka? (廁所在哪裡)')">廁所在哪裡<br><small>Toire wa doko?</small></div>
+            <div class="phrase-btn" onclick="alert('Fukuro wa irimasen (不需要袋子)')">不用袋子<br><small>Fukuro irimasen</small></div>
+            <div class="phrase-btn" onclick="alert('Atatamete kudasai (請幫我微波)')">請幫我微波<br><small>Atatamete</small></div>
+        </div>
+        
+        <div class="trans-card" style="margin-top: 20px; text-align: left;">
+            <h4 style="margin-top:0; color: var(--accent);">🏪 超商美食筆記</h4>
+            <p><b>Lawson 炸雞君:</b> 紅色(辣味)/起司口味</p>
+            <p><b>7-11 關東煮:</b> 必夾蘿蔔(大根)、蒟蒻絲(白瀧)</p>
+            <p><b>FamilyMart:</b> 炸雞(FamiChiki) 柚子胡椒味</p>
+        </div>
+    </div>
+
+    <nav class="bottom-nav">
+        <div class="nav-item active" onclick="switchTab('itinerary', this)">
+            <i class="fas fa-map-marked-alt"></i> 行程
+        </div>
+        <div class="nav-item" onclick="switchTab('wallet', this)">
+            <i class="fas fa-wallet"></i> 記帳
+        </div>
+        <div class="nav-item" onclick="switchTab('translate', this)">
+            <i class="fas fa-comments"></i> 翻譯
+        </div>
+    </nav>
+
+    <script>
+        // --- DATA SECTION: Populated from your CSV files ---
+        const itineraryData = [
+            {
+                date: "2/3 (二)",
+                events: [
+                    { time: "15:35", title: "桃園 T1 起飛 (IT202)", desc: "13:30 抵達機場報到。建議在機場先吃午餐。", dur: "4小時", type: "transport", link: "https://www.google.com/maps" },
+                    { time: "19:35", title: "抵達成田 T2", desc: "購買/儲值西瓜卡 (Suica)。", dur: "1小時", type: "transport", link: "" },
+                    { time: "20:30", title: "搭乘 Skyliner 往市區", desc: "車上可先吃點輕食。", dur: "45分", type: "transport", link: "" },
+                    { time: "21:45", title: "入住：四谷京阪飯店", desc: "飯店旁 LIFE 超市買水、水果當宵夜（避免太晚吃太硬的食物）。", dur: "", type: "hotel", link: "https://www.google.com/maps/search/?api=1&query=Hotel+Keihan+Yotsuya" },
+                    { time: "22:00", title: "LIFE 超市 / 超商採買", desc: "推薦：Lawson 炸雞君(Red/Cheese)、7-11 關東煮(蘿蔔/蒟蒻)。", dur: "", type: "food", link: "" }
+                ]
+            },
+            {
+                date: "2/4 (三) - 東北區",
+                events: [
+                    { time: "09:30", title: "上野東照宮", desc: "金碧輝煌的建築，適合拍照。", dur: "1.5小時", type: "sight", link: "https://www.google.com/maps/search/?api=1&query=Ueno+Toshogu" },
+                    { time: "11:00", title: "午餐時間", desc: "上野附近美食探索。", dur: "1小時", type: "food", link: "" }
+                    // ... (More events would go here based on full file)
+                ]
+            },
+            {
+                date: "2/7 (六) - 東南區",
+                events: [
+                    { time: "09:00", title: "退房 & 行李寄送", desc: "換宿至池尻大橋，建議將行李寄放在「澀谷站」。", dur: "1小時", type: "transport", link: "" },
+                    { time: "10:30", title: "東京鐵塔 (拍照打卡)", desc: "拍塔身完整角度。攝影點：芝公園階梯或停車場出口經典位。", dur: "4小時", type: "sight", link: "https://www.google.com/maps/search/?api=1&query=Tokyo+Tower" },
+                    { time: "12:30", title: "午餐：入鹿 Tokyo 或 炸牛排", desc: "推薦：入鹿 Tokyo松露拉麵 或 炸牛排 Motomura。", dur: "1小時", type: "food", link: "" },
+                    { time: "14:00", title: "國立新美術館", desc: "僅在大廳與外部拍照打卡，攝影：黑川紀章設計的倒建築光影。", dur: "", type: "sight", link: "https://www.google.com/maps/search/?api=1&query=The+National+Art+Center+Tokyo" },
+                    { time: "19:30", title: "晚餐：AFURI 柚子鹽拉麵", desc: "清爽系拉麵，適合口味較淡的選擇。", dur: "1小時", type: "food", link: "https://www.google.com/maps/search/?api=1&query=AFURI+Ramen" }
+                ]
+            }
+        ];
+
+        // --- RENDER FUNCTIONS ---
+        
+        function renderItinerary() {
+            const container = document.getElementById('itinerary-list');
+            let html = '';
+
+            itineraryData.forEach(day => {
+                html += `<div class="date-header">${day.date}</div>`;
+                day.events.forEach(evt => {
+                    // Determine Icon
+                    let icon = 'fa-map-pin';
+                    if(evt.type === 'food') icon = 'fa-utensils';
+                    if(evt.type === 'transport') icon = 'fa-subway';
+                    if(evt.type === 'hotel') icon = 'fa-bed';
+
+                    // Nav Button
+                    let navBtn = evt.link ? `<a href="${evt.link}" target="_blank" class="btn-nav"><i class="fas fa-location-arrow"></i> 導航</a>` : '';
+                    
+                    // Tags
+                    let tags = '';
+                    if(evt.type === 'food') tags += `<span class="tag food">美食</span>`;
+
+                    html += `
+                    <div class="timeline-card">
+                        <div class="time-col">
+                            <span class="time-text">${evt.time}</span>
+                            <span class="duration-text">${evt.dur}</span>
+                        </div>
+                        <div class="info-col">
+                            <div class="activity-title">${evt.title}</div>
+                            <div class="activity-desc">${tags} ${evt.desc}</div>
+                            ${navBtn}
+                        </div>
+                    </div>`;
+                });
+            });
+            container.innerHTML = html;
+        }
+
+        // --- TABS LOGIC ---
+        function switchTab(tabId, navEl) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            // Show target
+            document.getElementById('tab-' + tabId).classList.add('active');
+            
+            // Update Nav
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+            navEl.classList.add('active');
+        }
+
+        // --- ACCOUNTING LOGIC ---
+        let total = 0;
+        function addExpense() {
+            const item = document.getElementById('expense-item').value;
+            const amount = parseInt(document.getElementById('expense-amount').value);
+            const payer = document.getElementById('expense-payer').value;
+
+            if(!item || !amount) return alert("請輸入項目與金額");
+
+            total += amount;
+            document.getElementById('total-expense').innerText = '¥' + total.toLocaleString();
+            
+            const list = document.getElementById('expense-list');
+            const li = document.createElement('li');
+            li.style.padding = "10px 0";
+            li.style.borderBottom = "1px solid #eee";
+            li.style.display = "flex";
+            li.style.justifyContent = "space-between";
+            li.innerHTML = `<span>${item} (${payer})</span> <span style="font-weight:bold;">¥${amount}</span>`;
+            list.prepend(li);
+
+            // Clear inputs
+            document.getElementById('expense-item').value = '';
+            document.getElementById('expense-amount').value = '';
+        }
+
+        // --- WEATHER LOGIC (Simulated for Demo) ---
+        // In a real app, this would fetch API data. Here we use your request for "Clothing Advice".
+        const clothes = {
+            cold: "氣溫較低，建議：發熱衣 + 羊毛衣 + 防風外套 + 圍巾。",
+            cool: "舒適偏涼，建議：長袖上衣 + 薄外套。",
+            rain: "有雨，請攜帶折疊傘並穿著防潑水鞋子。"
+        };
+        // Just mocking a logic for the header display
+        document.getElementById('clothing-text').innerText = clothes.cold;
+
+        // Initialize
+        renderItinerary();
+
+    </script>
+</body>
+</html>            position: sticky;
             top: 0;
             z-index: 100;
         }
