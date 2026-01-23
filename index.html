@@ -1,40 +1,28 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-Hant">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>華的東京獨旅 2026</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>東京獨旅｜Day 1 行程</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --bg: #f6f7f9;
+      --card: #ffffff;
+      --primary: #2c3e50;
+      --secondary: #6b7280;
+      --accent: #2563eb;
+      --soft: #e5e7eb;
+    }
 
-<style>
-/* ⚠️ CSS 完全未更動，略（與你原始檔一致） */
-</style>
-</head>
+    * {
+      box-sizing: border-box;
+    }
 
-<body>
-
-<!-- ===== Header ===== -->
-<div class="header">
-  <div class="weather-widget">
-    <div class="temp-box">
-      <p id="currentDateDisplay"></p>
-      <h1 id="weatherTemp"></h1>
-    </div>
-    <div class="outfit-tip" id="weatherTip"></div>
-  </div>
-</div>
-
-<div class="date-scroller" id="dateNav"></div>
-
-<div id="page-itinerary" class="page active">
-  <div class="timeline-container" id="itineraryList"></div>
-</div>
-
-<!-- ===== JS ===== -->
-<script>
-/* ---------- 天氣 ---------- */
+    body {
+      margin: 0;
+      background: var(--bg);
+      font-family: -apple-system, BlinkMacSystemFont, "/* ---------- 天氣 ---------- */
 const weatherDB = {
   "2026-02-03": { temp: "5-11°C", tip: "搭機日，洋蔥式穿搭，帶薄圍巾。" },
   "2026-02-04": { temp: "3-9°C", tip: "戶外行程多，務必穿著羽絨衣與好走的鞋。" },
