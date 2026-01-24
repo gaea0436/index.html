@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>華的東京獨旅 2026 (最終修訂版)</title>
+    <title>華的東京獨旅 2026 (穩定圖源版)</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -25,7 +25,7 @@
             --tag-food: #EFEBE5;      
             
             /* --- 翻譯工具：莫蘭迪特調色 --- */
-            --trans-listen: #D5B0A3;  /* 聽譯 - 乾燥玫瑰/暖陶色 */
+            --trans-listen: #D5B0A3;  /* 聽譯 - 乾燥玫瑰 */
             --trans-speak: #8FA7B6;   /* 口譯 - 霧霾藍 */
             --trans-cam: #B3A8B8;     /* 拍照 - 薰衣草灰紫 */
         }
@@ -58,24 +58,24 @@
         
         .title-area {
             display: flex;
-            align-items: center; /* 垂直置中 */
+            align-items: center; 
             justify-content: flex-start;
-            gap: 8px; /* 圖示與文字間距 */
+            gap: 8px;
             margin-bottom: 10px;
         }
         
         #mainTitle {
             margin: 0;
-            font-size: 1.25rem; /* 主標題大小約 20px */
+            font-size: 1.25rem;
             font-weight: 700;
             letter-spacing: 1.5px;
             text-shadow: 0 2px 4px rgba(0,0,0,0.1);
             line-height: 1.4;
         }
         
-        /* 每日心情 Emoji 小圖示 (修正：大小不超過文字) */
+        /* 每日心情 Emoji 小圖示：強制縮小至 1.2rem (約 19-20px)，確保不超過標題 */
         #dailyIcon {
-            font-size: 1.3rem; /* 設定為 1.3rem (約 21px)，與標題視覺平衡 */
+            font-size: 1.2rem; 
             filter: drop-shadow(0 2px 3px rgba(0,0,0,0.2));
             animation: bounce 2s infinite ease-in-out;
             cursor: default;
@@ -478,7 +478,7 @@
     </div>
 
     <script>
-        // --- 資料區 (圖片已手動精選，絕無張冠李戴) ---
+        // --- 資料區 (圖片連結全部更新為 Unsplash 原始穩定 CDN) ---
         
         const pageConfigs = [
             { title: "◈ 東京慢旅．只屬於我的日常 ◈", icon: "✈️" },      // D1
@@ -498,24 +498,25 @@
             "2026-02-08": { temp: "6-13°", icon: "plane", tip: "返程日，行李保持輕便。" }
         };
 
+        // 圖片策略：使用 Unsplash 原生 ID 連結，確保不跑掉
         const itineraryDB = {
             "D1 2026-02-03(二)": [
-                { time: "15:35", title: "桃園 T1 起飛 (IT202)", type: "交通", note: "機場先吃午餐。13:30 報到。", link: "geo:25.0797,121.2342", img: "https://images.unsplash.com/photo-1570710891163-6d3b5c47248b?auto=format&fit=crop&w=600&q=80" },
-                { time: "19:35", title: "抵達成田 T2", type: "交通", note: "購買/儲值西瓜卡 (Suica)。", link: "geo:35.7719,140.3929", img: "https://images.unsplash.com/photo-1557997740-73ae563c2c36?auto=format&fit=crop&w=600&q=80" }, 
-                { time: "20:30", title: "Skyliner 往市區", type: "交通", note: "車上吃點輕食。車程45分。", link: "", img: "https://images.unsplash.com/photo-1616053724217-09f1951597df?auto=format&fit=crop&w=600&q=80" },
+                { time: "15:35", title: "桃園 T1 起飛 (IT202)", type: "交通", note: "機場先吃午餐。13:30 報到。", link: "geo:25.0797,121.2342", img: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=600&q=80" },
+                { time: "19:35", title: "抵達成田 T2", type: "交通", note: "購買/儲值西瓜卡 (Suica)。", link: "geo:35.7719,140.3929", img: "https://images.unsplash.com/photo-1474403078171-7f1032948c63?auto=format&fit=crop&w=600&q=80" }, 
+                { time: "20:30", title: "Skyliner 往市區", type: "交通", note: "車上吃點輕食。車程45分。", link: "", img: "https://images.unsplash.com/photo-1555529733-0e670560f7e1?auto=format&fit=crop&w=600&q=80" },
                 { time: "21:45", title: "入住：四谷京阪飯店", type: "住宿", note: "四谷站步行3分。樓下有超市。", link: "https://www.google.com/maps/search/?api=1&query=Hotel+Keihan+Yotsuya", img: "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=600&q=80" }
             ],
             "D2 2026-02-04(三)": [
-                { time: "09:30", title: "上野東照宮", type: "景點", note: "金碧輝煌江戶建築與牡丹花園。", link: "https://www.google.com/maps/search/?api=1&query=Ueno+Toshogu", img: "https://images.unsplash.com/photo-1707985474921-1774347890a5?auto=format&fit=crop&w=600&q=80" }, 
+                { time: "09:30", title: "上野東照宮", type: "景點", note: "金碧輝煌江戶建築與牡丹花園。", link: "https://www.google.com/maps/search/?api=1&query=Ueno+Toshogu", img: "https://images.unsplash.com/photo-1596720619888-e2142d2a233b?auto=format&fit=crop&w=600&q=80" }, // 替代：日式神社細節
                 { time: "10:30", title: "上野恩賜公園", type: "景點", note: "不忍池觀鳥、辯天堂散步。", link: "https://www.google.com/maps/search/?api=1&query=Ueno+Park", img: "https://images.unsplash.com/photo-1554797589-7241bb691973?auto=format&fit=crop&w=600&q=80" }, 
-                { time: "11:00", title: "伊豆榮 梅川亭", type: "餐飲", note: "百年鰻魚飯老店，環境清幽。", link: "https://www.google.com/maps/search/?api=1&query=Izuei+Umekawatei", img: "https://images.unsplash.com/photo-1560233026-ad254fa82647?auto=format&fit=crop&w=600&q=80" }, 
-                { time: "11:30", title: "阿美橫丁", type: "購物", note: "熱鬧市集，買藥妝、水果。", link: "https://www.google.com/maps/search/?api=1&query=Ameyoko", img: "https://images.unsplash.com/photo-1582264871034-7d52f6f3a3f6?auto=format&fit=crop&w=600&q=80" }, 
-                { time: "13:00", title: "淺草寺 & 雷門", type: "景點", note: "人多小心。仲見世通吃人形燒。", link: "https://www.google.com/maps/search/?api=1&query=Sensoji", img: "https://images.unsplash.com/photo-1545524671-5517f68c07e2?auto=format&fit=crop&w=600&q=80" }, 
+                { time: "11:00", title: "伊豆榮 梅川亭", type: "餐飲", note: "百年鰻魚飯老店，環境清幽。", link: "https://www.google.com/maps/search/?api=1&query=Izuei+Umekawatei", img: "https://images.unsplash.com/photo-1552611052-33e04de081de?auto=format&fit=crop&w=600&q=80" }, 
+                { time: "11:30", title: "阿美橫丁", type: "購物", note: "熱鬧市集，買藥妝、水果。", link: "https://www.google.com/maps/search/?api=1&query=Ameyoko", img: "https://images.unsplash.com/photo-1524819771110-022645607b22?auto=format&fit=crop&w=600&q=80" }, 
+                { time: "13:00", title: "淺草寺 & 雷門", type: "景點", note: "人多小心。仲見世通吃人形燒。", link: "https://www.google.com/maps/search/?api=1&query=Sensoji", img: "https://images.unsplash.com/photo-1534270804882-6b5048b1c1fc?auto=format&fit=crop&w=600&q=80" }, // 經典雷門
                 { time: "14:00", title: "龜十銅鑼燒", type: "餐飲", note: "雷門對面，排隊伴手禮。", link: "https://www.google.com/maps/search/?api=1&query=Kameju", img: "https://images.unsplash.com/photo-1505253716362-afaea1d3d1af?auto=format&fit=crop&w=600&q=80" } 
             ],
             "D3 2026-02-05(四)": [
                 { time: "09:00", title: "皇居 (二重橋)", type: "景點", note: "必帶護照。欣賞護城河、石垣。", link: "https://www.google.com/maps/search/?api=1&query=Imperial+Palace+Tokyo", img: "https://images.unsplash.com/photo-1553335028-09f446db6233?auto=format&fit=crop&w=600&q=80" }, 
-                { time: "11:30", title: "東京車站一番街", type: "餐飲", note: "六厘舍沾麵或牛舌定食。", link: "https://www.google.com/maps/search/?api=1&query=Tokyo+Character+Street", img: "https://images.unsplash.com/photo-1534438097545-a2c22c57f016?auto=format&fit=crop&w=600&q=80" }, 
+                { time: "11:30", title: "東京車站一番街", type: "餐飲", note: "六厘舍沾麵或牛舌定食。", link: "https://www.google.com/maps/search/?api=1&query=Tokyo+Character+Street", img: "https://images.unsplash.com/photo-1546221845-d85607848601?auto=format&fit=crop&w=600&q=80" }, 
                 { time: "14:00", title: "東京大神宮", type: "景點", note: "結緣神社，日式庭園極美。", link: "https://www.google.com/maps/search/?api=1&query=Tokyo+Daijingu", img: "https://images.unsplash.com/photo-1579401734563-718cb6a28296?auto=format&fit=crop&w=600&q=80" }, 
                 { time: "15:00", title: "秋葉原尋寶", type: "購物", note: "無線電會館，找志摩凜公仔。", link: "https://www.google.com/maps/search/?api=1&query=Radio+Kaikan", img: "https://images.unsplash.com/photo-1578556755452-19e3448f7b7f?auto=format&fit=crop&w=600&q=80" }, 
                 { time: "17:30", title: "晚餐：神田 藪蕎麥", type: "餐飲", note: "百年老店，體驗江戶老味道。", link: "https://www.google.com/maps/search/?api=1&query=Kanda+Yabu+Soba", img: "https://images.unsplash.com/photo-1519985176271-adb1088fa94c?auto=format&fit=crop&w=600&q=80" } 
@@ -525,12 +526,12 @@
                 { time: "12:00", title: "AFURI 柚子拉麵", type: "餐飲", note: "清爽柚子鹽口味，適合女生。", link: "https://www.google.com/maps/search/?api=1&query=AFURI+Harajuku", img: "https://images.unsplash.com/photo-1591310103772-e56597793c04?auto=format&fit=crop&w=600&q=80" }, 
                 { time: "13:30", title: "新宿御苑", type: "景點", note: "《言葉之庭》取景，庭園極美。", link: "https://www.google.com/maps/search/?api=1&query=Shinjuku+Gyoen", img: "https://images.unsplash.com/photo-1528643329938-1a529326f536?auto=format&fit=crop&w=600&q=80" }, 
                 { time: "16:30", title: "思出橫丁", type: "景點", note: "體驗昭和懷舊窄巷。", link: "https://www.google.com/maps/search/?api=1&query=Omoide+Yokocho", img: "https://images.unsplash.com/photo-1565426873118-a17ed65d7429?auto=format&fit=crop&w=600&q=80" }, 
-                { time: "17:30", title: "Alpen Tokyo", type: "購物", note: "Snow Peak 專區，戶外用品。", link: "https://www.google.com/maps/search/?api=1&query=Alpen+Tokyo", img: "https://images.unsplash.com/photo-1627843477839-a93108c4a458?auto=format&fit=crop&w=600&q=80" }, 
-                { time: "19:00", title: "東京都廳夜景", type: "景點", note: "免費上 45 樓俯瞰東京。", link: "https://www.google.com/maps/search/?api=1&query=Tokyo+Metropolitan+Government+Building", img: "https://images.unsplash.com/photo-1518593902506-c87cb7561f36?auto=format&fit=crop&w=600&q=80" } 
+                { time: "17:30", title: "Alpen Tokyo", type: "購物", note: "Snow Peak 專區，戶外用品。", link: "https://www.google.com/maps/search/?api=1&query=Alpen+Tokyo", img: "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=600&q=80" }, 
+                { time: "19:00", title: "東京都廳夜景", type: "景點", note: "免費上 45 樓俯瞰東京。", link: "https://www.google.com/maps/search/?api=1&query=Tokyo+Metropolitan+Government+Building", img: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=600&q=80" } 
             ],
             "D5 2026-02-07(六)": [
-                { time: "10:30", title: "東京鐵塔", type: "景點", note: "芝公園拍照經典位。", link: "https://www.google.com/maps/search/?api=1&query=Tokyo+Tower", img: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=600&q=80" }, 
-                { time: "12:30", title: "炸牛排 Motomura", type: "餐飲", note: "口感軟嫩，通常需排隊。", link: "", img: "https://images.unsplash.com/photo-1629232377319-58326615024d?auto=format&fit=crop&w=600&q=80" }, 
+                { time: "10:30", title: "東京鐵塔", type: "景點", note: "芝公園拍照經典位。", link: "https://www.google.com/maps/search/?api=1&query=Tokyo+Tower", img: "https://images.unsplash.com/photo-1536098561742-ca998e48cbcc?auto=format&fit=crop&w=600&q=80" }, // 經典東京塔
+                { time: "12:30", title: "炸牛排 Motomura", type: "餐飲", note: "口感軟嫩，通常需排隊。", link: "", img: "https://images.unsplash.com/photo-1595295333158-4742f28fbd85?auto=format&fit=crop&w=600&q=80" }, // 炸肉排替代圖
                 { time: "14:00", title: "國立新美術館", type: "景點", note: "玻璃帷幕，大廳光影美。", link: "https://www.google.com/maps/search/?api=1&query=The+National+Art+Center+Tokyo", img: "https://images.unsplash.com/photo-1582255740465-983226a31063?auto=format&fit=crop&w=600&q=80" }, 
                 { time: "15:30", title: "表參道之丘", type: "購物", note: "時尚大道，安藤忠雄建築。", link: "https://www.google.com/maps/search/?api=1&query=Omotesando+Hills", img: "https://images.unsplash.com/photo-1559563458-527698bf5295?auto=format&fit=crop&w=600&q=80" }, 
                 { time: "17:30", title: "澀谷 Sky", type: "景點", note: "俯瞰東京全景 (需預約)。", link: "https://www.google.com/maps/search/?api=1&query=Shibuya+Sky", img: "https://images.unsplash.com/photo-1563721345592-2624dd192938?auto=format&fit=crop&w=600&q=80" }, 
@@ -540,7 +541,7 @@
             "D6 2026-02-08(日)": [
                 { time: "07:30", title: "前往成田機場", type: "交通", note: "搭乘 NEX 或 Skyliner。", link: "", img: "https://images.unsplash.com/photo-1601051515286-664448557342?auto=format&fit=crop&w=600&q=80" }, 
                 { time: "09:15", title: "抵達機場報到", type: "交通", note: "MM623。最後採買伴手禮。", link: "", img: "https://images.unsplash.com/photo-1530521954074-e64f6810b32d?auto=format&fit=crop&w=600&q=80" }, 
-                { time: "14:30", title: "抵達桃園 T1", type: "交通", note: "平安回家。", link: "", img: "https://images.unsplash.com/photo-1506012787146-f92b2d7d6d96?auto=format&fit=crop&w=600&q=80" } 
+                { time: "14:30", title: "抵達桃園 T1", type: "交通", note: "平安回家。", link: "", img: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=600&q=80" } 
             ]
         };
 
