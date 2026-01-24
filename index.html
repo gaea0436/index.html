@@ -11,50 +11,45 @@
         body { font-family: 'Noto Sans TC', sans-serif; background: var(--bg); margin: 0; padding-bottom: 90px; }
         .header { background: linear-gradient(135deg, var(--p), var(--pd)); color: white; padding: 20px; border-radius: 0 0 30px 30px; position: sticky; top: 0; z-index: 100; }
         
-        /* 修正1：女性圖示縮小到比標題字還小 */
-        .title-area { display: flex; align-items: center; gap: 6px; }
-        #mainTitle { font-size: 1.1rem; font-weight: 700; margin: 0; }
-        .walking-icon-img { width: 22px; height: 22px; border-radius: 50%; background: white; padding: 2px; }
+        /* 需求修正 1：女性圖示縮小 (小於標題文字) */
+        .title-area { display: flex; align-items: center; gap: 8px; }
+        #mainTitle { font-size: 1.15rem; font-weight: 700; margin: 0; }
+        .walking-icon-img { width: 1.2rem; height: 1.2rem; filter: invert(1); opacity: 0.9; }
 
-        /* 修正2：翻譯工具連結優化 */
-        .trans-bar { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 15px; }
-        .tr-btn { padding: 10px 2px; border-radius: 12px; text-align: center; color: white; text-decoration: none; font-size: 0.7rem; display: flex; flex-direction: column; gap: 4px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        /* 需求修正 3：翻譯工具 (直接跳轉 App) */
+        .trans-bar { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px; }
+        .tr-btn { padding: 12px 5px; border-radius: 12px; text-align: center; color: white; text-decoration: none; font-size: 0.75rem; display: flex; flex-direction: column; gap: 5px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
         .tr-1 { background: #FF9800; } .tr-2 { background: #2196F3; } .tr-3 { background: #9C27B0; }
 
-        /* 修正3：解決破圖與 RWD 佈局 */
-        .page { display: none; padding: 15px; }
-        .page.active { display: block; }
-        .card { background: white; border-radius: 15px; overflow: hidden; margin-bottom: 15px; display: flex; box-shadow: 0 4px 10px rgba(0,0,0,0.05); min-height: 100px; }
-        .img-box { width: 35%; background: #ddd; position: relative; }
-        .img-box img { width: 100%; height: 100%; object-fit: cover; position: absolute; }
-        .info { flex: 1; padding: 12px; }
-        
-        .food-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-        .f-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 3px 6px rgba(0,0,0,0.05); text-align: center; }
-        .f-img { width: 100%; height: 100px; object-fit: cover; background: #eee; }
-        
-        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; display: flex; justify-content: space-around; padding: 10px 0; z-index: 200; box-shadow: 0 -2px 10px rgba(0,0,0,0.05); }
-        .nav-item { color: #ccc; font-size: 0.7rem; cursor: pointer; text-align: center; }
-        .nav-item.active { color: var(--p); }
-        .nav-item i { display: block; font-size: 1.2rem; margin-bottom: 3px; }
+        /* 需求修正 2：防破圖佈局 (內建圖案) */
+        .page { display: none; padding: 15px; } .page.active { display: block; }
+        .card { background: white; border-radius: 16px; margin-bottom: 15px; display: flex; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.03); border: 1px solid #eee; }
+        .img-box { width: 30%; background: #EAEAEA; display: flex; align-items: center; justify-content: center; }
+        .img-box i { font-size: 2rem; color: #BBB; } /* 用 icon 代替容易破圖的網址 */
+        .info { flex: 1; padding: 12px; } .info h3 { margin: 0 0 5px 0; font-size: 1rem; color: #4F5D64; }
+        .tag { font-size: 0.65rem; background: #EAE4DC; padding: 2px 6px; border-radius: 4px; display: inline-block; margin-bottom: 5px; }
+        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; display: flex; justify-content: space-around; padding: 12px 0; z-index: 200; box-shadow: 0 -4px 15px rgba(0,0,0,0.05); }
+        .nav-item { color: #C0C0C0; font-size: 0.75rem; cursor: pointer; text-align: center; }
+        .nav-item.active { color: var(--p); } .nav-item i { display: block; font-size: 1.2rem; margin-bottom: 4px; }
     </style>
 </head>
 <body>
-
     <div class="header">
         <div class="title-area">
             <h2 id="mainTitle">◈ 東京慢旅．只屬於我的日常 ◈</h2>
-            <img src="https://www.gstatic.com/images/icons/material/system_gm/2x/walking_white_24dp.png" class="walking-icon-img" style="filter: invert(1); background: transparent;">
+            <img src="https://www.gstatic.com/images/icons/material/system_gm/2x/walking_black_24dp.png" class="walking-icon-img">
         </div>
         <div class="trans-bar">
-            <a href="googletranslate://?sl=ja&tl=zh-TW&mode=audio" class="tr-btn tr-1"><i class="fas fa-ear-listen"></i>聽譯(橘)</a>
-            <a href="googletranslate://?sl=zh-TW&tl=ja&mode=audio" class="tr-btn tr-2"><i class="fas fa-comment-dots"></i>口譯(藍)</a>
-            <a href="googletranslate://?sl=ja&tl=zh-TW&mode=camera" class="tr-btn tr-3"><i class="fas fa-camera"></i>拍照(紫)</a>
+            <a href="googletranslate://?sl=ja&tl=zh-TW&mode=audio" class="tr-btn tr-1"><i class="fas fa-ear-listen"></i>聽譯(日翻中)</a>
+            <a href="googletranslate://?sl=zh-TW&tl=ja&mode=audio" class="tr-btn tr-2"><i class="fas fa-comment-dots"></i>口譯(中翻日)</a>
+            <a href="googletranslate://?sl=ja&tl=zh-TW&mode=camera" class="tr-btn tr-3"><i class="fas fa-camera"></i>拍照(相機)</a>
         </div>
     </div>
 
     <div id="page-itinerary" class="page active"><div id="list"></div></div>
-    <div id="page-food" class="page"><div class="food-grid" id="f-list"></div></div>
+    <div id="page-food" class="page">
+        <div class="food-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;" id="f-list"></div>
+    </div>
 
     <div class="bottom-nav">
         <div class="nav-item active" onclick="sw('itinerary', this)"><i class="fas fa-route"></i>行程</div>
@@ -62,25 +57,24 @@
     </div>
 
     <script>
-        // 全面更換為極度穩定的圖源，並加上備援機制
         const db = {
-            "D1": [{t:"15:35",n:"桃園起飛",i:"https://images.unsplash.com/photo-1436491865332-7a61a109c7f3?w=400"},{t:"21:45",n:"入住四谷飯店",i:"https://images.unsplash.com/photo-1503899036084-c55cdd92da26?w=400"}],
-            "D2": [{t:"09:30",n:"上野東照宮",i:"https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=400"},{t:"13:00",n:"淺草雷門",i:"https://images.unsplash.com/photo-1563860533-36558ab479e7?w=400"}]
+            "D1": [{t:"15:35",n:"桃園起飛 (IT202)",ty:"交通"},{t:"19:35",n:"抵達成田 T2",ty:"交通"},{t:"21:45",n:"入住四谷京阪飯店",ty:"住宿"}],
+            "D2": [{t:"09:30",n:"上野東照宮",ty:"景點"},{t:"13:00",n:"淺草寺雷門",ty:"景點"},{t:"15:00",n:"龜十銅鑼燒",ty:"餐飲"}],
+            "D3": [{t:"09:00",n:"皇居 (二重橋)",ty:"景點"},{t:"14:00",n:"東京大神宮",ty:"景點"},{t:"17:30",n:"神田 藪蕎麥",ty:"餐飲"}],
+            "D4": [{t:"09:00",n:"明治神宮",ty:"景點"},{t:"13:30",n:"新宿御苑",ty:"景點"},{t:"19:00",n:"都廳夜景",ty:"景點"}],
+            "D5": [{t:"10:30",n:"東京鐵塔",ty:"景點"},{t:"14:00",n:"國立新美術館",ty:"景點"},{t:"17:30",n:"澀谷 Sky",ty:"景點"}],
+            "D6": [{t:"07:30",n:"前往成田機場",ty:"交通"},{t:"14:30",n:"抵達桃園 T1",ty:"交通"}]
         };
-        const foods = [
-            {n:"FamiChiki 炸雞",s:"FamilyMart",i:"https://images.unsplash.com/photo-1562967914-608f82629710?w=400"},
-            {n:"炸雞君",s:"Lawson",i:"https://images.unsplash.com/photo-1569058242253-92a9c755a0ec?w=400"},
-            {n:"生乳捲",s:"Lawson",i:"https://images.unsplash.com/photo-1551024601-bec78aea704b?w=400"}
-        ];
+        const foods = [{n:"FamiChiki 炸雞",s:"FamilyMart"},{n:"炸雞君",s:"Lawson"},{n:"關東煮",s:"7-11"},{n:"生乳捲",s:"Lawson"}];
 
         function render() {
             const l = document.getElementById('list'); l.innerHTML = "";
             db["D1"].forEach(x => {
-                l.innerHTML += `<div class="card"><div class="img-box"><img src="${x.i}" onerror="this.src='https://images.gstatic.com/images/branding/product/2x/maps_96dp.png'"></div><div class="info"><b>${x.t}</b><p>${x.n}</p></div></div>`;
+                l.innerHTML += `<div class="card"><div class="img-box"><i class="fas fa-map-marker-alt"></i></div><div class="info"><span class="tag">${x.ty}</span><h3>${x.t} ${x.n}</h3></div></div>`;
             });
             const fl = document.getElementById('f-list'); fl.innerHTML = "";
             foods.forEach(f => {
-                fl.innerHTML += `<div class="f-card"><img src="${f.i}" class="f-img" onerror="this.src='https://images.gstatic.com/images/branding/product/2x/maps_96dp.png'"><div style="padding:8px;font-size:0.8rem;"><b>${f.n}</b><br>${f.s}</div></div>`;
+                fl.innerHTML += `<div style="background:white;border-radius:12px;overflow:hidden;text-align:center;padding:15px;box-shadow:0 2px 8px rgba(0,0,0,0.05);"><i class="fas fa-utensils" style="font-size:1.5rem;color:var(--p);display:block;margin-bottom:10px;"></i><b>${f.n}</b><br><small>${f.s}</small></div>`;
             });
         }
         function sw(p, el) {
