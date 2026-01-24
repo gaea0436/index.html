@@ -16,7 +16,8 @@
             --text-light: #949494;    /* 淺灰 */
             --card-bg: #FFFFFF;
             --accent: #C5A087;        /* 奶茶暖棕 (強調色) */
-            --line: #D0D0D0;          /* 時間軸線條色 */
+            --line: #E0E0E0;          /* 時間軸線條色 (更淡) */
+            --bubble-border: #BCCCD1; /* 時間泡泡邊框 (淡化版) */
             
             /* 標籤配色 */
             --tag-transport: #DDE5E8; 
@@ -34,73 +35,100 @@
             padding-bottom: 90px;
         }
 
-        /* --- Header: 知性標題與精緻氣象 --- */
+        /* --- Header: 動態標題與優雅圖案 --- */
         .header {
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: white;
-            padding: 20px 20px 30px 20px;
+            padding: 20px 20px 25px 20px;
             border-radius: 0 0 30px 30px;
             box-shadow: 0 10px 20px rgba(107, 142, 155, 0.25);
-            position: sticky; /* 標題固定在頂部 */
+            position: sticky;
             top: 0;
             z-index: 100;
+            /* 固定高度以維持穩定性 */
+            min-height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
         
-        .main-title {
+        .title-area {
             display: flex;
             align-items: center;
-            justify-content: flex-start; /* 靠左對齊 */
-            gap: 12px;
-            margin-bottom: 15px;
-        }
-        .main-title h2 {
-            margin: 0;
-            font-size: 1.5rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            gap: 10px;
+            margin-bottom: 10px;
         }
         
-        /* 日本國旗飄動動畫 (幅度加大) */
-        @keyframes strong-wave {
-            0% { transform: rotate(0deg) skewY(0deg); }
-            25% { transform: rotate(15deg) skewY(5deg); } /* 角度加大 */
-            50% { transform: rotate(0deg) skewY(0deg); }
-            75% { transform: rotate(-15deg) skewY(-5deg); } /* 角度加大 */
-            100% { transform: rotate(0deg) skewY(0deg); }
+        /* 動態標題樣式 */
+        #mainTitle {
+            margin: 0;
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            line-height: 1.4;
         }
-        .flag-icon {
-            font-size: 1.2rem; /* 縮小旗子 */
-            animation: strong-wave 2s infinite ease-in-out; /* 加快速度 */
-            display: inline-block;
-            filter: drop-shadow(0 2px 3px rgba(0,0,0,0.2));
-            transform-origin: bottom left; /* 以旗桿底部為軸心 */
+        
+        /* 知性漫步圖案 (Icon) */
+        .walking-icon-container {
+            display: inline-flex;
+            align-items: center;
+            color: rgba(255,255,255,0.9);
+            font-size: 1.1rem;
+        }
+        
+        /* 微微飄動動畫 */
+        @keyframes subtle-float {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-2px) rotate(3deg); }
+            100% { transform: translateY(0) rotate(0deg); }
+        }
+        .walking-icon {
+            animation: subtle-float 4s infinite ease-in-out;
+            margin-left: 5px;
         }
 
+        /* 氣象區塊 (固定佈局) */
         .weather-widget {
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
+            position: relative; /* 為了定位穿搭建議 */
+            height: 50px; /* 給予固定高度空間 */
+        }
+        
+        .temp-box {
+            position: absolute;
+            left: 0;
+            bottom: 0;
         }
         .temp-box p { margin: 0; font-size: 0.85rem; opacity: 0.9; font-weight: 400; margin-bottom: 2px;}
-        /* 調整：氣溫字體縮小 */
         .temp-box h1 { margin: 0; font-size: 1.6rem; font-weight: 500; letter-spacing: 1px; line-height: 1; }
         
+        /* 穿搭建議 (絕對定位，防止跳動) */
         .outfit-tip {
             background: rgba(255,255,255,0.2);
-            padding: 6px 10px;
+            padding: 8px 12px;
             border-radius: 12px;
             font-size: 0.75rem;
-            max-width: 65%;
             display: flex;
             align-items: center;
             gap: 6px;
             backdrop-filter: blur(5px);
             line-height: 1.3;
             border: 1px solid rgba(255,255,255,0.3);
+            
+            /* 固定位置 */
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            max-width: 65%;
+            height: 42px; /* 固定高度，兩行字也能容納 */
+            overflow: hidden;
         }
+        .outfit-tip i { font-size: 0.9rem; flex-shrink: 0; }
 
-        /* --- 日期選擇器 (D1~D6 字體縮小) --- */
+        /* --- 日期選擇器 --- */
         .date-scroller {
             display: flex;
             overflow-x: auto;
@@ -113,8 +141,8 @@
         
         .date-chip {
             background: white;
-            min-width: 65px; /* 稍微縮小寬度 */
-            height: 65px;    /* 稍微縮小高度 */
+            min-width: 65px;
+            height: 65px;
             padding: 8px;
             border-radius: 16px;
             display: flex;
@@ -128,18 +156,14 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.03);
             flex-shrink: 0;
         }
-        /* 調整：D1~D6 字體縮小 */
         .date-chip strong {
             font-size: 1.1rem; 
             font-weight: 700;
             margin-bottom: 2px;
             color: #C0C0C0;
         }
-        .date-chip span {
-            font-size: 0.7rem;
-        }
+        .date-chip span { font-size: 0.7rem; }
         
-        /* 選中狀態 (修復變色邏輯：CSS樣式加強) */
         .date-chip.active {
             background: white;
             border: 2px solid var(--primary);
@@ -149,56 +173,56 @@
         .date-chip.active strong { color: var(--primary) !important; }
         .date-chip.active span { color: var(--primary) !important; font-weight: bold; }
 
-        /* --- 行程時間軸 (佈局大改) --- */
+        /* --- 行程時間軸 --- */
         .timeline-container { padding: 10px 20px; }
         
         .timeline-item {
             display: flex;
-            margin-bottom: 25px; /* 卡片間距 */
+            margin-bottom: 25px;
             position: relative;
         }
 
-        /* 垂直線 (貫穿時間泡泡) */
+        /* 垂直線 */
         .timeline-item::before {
             content: '';
             position: absolute;
-            left: 28px; /* 線的位置需對齊泡泡中心 */
+            left: 28px;
             top: 0;
-            bottom: -25px; /* 連接到下一個 */
+            bottom: -25px;
             width: 2px;
             background: var(--line);
             z-index: 0;
         }
         .timeline-item:last-child::before { display: none; }
 
-        /* 左側：時間泡泡區 */
+        /* 時間泡泡區 */
         .time-wrapper {
-            width: 65px; /* 左側寬度 */
+            width: 65px;
             flex-shrink: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding-top: 10px; /* 對齊卡片頂部 */
+            padding-top: 10px;
             z-index: 1;
             margin-right: 10px;
         }
 
-        /* 時間泡泡本體 */
+        /* 時間泡泡 (邊框調淡) */
         .time-bubble {
             background: white;
             color: var(--primary);
-            border: 2px solid var(--primary);
+            border: 2px solid var(--bubble-border); /* 顏色變數調整 */
             border-radius: 20px;
             padding: 4px 8px;
             font-size: 0.75rem;
             font-weight: 700;
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            z-index: 2; /* 蓋住線 */
+            z-index: 2;
             text-align: center;
             min-width: 50px;
         }
 
-        /* 右側：內容卡片 (改為左圖右文) */
+        /* 內容卡片 (左圖右文) */
         .content-col {
             flex: 1;
             background: var(--card-bg);
@@ -208,17 +232,15 @@
             z-index: 1;
             overflow: hidden;
             border: 1px solid rgba(0,0,0,0.01);
-            
-            /* 關鍵修改：使用 Flex 讓圖文並排 */
             display: flex; 
             flex-direction: row;
-            min-height: 110px; /* 確保最小高度 */
+            min-height: 110px;
         }
 
-        /* 圖片區域 (佔 1/3，左邊) */
+        /* 圖片區域 (1/3) */
         .card-img-col {
-            width: 33%; /* 1/3 寬度 */
-            min-width: 100px; /* 防止手機太窄 */
+            width: 33%;
+            min-width: 100px;
             position: relative;
             overflow: hidden;
             background-color: #eee;
@@ -226,19 +248,20 @@
         .card-img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* 填滿不變形 */
+            object-fit: cover;
             position: absolute;
             top: 0;
             left: 0;
+            transition: transform 0.5s ease;
         }
 
-        /* 文字區域 (佔 2/3，右邊) */
+        /* 文字區域 (2/3) */
         .card-body { 
             flex: 1;
             padding: 12px 15px; 
             display: flex;
             flex-direction: column;
-            justify-content: center; /* 垂直居中 */
+            justify-content: center;
         }
 
         .content-col h3 { margin: 0 0 5px 0; font-size: 1.05rem; color: #4F5D64; font-weight: 700; line-height: 1.3; }
@@ -264,18 +287,18 @@
             margin-top: 5px;
             line-height: 1.4;
             display: -webkit-box;
-            -webkit-line-clamp: 3; /* 限制行數避免太長 */
+            -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
 
-        /* 導航按鈕 (縮小並移至卡片右上角，絕對定位) */
+        /* 導航按鈕 */
         .nav-btn-corner {
             position: absolute;
             top: 10px;
             right: 10px;
             color: var(--primary);
-            background: rgba(255,255,255,0.8); /* 半透明背景防遮擋文字 */
+            background: rgba(255,255,255,0.8);
             width: 28px;
             height: 28px;
             border-radius: 50%;
@@ -319,78 +342,24 @@
         .page.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* 美食卡片 */
-        .food-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            padding: 15px;
-        }
-        .food-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
-        }
-        .food-img-placeholder {
-            height: 120px;
-            background: var(--tag-food);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 2.5rem;
-        }
+        /* 美食與工具頁面樣式維持原樣... */
+        .food-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 15px; }
+        .food-card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.03); }
+        .food-img-placeholder { height: 120px; background: var(--tag-food); display: flex; align-items: center; justify-content: center; color: white; font-size: 2.5rem; }
         .real-food-img { width: 100%; height: 120px; object-fit: cover; }
         .food-info { padding: 12px; }
         .food-name { font-weight: bold; font-size: 0.9rem; margin-bottom: 3px; color: #555; }
         .food-jp { color: #999; font-size: 0.75rem; margin-bottom: 5px; }
         .food-price { color: var(--accent); font-weight: bold; font-size: 0.9rem; }
 
-        /* 工具箱 */
         .tools-container { padding: 20px; }
-        .tool-card {
-            background: white;
-            padding: 20px;
-            border-radius: 16px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
-        }
+        .tool-card { background: white; padding: 20px; border-radius: 16px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); }
         .tool-card h3 { color: var(--primary); margin-top: 0; font-size: 1.1rem; }
-        .tool-btn {
-            background: var(--accent);
-            color: white;
-            border: none;
-            padding: 12px;
-            width: 100%;
-            border-radius: 10px;
-            font-size: 1rem;
-            margin-top: 10px;
-            cursor: pointer;
-        }
+        .tool-btn { background: var(--accent); color: white; border: none; padding: 12px; width: 100%; border-radius: 10px; font-size: 1rem; margin-top: 10px; cursor: pointer; }
         .input-group { display: flex; gap: 10px; margin-bottom: 10px; }
-        .input-group input { 
-            flex: 1; padding: 12px; border: 1px solid #eee; border-radius: 8px; 
-            font-size: 1rem; background: #FAFAFA;
-        }
-
-        /* 翻譯區 */
-        .translate-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-        .phrase-btn {
-            background: white;
-            border: 1px solid var(--accent);
-            color: var(--accent);
-            padding: 15px 10px;
-            border-radius: 12px;
-            text-align: center;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
+        .input-group input { flex: 1; padding: 12px; border: 1px solid #eee; border-radius: 8px; font-size: 1rem; background: #FAFAFA; }
+        .translate-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .phrase-btn { background: white; border: 1px solid var(--accent); color: var(--accent); padding: 15px 10px; border-radius: 12px; text-align: center; font-size: 0.9rem; cursor: pointer; transition: all 0.2s; }
         .phrase-btn:active { background: var(--accent); color: white; transform: scale(0.98); }
         .phrase-btn i { display: block; margin-bottom: 5px; opacity: 0.5; }
 
@@ -399,9 +368,12 @@
 <body>
 
     <div class="header" id="headerWidget">
-        <div class="main-title">
-            <h2>東京．冬日雅旅</h2>
-            <span class="flag-icon">🇯🇵</span>
+        <div class="title-area">
+            <h2 id="mainTitle">◈ 東京慢旅．只屬於我的日常 ◈</h2>
+            <div class="walking-icon-container">
+                <i class="fas fa-person-walking walking-icon"></i>
+                <i class="fas fa-wind" style="font-size:0.7rem; margin-left:3px; opacity:0.7;"></i>
+            </div>
         </div>
         <div class="weather-widget">
             <div class="temp-box">
@@ -491,6 +463,16 @@
     <script>
         // --- 資料區 ---
         
+        // 每日標題設定
+        const pageTitles = [
+            "◈ 東京慢旅．只屬於我的日常 ◈",
+            "一個人的節奏，最剛好的東京",
+            "與城市輕聲說話的日子",
+            "在街角光影中．飛翔",
+            "一杯咖啡，一條街，剛剛好的自在",
+            "把日子走成風景．輕揚"
+        ];
+
         const weatherDB = {
             "2026-02-03": { temp: "5-11°", icon: "cloud-sun", tip: "搭機日，建議洋蔥式穿搭。" },
             "2026-02-04": { temp: "3-9°", icon: "sun", tip: "戶外多，穿羽絨衣與好走的鞋。" },
@@ -500,47 +482,48 @@
             "2026-02-08": { temp: "6-13°", icon: "plane", tip: "返程日，行李保持輕便。" }
         };
 
+        // 已修正所有失效的圖片連結
         const itineraryDB = {
             "D1 2026-02-03(二)": [
                 { time: "15:35", title: "桃園 T1 起飛 (IT202)", type: "交通", note: "機場先吃午餐。13:30 報到。", link: "geo:25.0797,121.2342", img: "https://images.unsplash.com/photo-1570710891163-6d3b5c47248b?auto=format&fit=crop&w=600&q=80" },
-                { time: "19:35", title: "抵達成田 T2", type: "交通", note: "購買/儲值西瓜卡 (Suica)。", link: "geo:35.7719,140.3929", img: "https://images.unsplash.com/photo-1542640244-7e67286feb8f?auto=format&fit=crop&w=600&q=80" },
+                { time: "19:35", title: "抵達成田 T2", type: "交通", note: "購買/儲值西瓜卡 (Suica)。", link: "geo:35.7719,140.3929", img: "https://images.unsplash.com/photo-1542640244-7e67286feb8f?auto=format&fit=crop&w=600&q=80" }, // 機場行李
                 { time: "20:30", title: "Skyliner 往市區", type: "交通", note: "車上吃點輕食。車程45分。", link: "", img: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=600&q=80" },
                 { time: "21:45", title: "入住：四谷京阪飯店", type: "住宿", note: "四谷站步行3分。樓下有超市。", link: "https://www.google.com/maps/search/?api=1&query=Hotel+Keihan+Yotsuya", img: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=600&q=80" }
             ],
             "D2 2026-02-04(三)": [
-                { time: "09:30", title: "上野東照宮", type: "景點", note: "金碧輝煌江戶建築與牡丹花園。", link: "https://www.google.com/maps/search/?api=1&query=Ueno+Toshogu", img: "https://images.unsplash.com/photo-1596720426673-e4f28bc188f2?auto=format&fit=crop&w=600&q=80" },
+                { time: "09:30", title: "上野東照宮", type: "景點", note: "金碧輝煌江戶建築與牡丹花園。", link: "https://www.google.com/maps/search/?api=1&query=Ueno+Toshogu", img: "https://images.unsplash.com/photo-1624253321171-1be53e12f5f4?auto=format&fit=crop&w=600&q=80" }, // 神社
                 { time: "10:30", title: "上野恩賜公園", type: "景點", note: "不忍池觀鳥、辯天堂散步。", link: "https://www.google.com/maps/search/?api=1&query=Ueno+Park", img: "https://images.unsplash.com/photo-1578469550956-0e16b69c6a3d?auto=format&fit=crop&w=600&q=80" },
                 { time: "11:00", title: "伊豆榮 梅川亭", type: "餐飲", note: "百年鰻魚飯老店，環境清幽。", link: "https://www.google.com/maps/search/?api=1&query=Izuei+Umekawatei", img: "https://images.unsplash.com/photo-1580442151529-343f2f6e0e27?auto=format&fit=crop&w=600&q=80" },
-                { time: "11:30", title: "阿美橫丁", type: "購物", note: "熱鬧市集，買藥妝、水果。", link: "https://www.google.com/maps/search/?api=1&query=Ameyoko", img: "https://images.unsplash.com/photo-1554797584-c71b1116d230?auto=format&fit=crop&w=600&q=80" },
-                { time: "13:00", title: "淺草寺 & 雷門", type: "景點", note: "人多小心。仲見世通吃人形燒。", link: "https://www.google.com/maps/search/?api=1&query=Sensoji", img: "https://images.unsplash.com/photo-1563860533-36558ab479e7?auto=format&fit=crop&w=600&q=80" },
-                { time: "14:00", title: "龜十銅鑼燒", type: "餐飲", note: "雷門對面，排隊伴手禮。", link: "https://www.google.com/maps/search/?api=1&query=Kameju", img: "https://images.unsplash.com/photo-1579584425555-d35d0da400f4?auto=format&fit=crop&w=600&q=80" }
+                { time: "11:30", title: "阿美橫丁", type: "購物", note: "熱鬧市集，買藥妝、水果。", link: "https://www.google.com/maps/search/?api=1&query=Ameyoko", img: "https://images.unsplash.com/photo-1606822360293-6a422079038d?auto=format&fit=crop&w=600&q=80" }, // 阿美橫丁街景
+                { time: "13:00", title: "淺草寺 & 雷門", type: "景點", note: "人多小心。仲見世通吃人形燒。", link: "https://www.google.com/maps/search/?api=1&query=Sensoji", img: "https://images.unsplash.com/photo-1563860533-36558ab479e7?auto=format&fit=crop&w=600&q=80" }, // 雷門
+                { time: "14:00", title: "龜十銅鑼燒", type: "餐飲", note: "雷門對面，排隊伴手禮。", link: "https://www.google.com/maps/search/?api=1&query=Kameju", img: "https://images.unsplash.com/photo-1634568853685-78e2285df649?auto=format&fit=crop&w=600&q=80" } // 銅鑼燒示意
             ],
             "D3 2026-02-05(四)": [
                 { time: "09:00", title: "皇居 (二重橋)", type: "景點", note: "必帶護照。欣賞護城河、石垣。", link: "https://www.google.com/maps/search/?api=1&query=Imperial+Palace+Tokyo", img: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=600&q=80" },
                 { time: "11:30", title: "東京車站一番街", type: "餐飲", note: "六厘舍沾麵或牛舌定食。", link: "https://www.google.com/maps/search/?api=1&query=Tokyo+Character+Street", img: "https://images.unsplash.com/photo-1519985176271-adb1088fa94c?auto=format&fit=crop&w=600&q=80" },
                 { time: "14:00", title: "東京大神宮", type: "景點", note: "結緣神社，日式庭園極美。", link: "https://www.google.com/maps/search/?api=1&query=Tokyo+Daijingu", img: "https://images.unsplash.com/photo-1503917988258-f87a78e3c995?auto=format&fit=crop&w=600&q=80" },
-                { time: "15:00", title: "秋葉原尋寶", type: "購物", note: "無線電會館，找志摩凜公仔。", link: "https://www.google.com/maps/search/?api=1&query=Radio+Kaikan", img: "https://images.unsplash.com/photo-1578556755452-19e3448f7b7f?auto=format&fit=crop&w=600&q=80" },
+                { time: "15:00", title: "秋葉原尋寶", type: "購物", note: "無線電會館，找志摩凜公仔。", link: "https://www.google.com/maps/search/?api=1&query=Radio+Kaikan", img: "https://images.unsplash.com/photo-1578556755452-19e3448f7b7f?auto=format&fit=crop&w=600&q=80" }, // 秋葉原
                 { time: "17:30", title: "晚餐：神田 藪蕎麥", type: "餐飲", note: "百年老店，體驗江戶老味道。", link: "https://www.google.com/maps/search/?api=1&query=Kanda+Yabu+Soba", img: "https://images.unsplash.com/photo-1519985176271-adb1088fa94c?auto=format&fit=crop&w=600&q=80" }
             ],
             "D4 2026-02-06(五)": [
                 { time: "09:00", title: "明治神宮", type: "景點", note: "都市森林漫步，享受清幽。", link: "https://www.google.com/maps/search/?api=1&query=Meiji+Jingu", img: "https://images.unsplash.com/photo-1542051841857-5f90071e7989?auto=format&fit=crop&w=600&q=80" },
                 { time: "12:00", title: "AFURI 柚子拉麵", type: "餐飲", note: "清爽柚子鹽口味，適合女生。", link: "https://www.google.com/maps/search/?api=1&query=AFURI+Harajuku", img: "https://images.unsplash.com/photo-1569050467447-ce54b3bbc37d?auto=format&fit=crop&w=600&q=80" },
-                { time: "13:30", title: "新宿御苑", type: "景點", note: "《言葉之庭》取景，庭園極美。", link: "https://www.google.com/maps/search/?api=1&query=Shinjuku+Gyoen", img: "https://images.unsplash.com/photo-1586791965591-62d4e6669f3d?auto=format&fit=crop&w=600&q=80" },
-                { time: "16:30", title: "思出橫丁", type: "景點", note: "體驗昭和懷舊窄巷。", link: "https://www.google.com/maps/search/?api=1&query=Omoide+Yokocho", img: "https://images.unsplash.com/photo-1589451814294-26d36298ed22?auto=format&fit=crop&w=600&q=80" },
+                { time: "13:30", title: "新宿御苑", type: "景點", note: "《言葉之庭》取景，庭園極美。", link: "https://www.google.com/maps/search/?api=1&query=Shinjuku+Gyoen", img: "https://images.unsplash.com/photo-1586791965591-62d4e6669f3d?auto=format&fit=crop&w=600&q=80" }, // 庭園
+                { time: "16:30", title: "思出橫丁", type: "景點", note: "體驗昭和懷舊窄巷。", link: "https://www.google.com/maps/search/?api=1&query=Omoide+Yokocho", img: "https://images.unsplash.com/photo-1589451814294-26d36298ed22?auto=format&fit=crop&w=600&q=80" }, // 橫丁燈籠
                 { time: "17:30", title: "Alpen Tokyo", type: "購物", note: "Snow Peak 專區，戶外用品。", link: "https://www.google.com/maps/search/?api=1&query=Alpen+Tokyo", img: "https://images.unsplash.com/photo-1533240332313-0db49b459ad6?auto=format&fit=crop&w=600&q=80" },
                 { time: "19:00", title: "東京都廳夜景", type: "景點", note: "免費上 45 樓俯瞰東京。", link: "https://www.google.com/maps/search/?api=1&query=Tokyo+Metropolitan+Government+Building", img: "https://images.unsplash.com/photo-1513407030348-c983a97b98d8?auto=format&fit=crop&w=600&q=80" }
             ],
             "D5 2026-02-07(六)": [
                 { time: "10:30", title: "東京鐵塔", type: "景點", note: "芝公園拍照經典位。", link: "https://www.google.com/maps/search/?api=1&query=Tokyo+Tower", img: "https://images.unsplash.com/photo-1536098561742-ca998e48cbcc?auto=format&fit=crop&w=600&q=80" },
-                { time: "12:30", title: "炸牛排 Motomura", type: "餐飲", note: "口感軟嫩，通常需排隊。", link: "", img: "https://images.unsplash.com/photo-1551622699-317415170d1e?auto=format&fit=crop&w=600&q=80" },
+                { time: "12:30", title: "炸牛排 Motomura", type: "餐飲", note: "口感軟嫩，通常需排隊。", link: "", img: "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=600&q=80" }, // 炸肉排
                 { time: "14:00", title: "國立新美術館", type: "景點", note: "玻璃帷幕，大廳光影美。", link: "https://www.google.com/maps/search/?api=1&query=The+National+Art+Center+Tokyo", img: "https://images.unsplash.com/photo-1506059612708-99d6c258160e?auto=format&fit=crop&w=600&q=80" },
-                { time: "15:30", title: "表參道之丘", type: "購物", note: "時尚大道，安藤忠雄建築。", link: "https://www.google.com/maps/search/?api=1&query=Omotesando+Hills", img: "https://images.unsplash.com/photo-1573215984620-e2659e5a1b3a?auto=format&fit=crop&w=600&q=80" },
+                { time: "15:30", title: "表參道之丘", type: "購物", note: "時尚大道，安藤忠雄建築。", link: "https://www.google.com/maps/search/?api=1&query=Omotesando+Hills", img: "https://images.unsplash.com/photo-1627914723086-5381a17531c3?auto=format&fit=crop&w=600&q=80" }, // 表參道
                 { time: "17:30", title: "澀谷 Sky", type: "景點", note: "俯瞰東京全景 (需預約)。", link: "https://www.google.com/maps/search/?api=1&query=Shibuya+Sky", img: "https://images.unsplash.com/photo-1621849400072-f554417f7051?auto=format&fit=crop&w=600&q=80" },
                 { time: "19:00", title: "澀谷交叉點", type: "景點", note: "世界最繁忙路口。", link: "https://www.google.com/maps/search/?api=1&query=Shibuya+Crossing", img: "https://images.unsplash.com/photo-1542931287-023b922fa89b?auto=format&fit=crop&w=600&q=80" },
                 { time: "21:30", title: "池尻大橋住宿", type: "住宿", note: "目黑區慢活生活感。", link: "https://www.google.com/maps/search/?api=1&query=Ikejiri-Ohashi", img: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=600&q=80" }
             ],
             "D6 2026-02-08(日)": [
-                { time: "07:30", title: "前往成田機場", type: "交通", note: "搭乘 NEX 或 Skyliner。", link: "", img: "https://images.unsplash.com/photo-1542640244-7e67286feb8f?auto=format&fit=crop&w=600&q=80" },
+                { time: "07:30", title: "前往成田機場", type: "交通", note: "搭乘 NEX 或 Skyliner。", link: "", img: "https://images.unsplash.com/photo-1579532537598-459ecdaf39cc?auto=format&fit=crop&w=600&q=80" }, // 列車
                 { time: "09:15", title: "抵達機場報到", type: "交通", note: "MM623。最後採買伴手禮。", link: "", img: "https://images.unsplash.com/photo-1522204523234-8729aa6e3d5f?auto=format&fit=crop&w=600&q=80" },
                 { time: "14:30", title: "抵達桃園 T1", type: "交通", note: "平安回家。", link: "", img: "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?auto=format&fit=crop&w=600&q=80" }
             ]
@@ -567,46 +550,48 @@
             loadExpenses();
         };
 
-        // 渲染日期導航 (修復變色邏輯：增加 data-date 屬性來精準比對)
         function renderDateNav() {
             const container = document.getElementById('dateNav');
-            container.innerHTML = ""; // 清空
+            container.innerHTML = "";
             
             dates.forEach((date, index) => {
-                const dayStr = date.split(' ')[1].substring(5); // 02-03(二)
+                const dayStr = date.split(' ')[1].substring(5);
                 const dLabel = `D${index + 1}`;
-                const dateKey = date.split(' ')[1].substring(0,10); // 2026-02-03
+                const dateKey = date.split(' ')[1].substring(0,10);
 
                 const el = document.createElement('div');
                 el.className = 'date-chip';
-                // 使用 data-date 屬性來標記，比對更精準
-                el.dataset.date = dateKey; 
+                el.dataset.date = dateKey;
+                el.dataset.index = index; // 增加索引以便切換標題
                 
-                // 判斷是否為當前選中日期
                 if(currentDate === dateKey) {
                     el.classList.add('active');
                 }
 
                 el.innerHTML = `<strong>${dLabel}</strong><span>${dayStr}</span>`;
-                el.onclick = () => selectDate(date);
+                el.onclick = () => selectDate(date, index); // 傳入 index
                 container.appendChild(el);
             });
         }
 
-        // 選擇日期 (邏輯優化)
-        function selectDate(fullKey) {
-            // 提取純日期 YYYY-MM-DD
+        // 修改：增加 index 參數來切換標題
+        function selectDate(fullKey, index) {
             currentDate = fullKey.split(' ')[1].substring(0,10); 
             
-            // 重新渲染導航列 (確保樣式正確切換)
-            renderDateNav();
+            // 更新標題 (如果沒有傳入 index，就從 dates 陣列反查)
+            if (index === undefined) {
+                index = dates.indexOf(fullKey);
+            }
+            if (index !== -1 && pageTitles[index]) {
+                document.getElementById('mainTitle').innerText = pageTitles[index];
+            }
 
+            renderDateNav();
             renderItinerary(fullKey);
             const weatherDate = fullKey.match(/\d{4}-\d{2}-\d{2}/)[0];
             renderWeather(weatherDate);
         }
 
-        // 渲染行程 (左側時間泡泡 + 左圖右文佈局)
         function renderItinerary(key) {
             const list = document.getElementById('itineraryList');
             const items = itineraryDB[key] || [];
