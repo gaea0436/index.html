@@ -16,10 +16,14 @@
             --text-light: #949494;    /* 淺灰 */
             --card-bg: #FFFFFF;
             --accent: #C5A087;        /* 奶茶暖棕 (強調色) */
-            --highlight: #E88D67;     /* 亮橘色 (功能強調) */
-            --line: #E0E0E0;          /* 時間軸線條色 (更淡) */
-            --bubble-border: #BCCCD1; /* 時間泡泡邊框 (淡化版) */
+            --line: #E0E0E0;          /* 時間軸線條色 */
+            --bubble-border: #BCCCD1; /* 時間泡泡邊框 */
             
+            /* 功能按鈕顏色 */
+            --btn-listen: #E88D67;    /* 聽 - 橘色 */
+            --btn-speak: #6B8E9B;     /* 說 - 藍色 */
+            --btn-camera: #9B87A8;    /* 拍 - 紫色 */
+
             /* 標籤配色 */
             --tag-transport: #DDE5E8;
             --tag-spot: #EAE4DC;      
@@ -36,7 +40,7 @@
             padding-bottom: 90px;
         }
 
-        /* --- Header: 標題與版面優化 --- */
+        /* --- Header --- */
         .header {
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: white;
@@ -54,14 +58,13 @@
         
         .title-area {
             display: flex;
-            align-items: center; /* 垂直置中 */
-            justify-content: flex-start; /* 靠左對齊 */
-            flex-wrap: wrap; /* 修改1：允許換行，避免手機版面跑版 */
+            align-items: center;
+            justify-content: flex-start;
+            flex-wrap: wrap;
             gap: 8px;
             margin-bottom: 10px;
         }
         
-        /* 標題設定 */
         #mainTitle {
             margin: 0;
             font-size: 1.25rem;
@@ -72,17 +75,15 @@
             white-space: nowrap; 
         }
         
-        /* 日系手繪風插圖 (用圓形圖片呈現) */
+        /* 女性走路圖示 */
         .walking-icon-img {
             width: 50px;
             height: 50px;
             border-radius: 50%;
             border: 2px solid rgba(255,255,255,0.9);
             object-fit: cover;
-            /* 飄動動畫 */
             animation: soft-float 4s infinite ease-in-out;
             margin-left: 5px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
             background: white; 
         }
 
@@ -92,7 +93,7 @@
             100% { transform: translateY(0) rotate(0deg); }
         }
 
-        /* 氣象區塊 (固定佈局) */
+        /* 氣象區塊 */
         .weather-widget {
             display: flex;
             justify-content: space-between;
@@ -101,26 +102,14 @@
             height: 50px;
         }
         
-        .temp-box {
-            position: absolute;
-            left: 0;
-            bottom: 0;
-        }
-        .temp-box p { margin: 0; font-size: 0.85rem; opacity: 0.9; font-weight: 400; margin-bottom: 2px;}
-        
-        /* 修改：氣溫字體縮小，並調整排列 */
+        .temp-box { position: absolute; left: 0; bottom: 0; }
+        .temp-box p { margin: 0; font-size: 0.85rem; opacity: 0.9; margin-bottom: 2px;}
         .temp-box h1 { 
-            margin: 0; 
-            font-size: 1.3rem;
-            font-weight: 500; 
-            letter-spacing: 1px; 
-            line-height: 1; 
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            margin: 0; font-size: 1.3rem; font-weight: 500; 
+            letter-spacing: 1px; line-height: 1; 
+            display: flex; align-items: center; gap: 8px;
         }
         
-        /* 穿搭建議 (固定右下角) */
         .outfit-tip {
             background: rgba(255,255,255,0.2);
             padding: 8px 12px;
@@ -130,284 +119,158 @@
             align-items: center;
             gap: 6px;
             backdrop-filter: blur(5px);
-            line-height: 1.3;
             border: 1px solid rgba(255,255,255,0.3);
-            position: absolute;
-            right: 0;
-            bottom: 0;
-            max-width: 65%;
-            height: 42px;
-            overflow: hidden;
+            position: absolute; right: 0; bottom: 0;
+            max-width: 65%; height: 42px; overflow: hidden;
         }
-        .outfit-tip i { font-size: 0.9rem; flex-shrink: 0; }
 
         /* --- 日期選擇器 --- */
         .date-scroller {
-            display: flex;
-            overflow-x: auto;
-            padding: 15px 15px;
-            gap: 10px;
-            scrollbar-width: none;
-            background: var(--bg);
+            display: flex; overflow-x: auto; padding: 15px 15px; gap: 10px;
+            scrollbar-width: none; background: var(--bg);
         }
         .date-scroller::-webkit-scrollbar { display: none; }
         
         .date-chip {
-            background: white;
-            min-width: 65px;
-            height: 65px;
-            padding: 8px;
-            border-radius: 16px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-light);
-            border: 1px solid transparent;
-            transition: all 0.2s ease;
-            cursor: pointer;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-            flex-shrink: 0;
+            background: white; min-width: 65px; height: 65px; padding: 8px;
+            border-radius: 16px; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; color: var(--text-light);
+            transition: all 0.2s ease; cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03); flex-shrink: 0;
         }
         
-        .date-chip strong {
-            font-size: 1.0rem;
-            font-weight: 700;
-            margin-bottom: 2px;
-            color: #C0C0C0;
-        }
+        .date-chip strong { font-size: 1.0rem; font-weight: 700; margin-bottom: 2px; color: #C0C0C0; }
         .date-chip span { font-size: 0.7rem; }
         
         .date-chip.active {
-            background: white;
-            border: 2px solid var(--primary);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(107, 142, 155, 0.3);
+            background: white; border: 2px solid var(--primary);
+            transform: translateY(-2px); box-shadow: 0 4px 12px rgba(107, 142, 155, 0.3);
         }
         .date-chip.active strong { color: var(--primary) !important; }
         .date-chip.active span { color: var(--primary) !important; font-weight: bold; }
 
         /* --- 行程時間軸 --- */
         .timeline-container { padding: 10px 20px; }
-        
-        .timeline-item {
-            display: flex;
-            margin-bottom: 25px;
-            position: relative;
-        }
-
+        .timeline-item { display: flex; margin-bottom: 25px; position: relative; }
         .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: 28px;
-            top: 0;
-            bottom: -25px;
-            width: 2px;
-            background: var(--line);
-            z-index: 0;
+            content: ''; position: absolute; left: 28px; top: 0; bottom: -25px;
+            width: 2px; background: var(--line); z-index: 0;
         }
         .timeline-item:last-child::before { display: none; }
 
         .time-wrapper {
-            width: 65px;
-            flex-shrink: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding-top: 10px;
-            z-index: 1;
-            margin-right: 10px;
+            width: 65px; flex-shrink: 0; display: flex; flex-direction: column;
+            align-items: center; padding-top: 10px; z-index: 1; margin-right: 10px;
         }
-
         .time-bubble {
-            background: white;
-            color: var(--primary);
-            border: 2px solid var(--bubble-border);
-            border-radius: 20px;
-            padding: 4px 8px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            z-index: 2;
-            text-align: center;
-            min-width: 50px;
+            background: white; color: var(--primary); border: 2px solid var(--bubble-border);
+            border-radius: 20px; padding: 4px 8px; font-size: 0.75rem; font-weight: 700;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05); z-index: 2; text-align: center; min-width: 50px;
         }
 
         .content-col {
-            flex: 1;
-            background: var(--card-bg);
-            border-radius: 16px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-            position: relative;
-            z-index: 1;
-            overflow: hidden;
-            border: 1px solid rgba(0,0,0,0.01);
-            display: flex; 
-            flex-direction: row;
-            min-height: 110px;
+            flex: 1; background: var(--card-bg); border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03); position: relative; z-index: 1;
+            overflow: hidden; display: flex; flex-direction: row; min-height: 110px;
         }
 
-        .card-img-col {
-            width: 33%;
-            min-width: 100px;
-            position: relative;
-            overflow: hidden;
-            background-color: #eee;
-        }
-        .card-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            position: absolute;
-            top: 0;
-            left: 0;
-            transition: transform 0.5s ease;
-        }
-
-        .card-body { 
-            flex: 1;
-            padding: 12px 15px; 
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
+        .card-img-col { width: 33%; min-width: 100px; position: relative; overflow: hidden; background-color: #eee; }
+        .card-img { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; }
+        .card-body { flex: 1; padding: 12px 15px; display: flex; flex-direction: column; justify-content: center; }
 
         .content-col h3 { margin: 0 0 5px 0; font-size: 1.05rem; color: #4F5D64; font-weight: 700; line-height: 1.3; }
-        
-        .tag {
-            display: inline-block;
-            font-size: 0.65rem;
-            padding: 2px 6px;
-            border-radius: 4px;
-            color: #666;
-            margin-bottom: 6px;
-            font-weight: 500;
-            width: fit-content;
-        }
+        .tag { display: inline-block; font-size: 0.65rem; padding: 2px 6px; border-radius: 4px; color: #666; margin-bottom: 6px; font-weight: 500; width: fit-content; }
         .tag.交通 { background: var(--tag-transport); color: #546E7A; }
-        .tag.景點, .tag.觀光 { background: var(--tag-spot); color: #8D7663; }
-        .tag.餐飲, .tag.購物 { background: var(--tag-food); color: #8A7E72; }
+        .tag.景點 { background: var(--tag-spot); color: #8D7663; }
+        .tag.餐飲 { background: var(--tag-food); color: #8A7E72; }
+        .tag.購物 { background: var(--tag-food); color: #8A7E72; }
         .tag.住宿 { background: var(--secondary); color: #607D8B; }
 
-        .note {
-            font-size: 0.8rem;
-            color: #888;
-            margin-top: 5px;
-            line-height: 1.4;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
+        .note { font-size: 0.8rem; color: #888; margin-top: 5px; line-height: 1.4; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }
 
         .nav-btn-corner {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            color: var(--primary);
-            background: rgba(255,255,255,0.8);
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.9rem;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            z-index: 5;
-            text-decoration: none;
+            position: absolute; top: 10px; right: 10px; color: var(--primary);
+            background: rgba(255,255,255,0.8); width: 28px; height: 28px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 0.9rem; box-shadow: 0 2px 5px rgba(0,0,0,0.1); z-index: 5; text-decoration: none;
         }
-        .nav-btn-corner:active { transform: scale(0.9); background: var(--primary); color: white; }
-
-        /* --- 底部導航 --- */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: white;
-            display: flex;
-            justify-content: space-around;
-            padding: 10px 0;
-            box-shadow: 0 -4px 20px rgba(0,0,0,0.05);
-            z-index: 200;
-            border-top-left-radius: 20px;
-            border-top-right-radius: 20px;
-        }
-        .nav-item {
-            text-align: center;
-            color: #C0C0C0;
-            font-size: 0.75rem;
-            cursor: pointer;
-            transition: color 0.3s;
-        }
-        .nav-item.active { color: var(--primary); }
-        .nav-item i { font-size: 1.2rem; display: block; margin-bottom: 4px; }
 
         /* --- 其他頁面 --- */
         .page { display: none; padding-bottom: 20px; animation: fadeIn 0.3s ease; }
         .page.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* 美食與工具頁面 */
+        /* 美食頁面 */
         .food-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 15px; }
         .food-card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.03); }
-        .food-img-placeholder { height: 120px; background: var(--tag-food); display: flex; align-items: center; justify-content: center; color: white; font-size: 2.5rem; }
         .real-food-img { width: 100%; height: 120px; object-fit: cover; }
         .food-info { padding: 12px; }
         .food-name { font-weight: bold; font-size: 0.9rem; margin-bottom: 3px; color: #555; }
         .food-jp { color: #999; font-size: 0.75rem; margin-bottom: 5px; }
         .food-price { color: var(--accent); font-weight: bold; font-size: 0.9rem; }
 
+        /* 工具頁面 */
         .tools-container { padding: 20px; }
         .tool-card { background: white; padding: 20px; border-radius: 16px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); }
         .tool-card h3 { color: var(--primary); margin-top: 0; font-size: 1.1rem; }
         
-        .input-group { 
-            display: flex;
-            flex-direction: column; 
-            gap: 10px; 
-            margin-bottom: 10px;
-        }
-        .input-group input { 
-            width: 100%;
-            padding: 12px; 
-            border: 1px solid #eee;
-            border-radius: 8px; 
-            font-size: 1rem; 
-            background: #FAFAFA;
-        }
-
-        .tool-btn { background: var(--accent); color: white; border: none; padding: 12px; width: 100%; border-radius: 10px; font-size: 1rem; margin-top: 10px; cursor: pointer; }
-        .translate-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .translate-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
         .phrase-btn { background: white; border: 1px solid var(--accent); color: var(--accent); padding: 15px 10px; border-radius: 12px; text-align: center; font-size: 0.9rem; cursor: pointer; transition: all 0.2s; }
         .phrase-btn:active { background: var(--accent); color: white; transform: scale(0.98); }
-        .phrase-btn i { display: block; margin-bottom: 5px; opacity: 0.5; }
+        .phrase-btn i { display: block; margin-bottom: 5px; opacity: 0.5; font-size: 1.2rem; }
 
-        /* 新增：聽取回應按鈕樣式 */
-        .listen-btn {
-            background: var(--highlight); /* 亮橘色區隔 */
+        /* 新增：進階翻譯功能區 */
+        .smart-trans-area {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px dashed #eee;
+        }
+
+        .action-btn {
             color: white;
             border: none;
-            padding: 15px;
-            width: 100%;
+            padding: 16px;
             border-radius: 12px;
             font-size: 1rem;
-            margin-top: 15px;
             cursor: pointer;
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 10px;
-            box-shadow: 0 4px 10px rgba(232, 141, 103, 0.3);
+            justify-content: flex-start;
+            gap: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            text-decoration: none; /* 讓連結看起來像按鈕 */
+            font-weight: 500;
         }
-        .listen-btn:active { transform: scale(0.98); background: #d67d58; }
+        .action-btn:active { transform: scale(0.98); opacity: 0.9; }
+        .action-btn i { font-size: 1.2rem; width: 24px; text-align: center; }
+
+        .btn-listen { background: var(--btn-listen); } /* 聽對方說 */
+        .btn-speak { background: var(--btn-speak); }   /* 我說中文 */
+        .btn-camera { background: var(--btn-camera); } /* 拍照翻譯 */
+
+        .input-group { display: flex; flex-direction: column; gap: 10px; margin-bottom: 10px; }
+        .input-group input { width: 100%; padding: 12px; border: 1px solid #eee; border-radius: 8px; font-size: 1rem; background: #FAFAFA; }
+        .tool-btn { background: var(--accent); color: white; border: none; padding: 12px; width: 100%; border-radius: 10px; font-size: 1rem; margin-top: 10px; cursor: pointer; }
+
+        /* --- 底部導航 --- */
+        .bottom-nav {
+            position: fixed; bottom: 0; left: 0; right: 0; background: white;
+            display: flex; justify-content: space-around; padding: 10px 0;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.05); z-index: 200;
+            border-top-left-radius: 20px; border-top-right-radius: 20px;
+        }
+        .nav-item { text-align: center; color: #C0C0C0; font-size: 0.75rem; cursor: pointer; transition: color 0.3s; }
+        .nav-item.active { color: var(--primary); }
+        .nav-item i { font-size: 1.2rem; display: block; margin-bottom: 4px; }
 
     </style>
 </head>
 <body>
 
-    <div class="header" id="headerWidget">
+    <div class="header">
         <div class="title-area">
             <h2 id="mainTitle">◈ 東京慢旅．只屬於我的日常 ◈</h2>
             <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48Y2lyY2xlIGN4PSIyNTYiIGN5PSIyNTYiIHI9IjI1NiIgZmlsbD0iI2ZmZiIvPjxwYXRoIGZpbGw9IiM2QjhFOUIiIGQ9Ik0yODUgMTQ1YTI1IDI1IDAgMSAwLTUwIDAgMjUgMjUgMCAwIDAgNTAgMHptLTMwIDQ1Yy0xNSAwLTQwIDUtNTAgMjBsLTUgNTUgMTUgNWMyLTExIDEwLTI1IDEwLTI1bDE1IDU1cy0yMCA1NS0yNSA2MC0xMCAxNS01IDMwIDAgMzA1IDEwIDEwIDAgMTUtMTBsMjAtNDUgMTUtNDBzNSAzMCAxMCA0MCAxNSAyMCAyMCAyMCAxMC01IDEwLTE1Yy01LTE1LTE1LTMwLTIwLTU1bC0xNS01MGMxMC0xMCAxNS0yNSAxMC00MHoiLz48L3N2Zz4=" class="walking-icon-img" alt="Me">
@@ -415,8 +278,7 @@
         <div class="weather-widget">
             <div class="temp-box">
                 <p id="currentDateDisplay">2月3日 (二)</p>
-                <h1 id="weatherTemp">
-                    </h1>
+                <h1 id="weatherTemp"></h1>
             </div>
             <div class="outfit-tip" id="weatherTip">
                 <i class="fas fa-tshirt"></i> <span>寒冷，請穿著羽絨衣並攜帶圍巾</span>
@@ -442,8 +304,9 @@
         <div class="tools-container">
             
             <div class="tool-card">
-                <h3><i class="fas fa-volume-up"></i> 點擊說日文</h3>
+                <h3><i class="fas fa-comment-dots"></i> 一鍵求救 (點擊發音)</h3>
                 <p style="font-size:0.8rem; color:#999; margin-bottom:15px;">點擊下方按鈕，手機會直接唸出日文</p>
+                
                 <div class="translate-grid">
                     <div class="phrase-btn" onclick="speak('すみません、トイレはどこですか？', 'Sumimasen, toire wa doko desu ka?')">
                         <i class="fas fa-restroom"></i> 廁所在哪裡
@@ -459,10 +322,33 @@
                     </div>
                 </div>
 
-                <button class="listen-btn" onclick="window.open('https://translate.google.com/?sl=ja&tl=zh-TW&op=speech')">
-                    <i class="fas fa-microphone"></i> 聽對方說 (翻譯成中文)
-                </button>
-                <p style="text-align:center; font-size:0.75rem; color:#ccc; margin-top:5px;">點擊後請將手機靠近對方</p>
+                <div class="smart-trans-area">
+                    <h4 style="margin:0; color:#888; font-size:0.9rem;">即時對話神器</h4>
+                    
+                    <a href="https://translate.google.com/?sl=ja&tl=zh-TW&op=speech" target="_blank" class="action-btn btn-listen">
+                        <i class="fas fa-ear-listen"></i>
+                        <div>
+                            <div style="font-size:1rem;">聽對方說 (日➡中)</div>
+                            <div style="font-size:0.7rem; opacity:0.8;">請對方對著手機說話</div>
+                        </div>
+                    </a>
+
+                    <a href="https://translate.google.com/?sl=zh-TW&tl=ja&op=speech" target="_blank" class="action-btn btn-speak">
+                        <i class="fas fa-microphone"></i>
+                        <div>
+                            <div style="font-size:1rem;">我說中文 (中➡日)</div>
+                            <div style="font-size:0.7rem; opacity:0.8;">語音翻譯成日文給對方聽</div>
+                        </div>
+                    </a>
+
+                    <a href="https://translate.google.com/?sl=ja&tl=zh-TW&op=images" target="_blank" class="action-btn btn-camera">
+                        <i class="fas fa-camera"></i>
+                        <div>
+                            <div style="font-size:1rem;">拍照翻譯 (菜單/商品)</div>
+                            <div style="font-size:0.7rem; opacity:0.8;">拍下看不懂的文字</div>
+                        </div>
+                    </a>
+                </div>
             </div>
 
             <div class="tool-card">
@@ -501,13 +387,19 @@
     </div>
 
     <script>
-        // --- 修改2：定義 Base64 圖片 (解決破圖問題) ---
-        // 這些是很輕量的 SVG Base64 圖片，保證隨時可顯示
-        const img_trans = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MDAgNjAwIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWlkWU1pZCBzbGljZSI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI0RERTVFOCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjYwIiBmaWxsPSIjNTQ2RTdBIj7ijIg8L3RleHQ+PC9zdmc+";
-        const img_view = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MDAgNjAwIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWlkWU1pZCBzbGljZSI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI0VBRTREQyIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjYwIiBmaWxsPSIjOEQ3NjYzIj7jgpI8L3RleHQ+PC9zdmc+";
-        const img_food = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MDAgNjAwIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWlkWU1pZCBzbGljZSI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI0VGRUJFNSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjYwIiBmaWxsPSIjOEE3RTcyIj7kfTo8L3RleHQ+PC9zdmc+";
-        const img_shop = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MDAgNjAwIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWlkWU1pZCBzbGljZSI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI0VGRUJFNSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjYwIiBmaWxsPSIjOEE3RTcyIj7opK08L3RleHQ+PC9zdmc+";
-        const img_stay = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MDAgNjAwIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWlkWU1pZCBzbGljZSI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iIzYwN0Q4QiIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjYwIiBmaWxsPSIjZmZmIj7lrr88L3RleHQ+PC9zdmc+";
+        // --- 核心修復：使用 Base64 內建圖片，徹底解決破圖問題 ---
+        // 這些是 SVG 向量圖碼，不需要網路即可顯示
+        
+        // 交通圖示 (藍灰)
+        const img_trans = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MDAgNjAwIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWlkWU1pZCBzbGljZSI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI0RERTVFOCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjgwIiBmaWxsPSIjNTQ2RTdBIj7nkoDpg1o8L3RleHQ+PC9zdmc+";
+        // 景點圖示 (米棕)
+        const img_view = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MDAgNjAwIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWlkWU1pZCBzbGljZSI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI0VBRTREQyIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjgwIiBmaWxsPSIjOEQ3NjYzIj7mZr/buo48L3RleHQ+PC9zdmc+";
+        // 美食圖示 (暖白)
+        const img_food = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MDAgNjAwIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWlkWU1pZCBzbGljZSI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI0VGRUJFNSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjgwIiBmaWxsPSIjOEE3RTcyIj7voo/poq88L3RleHQ+PC9zdmc+";
+        // 購物圖示 (暖白)
+        const img_shop = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MDAgNjAwIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWlkWU1pZCBzbGljZSI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI0VGRUJFNSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjgwIiBmaWxsPSIjOEE3RTcyIj7eon/jgaE8L3RleHQ+PC9zdmc+";
+        // 住宿圖示 (深藍灰)
+        const img_stay = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MDAgNjAwIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWlkWU1pZCBzbGljZSI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iIzYwN0Q4QiIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjgwIiBmaWxsPSIjZmZmIj7lrr88L3RleHQ+PC9zdmc+";
 
         const pageTitles = [
             "◈ 東京慢旅．只屬於我的日常 ◈",
@@ -527,7 +419,6 @@
             "2026-02-08": { temp: "6-13°", icon: "plane", tip: "返程日，行李保持輕便。" }
         };
 
-        // --- 資料區：已全數替換為 Base64 變數 ---
         const itineraryDB = {
             "D1 2026-02-03(二)": [
                 { time: "15:35", title: "桃園 T1 起飛 (IT202)", type: "交通", note: "機場先吃午餐。13:30 報到。", link: "geo:25.0797,121.2342", img: img_trans },
