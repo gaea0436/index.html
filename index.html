@@ -10,114 +10,114 @@
 
 <style>
 body {
-    margin: 0;
-    font-family: 'Noto Sans TC', sans-serif;
-    background: #fafafa;
-    color: #333;
+    margin: 0;
+    font-family: 'Noto Sans TC', sans-serif;
+    background: #fafafa;
+    color: #333;
 }
 
 .header {
-    padding: 16px;
-    text-align: center;
-    background: white;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    padding: 16px;
+    text-align: center;
+    background: white;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
 }
 
 .header h2 {
-    margin: 0;
-    font-size: 1.3rem;
-    font-weight: 700;
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: 700;
 }
 
 .walking-icon {
-    margin-top: 6px;
-    font-size: 0.9rem;
-    animation: float 4s ease-in-out infinite;
+    margin-top: 6px;
+    font-size: 0.9rem;
+    animation: float 4s ease-in-out infinite;
 }
 
 @keyframes float {
-    0% { transform: translateY(0); }
-    50% { transform: translateY(-4px); }
-    100% { transform: translateY(0); }
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+    100% { transform: translateY(0); }
 }
 
 .nav {
-    display: flex;
-    justify-content: space-around;
-    background: white;
-    border-top: 1px solid #ddd;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    background: white;
+    border-top: 1px solid #ddd;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }
 
 .nav-item {
-    padding: 10px;
-    font-size: 0.8rem;
-    cursor: pointer;
+    padding: 10px;
+    font-size: 0.8rem;
+    cursor: pointer;
 }
 
 .nav-item.active {
-    color: #e67e22;
-    font-weight: 700;
+    color: #e67e22;
+    font-weight: 700;
 }
 
 .page {
-    display: none;
-    padding: 16px;
-    padding-bottom: 80px;
+    display: none;
+    padding: 16px;
+    padding-bottom: 80px;
 }
 
 .page.active {
-    display: block;
+    display: block;
 }
 
 .card {
-    background: white;
-    border-radius: 14px;
-    padding: 14px;
-    margin-bottom: 14px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    background: white;
+    border-radius: 14px;
+    padding: 14px;
+    margin-bottom: 14px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
 }
 
 .card h3 {
-    margin-top: 0;
-    font-size: 1rem;
+    margin-top: 0;
+    font-size: 1rem;
 }
 
 .tool-btn {
-    display: block;
-    margin: 8px 0;
-    padding: 10px;
-    border-radius: 12px;
-    background: #4a90e2;
-    color: white;
-    text-align: center;
-    cursor: pointer;
+    display: block;
+    margin: 8px 0;
+    padding: 10px;
+    border-radius: 12px;
+    background: #4a90e2;
+    color: white;
+    text-align: center;
+    cursor: pointer;
 }
 
 .tool-btn.orange { background:#f4a261; }
 .tool-btn.purple { background:#9b59b6; }
 
 input {
-    width: calc(50% - 6px);
-    padding: 8px;
-    margin-bottom: 6px;
+    width: calc(50% - 6px);
+    padding: 8px;
+    margin-bottom: 6px;
 }
 
 button {
-    padding: 8px 12px;
-    border: none;
-    border-radius: 8px;
-    background: #333;
-    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 8px;
+    background: #333;
+    color: white;
 }
 
 ul { padding-left: 18px; }
 
 .total {
-    font-weight: 700;
-    margin-top: 8px;
+    font-weight: 700;
+    margin-top: 8px;
 }
 </style>
 </head>
@@ -125,101 +125,100 @@ ul { padding-left: 18px; }
 <body>
 
 <div class="header">
-    <h2>◈ 東京慢旅．只屬於我的日常 ◈</h2>
-    <i class="fa-solid fa-person-walking walking-icon"></i>
+    <h2>◈ 東京慢旅．只屬於我的日常 ◈</h2>
+    <i class="fa-solid fa-person-walking walking-icon"></i>
 </div>
 
 <div id="page-itinerary" class="page active">
-    <div class="card">
-        <h3>翻譯工具</h3>
-        <div class="tool-btn orange" onclick="openListen()">聽譯（日 → 中）</div>
-        <div class="tool-btn" onclick="openSpeak()">口譯（中 → 日）</div>
-        <div class="tool-btn purple" onclick="openCamera()">拍照翻譯</div>
-    </div>
+    <div class="card">
+        <h3>翻譯工具</h3>
+        <div class="tool-btn orange" onclick="openListen()">聽譯（日 → 中）</div>
+        <div class="tool-btn" onclick="openSpeak()">口譯（中 → 日）</div>
+        <div class="tool-btn purple" onclick="openCamera()">拍照翻譯</div>
+    </div>
 </div>
 
 <div id="page-expense" class="page">
-    <div class="card">
-        <h3>支出紀錄</h3>
-        <input id="expenseName" placeholder="項目">
-        <input id="expenseAmount" type="number" placeholder="金額">
-        <button onclick="addExpense()">新增</button>
-        <ul id="expenseList"></ul>
-        <div class="total">總計：<span id="totalExpense">¥0</span></div>
-    </div>
+    <div class="card">
+        <h3>支出紀錄</h3>
+        <input id="expenseName" placeholder="項目">
+        <input id="expenseAmount" type="number" placeholder="金額">
+        <button onclick="addExpense()">新增</button>
+        <ul id="expenseList"></ul>
+        <div class="total">總計：<span id="totalExpense">¥0</span></div>
+    </div>
 </div>
 
 <div class="nav">
-    <div class="nav-item active" onclick="switchPage('itinerary', this)">行程</div>
-    <div class="nav-item" onclick="switchPage('expense', this)">支出</div>
-</div>
-<script>
+    <div class="nav-item active" onclick="switchPage('itinerary', this)">行程</div>
+    <div class="nav-item" onclick="switchPage('expense', this)">支出</div>
+</div><script>
 /* ===== 翻譯工具 ===== */
 function openListen() {
-    window.open('https://translate.google.com/?sl=ja&tl=zh-TW&op=listen', '_blank');
+    window.open('https://translate.google.com/?sl=ja&tl=zh-TW&op=listen', '_blank');
 }
 
 function openSpeak() {
-    window.open('https://translate.google.com/?sl=zh-TW&tl=ja&op=listen', '_blank');
+    window.open('https://translate.google.com/?sl=zh-TW&tl=ja&op=listen', '_blank');
 }
 
 function openCamera() {
-    window.open('https://translate.google.com/?sl=ja&tl=zh-TW&op=camera', '_blank');
+    window.open('https://translate.google.com/?sl=ja&tl=zh-TW&op=camera', '_blank');
 }
 
 /* ===== 頁面切換 ===== */
 function switchPage(pageId, navEl) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.getElementById(`page-${pageId}`).classList.add('active');
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById(`page-${pageId}`).classList.add('active');
 
-    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-    navEl.classList.add('active');
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    navEl.classList.add('active');
 }
 
 /* ===== 支出紀錄 ===== */
 let total = 0;
 
 function addExpense() {
-    const name = document.getElementById('expenseName').value.trim();
-    const amount = parseInt(document.getElementById('expenseAmount').value, 10);
+    const name = document.getElementById('expenseName').value.trim();
+    const amount = parseInt(document.getElementById('expenseAmount').value, 10);
 
-    if (!name || isNaN(amount) || amount <= 0) return;
+    if (!name || isNaN(amount) || amount <= 0) return;
 
-    renderExpense(name, amount);
-    saveExpense(name, amount);
-    updateTotal(amount);
+    renderExpense(name, amount);
+    saveExpense(name, amount);
+    updateTotal(amount);
 
-    document.getElementById('expenseName').value = '';
-    document.getElementById('expenseAmount').value = '';
+    document.getElementById('expenseName').value = '';
+    document.getElementById('expenseAmount').value = '';
 }
 
 function renderExpense(name, amount) {
-    const list = document.getElementById('expenseList');
-    const li = document.createElement('li');
-    li.innerText = `${name}: ¥${amount}`;
-    list.appendChild(li);
+    const list = document.getElementById('expenseList');
+    const li = document.createElement('li');
+    li.innerText = `${name}: ¥${amount}`;
+    list.appendChild(li);
 }
 
 function updateTotal(amount) {
-    total += amount;
-    document.getElementById('totalExpense').innerText = `¥${total}`;
+    total += amount;
+    document.getElementById('totalExpense').innerText = `¥${total}`;
 }
 
 function saveExpense(name, amount) {
-    const expenses = JSON.parse(localStorage.getItem('tokyo_expenses')) || [];
-    expenses.push({ name, amount });
-    localStorage.setItem('tokyo_expenses', JSON.stringify(expenses));
+    const expenses = JSON.parse(localStorage.getItem('tokyo_expenses')) || [];
+    expenses.push({ name, amount });
+    localStorage.setItem('tokyo_expenses', JSON.stringify(expenses));
 }
 
 function loadExpenses() {
-    total = 0;
-    document.getElementById('expenseList').innerHTML = '';
+    total = 0;
+    document.getElementById('expenseList').innerHTML = '';
 
-    const expenses = JSON.parse(localStorage.getItem('tokyo_expenses')) || [];
-    expenses.forEach(ex => {
-        renderExpense(ex.name, ex.amount);
-        updateTotal(ex.amount);
-    });
+    const expenses = JSON.parse(localStorage.getItem('tokyo_expenses')) || [];
+    expenses.forEach(ex => {
+        renderExpense(ex.name, ex.amount);
+        updateTotal(ex.amount);
+    });
 }
 
 document.addEventListener('DOMContentLoaded', loadExpenses);
