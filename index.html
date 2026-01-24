@@ -8,236 +8,631 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #6B8E9B; --primary-dark: #557582; --bg: #F9F7F5; --text: #5A5A5A;
-            --text-light: #949494; --card-bg: #FFFFFF; --accent: #C5A087; --line: #E0E0E0;
-            --bubble-border: #BCCCD1; --tag-transport: #DDE5E8; --tag-spot: #EAE4DC; --tag-food: #EFEBE5;
+            /* --- 溫暖知性色系 (Tokyo Elegance Palette) --- */
+            --primary: #6B8E9B;       /* 莫蘭迪湖水綠 (主色) */
+            --primary-dark: #557582;  /* 深湖水綠 */
+            --bg: #F9F7F5;            /* 溫暖米白底色 */
+            --text: #5A5A5A;          /* 暖深灰 */
+            --text-light: #949494;    /* 淺灰 */
+            --card-bg: #FFFFFF;
+            --accent: #C5A087;        /* 奶茶暖棕 (強調色) */
+            --line: #E0E0E0;          /* 時間軸線條色 */
+            --bubble-border: #BCCCD1; /* 時間泡泡邊框 */
+            
+            /* 功能按鈕顏色 */
+            --btn-listen: #E88D67;    /* 聽 - 橘色 */
+            --btn-speak: #6B8E9B;     /* 說 - 藍色 */
+            --btn-camera: #9B87A8;    /* 拍 - 紫色 */
+
+            /* 標籤配色 */
+            --tag-transport: #DDE5E8;
+            --tag-spot: #EAE4DC;      
+            --tag-food: #EFEBE5;      
         }
+
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { font-family: 'Noto Sans TC', sans-serif; background-color: var(--bg); color: var(--text); margin: 0; padding-bottom: 90px; }
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            padding-bottom: 90px;
+        }
 
-        /* Header 優化：嵌入翻譯與縮小圖示 */
-        .header { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; padding: 15px 20px 20px 20px; border-radius: 0 0 30px 30px; position: sticky; top: 0; z-index: 100; min-height: 160px; }
-        .title-area { display: flex; align-items: center; justify-content: flex-start; gap: 8px; margin-bottom: 12px; }
-        #mainTitle { margin: 0; font-size: 1.1rem; font-weight: 700; white-space: nowrap; }
+        /* --- Header --- */
+        .header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 20px 20px 25px 20px;
+            border-radius: 0 0 30px 30px;
+            box-shadow: 0 10px 20px rgba(107, 142, 155, 0.25);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            min-height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
         
-        /* 修正 1：女性走路圖示尺寸精確控制 */
-        .walking-icon-img { width: 28px; height: 28px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,0.8); object-fit: cover; background: white; }
+        .title-area {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+        
+        #mainTitle {
+            margin: 0;
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            line-height: 1.4;
+            white-space: nowrap; 
+        }
+        
+        /* 女性走路圖示 */
+        .walking-icon-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid rgba(255,255,255,0.9);
+            object-fit: cover;
+            animation: soft-float 4s infinite ease-in-out;
+            margin-left: 5px;
+            background: white; 
+        }
 
-        /* 修正 3：翻譯工具區塊 (旗艦版配色) */
-        .trans-suite { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 15px; }
-        .tr-btn { padding: 8px 2px; border-radius: 12px; text-align: center; color: white; text-decoration: none; font-size: 0.75rem; display: flex; flex-direction: column; align-items: center; gap: 4px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .tr-listen { background: #FF9800; } .tr-speak { background: #2196F3; } .tr-camera { background: #9C27B0; }
+        @keyframes soft-float {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-3px) rotate(3deg); }
+            100% { transform: translateY(0) rotate(0deg); }
+        }
 
-        /* 恢復：您最滿意的原始時間軸樣式 */
-        .weather-widget { display: flex; justify-content: space-between; align-items: flex-end; position: relative; height: 45px; }
-        .temp-box h1 { margin: 0; font-size: 1.3rem; font-weight: 500; display: flex; align-items: center; gap: 8px; }
-        .outfit-tip { background: rgba(255,255,255,0.2); padding: 8px 12px; border-radius: 12px; font-size: 0.75rem; display: flex; align-items: center; gap: 6px; backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.3); }
-        .date-scroller { display: flex; overflow-x: auto; padding: 15px; gap: 10px; scrollbar-width: none; background: var(--bg); }
-        .date-chip { background: white; min-width: 65px; height: 65px; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
-        .date-chip.active { border: 2px solid var(--primary); color: var(--primary); }
+        /* 氣象區塊 */
+        .weather-widget {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            position: relative;
+            height: 50px;
+        }
+        
+        .temp-box { position: absolute; left: 0; bottom: 0; }
+        .temp-box p { margin: 0; font-size: 0.85rem; opacity: 0.9; margin-bottom: 2px;}
+        .temp-box h1 { 
+            margin: 0; font-size: 1.3rem; font-weight: 500; 
+            letter-spacing: 1px; line-height: 1; 
+            display: flex; align-items: center; gap: 8px;
+        }
+        
+        .outfit-tip {
+            background: rgba(255,255,255,0.2);
+            padding: 8px 12px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.3);
+            position: absolute; right: 0; bottom: 0;
+            max-width: 65%; height: 42px; overflow: hidden;
+        }
+
+        /* --- 日期選擇器 --- */
+        .date-scroller {
+            display: flex; overflow-x: auto; padding: 15px 15px; gap: 10px;
+            scrollbar-width: none; background: var(--bg);
+        }
+        .date-scroller::-webkit-scrollbar { display: none; }
+        
+        .date-chip {
+            background: white; min-width: 65px; height: 65px; padding: 8px;
+            border-radius: 16px; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; color: var(--text-light);
+            transition: all 0.2s ease; cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03); flex-shrink: 0;
+        }
+        
+        .date-chip strong { font-size: 1.0rem; font-weight: 700; margin-bottom: 2px; color: #C0C0C0; }
+        .date-chip span { font-size: 0.7rem; }
+        
+        .date-chip.active {
+            background: white; border: 2px solid var(--primary);
+            transform: translateY(-2px); box-shadow: 0 4px 12px rgba(107, 142, 155, 0.3);
+        }
+        .date-chip.active strong { color: var(--primary) !important; }
+        .date-chip.active span { color: var(--primary) !important; font-weight: bold; }
+
+        /* --- 行程時間軸 --- */
         .timeline-container { padding: 10px 20px; }
-        .content-col { background: var(--card-bg); border-radius: 16px; margin-bottom: 20px; display: flex; overflow: hidden; min-height: 110px; border: 1px solid rgba(0,0,0,0.01); box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
-        .card-img-col { width: 33%; min-width: 100px; background: #EEE; }
-        .card-img { width: 100%; height: 100%; object-fit: cover; }
+        .timeline-item { display: flex; margin-bottom: 25px; position: relative; }
+        .timeline-item::before {
+            content: ''; position: absolute; left: 28px; top: 0; bottom: -25px;
+            width: 2px; background: var(--line); z-index: 0;
+        }
+        .timeline-item:last-child::before { display: none; }
+
+        .time-wrapper {
+            width: 65px; flex-shrink: 0; display: flex; flex-direction: column;
+            align-items: center; padding-top: 10px; z-index: 1; margin-right: 10px;
+        }
+        .time-bubble {
+            background: white; color: var(--primary); border: 2px solid var(--bubble-border);
+            border-radius: 20px; padding: 4px 8px; font-size: 0.75rem; font-weight: 700;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05); z-index: 2; text-align: center; min-width: 50px;
+        }
+
+        .content-col {
+            flex: 1; background: var(--card-bg); border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03); position: relative; z-index: 1;
+            overflow: hidden; display: flex; flex-direction: row; min-height: 110px;
+        }
+
+        .card-img-col { width: 33%; min-width: 100px; position: relative; overflow: hidden; background-color: #eee; }
+        .card-img { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; }
         .card-body { flex: 1; padding: 12px 15px; display: flex; flex-direction: column; justify-content: center; }
-        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; display: flex; justify-content: space-around; padding: 12px 0; z-index: 200; box-shadow: 0 -4px 20px rgba(0,0,0,0.05); border-top-left-radius: 20px; border-top-right-radius: 20px; }
-        .nav-item { text-align: center; color: #C0C0C0; font-size: 0.75rem; cursor: pointer; }
+
+        .content-col h3 { margin: 0 0 5px 0; font-size: 1.05rem; color: #4F5D64; font-weight: 700; line-height: 1.3; }
+        .tag { display: inline-block; font-size: 0.65rem; padding: 2px 6px; border-radius: 4px; color: #666; margin-bottom: 6px; font-weight: 500; width: fit-content; }
+        .tag.交通 { background: var(--tag-transport); color: #546E7A; }
+        .tag.景點 { background: var(--tag-spot); color: #8D7663; }
+        .tag.餐飲 { background: var(--tag-food); color: #8A7E72; }
+        .tag.購物 { background: var(--tag-food); color: #8A7E72; }
+        .tag.住宿 { background: var(--secondary); color: #607D8B; }
+
+        .note { font-size: 0.8rem; color: #888; margin-top: 5px; line-height: 1.4; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }
+
+        .nav-btn-corner {
+            position: absolute; top: 10px; right: 10px; color: var(--primary);
+            background: rgba(255,255,255,0.8); width: 28px; height: 28px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 0.9rem; box-shadow: 0 2px 5px rgba(0,0,0,0.1); z-index: 5; text-decoration: none;
+        }
+
+        /* --- 其他頁面 --- */
+        .page { display: none; padding-bottom: 20px; animation: fadeIn 0.3s ease; }
+        .page.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* 美食頁面 */
+        .food-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 15px; }
+        .food-card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.03); }
+        .real-food-img { width: 100%; height: 120px; object-fit: cover; }
+        .food-info { padding: 12px; }
+        .food-name { font-weight: bold; font-size: 0.9rem; margin-bottom: 3px; color: #555; }
+        .food-jp { color: #999; font-size: 0.75rem; margin-bottom: 5px; }
+        .food-price { color: var(--accent); font-weight: bold; font-size: 0.9rem; }
+
+        /* 工具頁面 */
+        .tools-container { padding: 20px; }
+        .tool-card { background: white; padding: 20px; border-radius: 16px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); }
+        .tool-card h3 { color: var(--primary); margin-top: 0; font-size: 1.1rem; }
+        
+        .translate-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+        .phrase-btn { background: white; border: 1px solid var(--accent); color: var(--accent); padding: 15px 10px; border-radius: 12px; text-align: center; font-size: 0.9rem; cursor: pointer; transition: all 0.2s; }
+        .phrase-btn:active { background: var(--accent); color: white; transform: scale(0.98); }
+        .phrase-btn i { display: block; margin-bottom: 5px; opacity: 0.5; font-size: 1.2rem; }
+
+        /* 新增：進階翻譯功能區 */
+        .smart-trans-area {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px dashed #eee;
+        }
+
+        .action-btn {
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            text-decoration: none; /* 讓連結看起來像按鈕 */
+            font-weight: 500;
+        }
+        .action-btn:active { transform: scale(0.98); opacity: 0.9; }
+        .action-btn i { font-size: 1.2rem; width: 24px; text-align: center; }
+
+        .btn-listen { background: var(--btn-listen); } /* 聽對方說 */
+        .btn-speak { background: var(--btn-speak); }   /* 我說中文 */
+        .btn-camera { background: var(--btn-camera); } /* 拍照翻譯 */
+
+        .input-group { display: flex; flex-direction: column; gap: 10px; margin-bottom: 10px; }
+        .input-group input { width: 100%; padding: 12px; border: 1px solid #eee; border-radius: 8px; font-size: 1rem; background: #FAFAFA; }
+        .tool-btn { background: var(--accent); color: white; border: none; padding: 12px; width: 100%; border-radius: 10px; font-size: 1rem; margin-top: 10px; cursor: pointer; }
+
+        /* --- 底部導航 --- */
+        .bottom-nav {
+            position: fixed; bottom: 0; left: 0; right: 0; background: white;
+            display: flex; justify-content: space-around; padding: 10px 0;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.05); z-index: 200;
+            border-top-left-radius: 20px; border-top-right-radius: 20px;
+        }
+        .nav-item { text-align: center; color: #C0C0C0; font-size: 0.75rem; cursor: pointer; transition: color 0.3s; }
         .nav-item.active { color: var(--primary); }
-        .page { display: none; } .page.active { display: block; }
+        .nav-item i { font-size: 1.2rem; display: block; margin-bottom: 4px; }
+
     </style>
 </head>
 <body>
+
     <div class="header">
         <div class="title-area">
             <h2 id="mainTitle">◈ 東京慢旅．只屬於我的日常 ◈</h2>
-            <img src="https://images.unsplash.com/photo-1508830524289-0adcbe822b40?w=100" class="walking-icon-img" alt="Me">
+            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48Y2lyY2xlIGN4PSIyNTYiIGN5PSIyNTYiIHI9IjI1NiIgZmlsbD0iI2ZmZiIvPjxwYXRoIGZpbGw9IiM2QjhFOUIiIGQ9Ik0yODUgMTQ1YTI1IDI1IDAgMSAwLTUwIDAgMjUgMjUgMCAwIDAgNTAgMHptLTMwIDQ1Yy0xNSAwLTQwIDUtNTAgMjBsLTUgNTUgMTUgNWMyLTExIDEwLTI1IDEwLTI1bDE1IDU1cy0yMCA1NS0yNSA2MC0xMCAxNS01IDMwIDAgMzA1IDEwIDEwIDAgMTUtMTBsMjAtNDUgMTUtNDBzNSAzMCAxMCA0MCAxNSAyMCAyMCAyMCAxMC01IDEwLTE1Yy01LTE1LTE1LTMwLTIwLTU1bC0xNS01MGMxMC0xMCAxNS0yNSAxMC00MHoiLz48L3N2Zz4=" class="walking-icon-img" alt="Me">
         </div>
-
-        <div class="trans-suite">
-            <a href="googletranslate://?sl=ja&tl=zh-TW&mode=audio" class="tr-btn tr-listen"><i class="fas fa-ear-listen"></i>聽譯(橘)</a>
-            <a href="googletranslate://?sl=zh-TW&tl=ja&mode=audio" class="tr-btn tr-speak"><i class="fas fa-comment-dots"></i>口譯(藍)</a>
-            <a href="googletranslate://?sl=ja&tl=zh-TW&mode=camera" class="tr-btn tr-camera"><i class="fas fa-camera"></i>拍照(紫)</a>
-        </div>
-
         <div class="weather-widget">
             <div class="temp-box">
-                <p id="currentDateDisplay" style="margin:0; font-size:0.85rem; opacity:0.9;">2月3日 (二)</p>
+                <p id="currentDateDisplay">2月3日 (二)</p>
                 <h1 id="weatherTemp"></h1>
             </div>
-            <div class="outfit-tip" id="weatherTip"><i class="fas fa-tshirt"></i> <span>載入中...</span></div>
+            <div class="outfit-tip" id="weatherTip">
+                <i class="fas fa-tshirt"></i> <span>寒冷，請穿著羽絨衣並攜帶圍巾</span>
+            </div>
         </div>
     </div>
 
     <div class="date-scroller" id="dateNav"></div>
-    <div id="page-itinerary" class="page active"><div class="timeline-container" id="itineraryList"></div></div>
-    <div id="page-food" class="page"><div class="food-grid" id="foodList" style="display:grid; grid-template-columns: 1fr 1fr; gap:15px; padding:15px;"></div></div>
+
+    <div id="page-itinerary" class="page active">
+        <div class="timeline-container" id="itineraryList"></div>
+    </div>
+
+    <div id="page-food" class="page">
+        <div style="padding: 20px;">
+            <h2 style="color:var(--text); font-weight:500; font-size: 1.3rem;"><i class="fas fa-utensils" style="color:var(--primary)"></i> 超商必吃</h2>
+            <p style="color:#888; font-size:0.85rem;">已為您整理好清單，結帳時可直接出示圖片給店員看。</p>
+        </div>
+        <div class="food-grid" id="foodList"></div>
+    </div>
+
+    <div id="page-tools" class="page">
+        <div class="tools-container">
+            
+            <div class="tool-card">
+                <h3><i class="fas fa-comment-dots"></i> 一鍵求救 (點擊發音)</h3>
+                <p style="font-size:0.8rem; color:#999; margin-bottom:15px;">點擊下方按鈕，手機會直接唸出日文</p>
+                
+                <div class="translate-grid">
+                    <div class="phrase-btn" onclick="speak('すみません、トイレはどこですか？', 'Sumimasen, toire wa doko desu ka?')">
+                        <i class="fas fa-restroom"></i> 廁所在哪裡
+                    </div>
+                    <div class="phrase-btn" onclick="speak('これをください。', 'Kore o kudasai')">
+                        <i class="fas fa-hand-pointer"></i> 請給我這個
+                    </div>
+                    <div class="phrase-btn" onclick="speak('お会計をお願いします。', 'Okaikei o onegaishimasu')">
+                        <i class="fas fa-wallet"></i> 麻煩結帳
+                    </div>
+                    <div class="phrase-btn" onclick="speak('袋はいりません。', 'Fukuro wa irimasen')">
+                        <i class="fas fa-shopping-bag"></i> 不用袋子
+                    </div>
+                </div>
+
+                <div class="smart-trans-area">
+                    <h4 style="margin:0; color:#888; font-size:0.9rem;">即時對話神器</h4>
+                    
+                    <a href="https://translate.google.com/?sl=ja&tl=zh-TW&op=speech" target="_blank" class="action-btn btn-listen">
+                        <i class="fas fa-ear-listen"></i>
+                        <div>
+                            <div style="font-size:1rem;">聽對方說 (日➡中)</div>
+                            <div style="font-size:0.7rem; opacity:0.8;">請對方對著手機說話</div>
+                        </div>
+                    </a>
+
+                    <a href="https://translate.google.com/?sl=zh-TW&tl=ja&op=speech" target="_blank" class="action-btn btn-speak">
+                        <i class="fas fa-microphone"></i>
+                        <div>
+                            <div style="font-size:1rem;">我說中文 (中➡日)</div>
+                            <div style="font-size:0.7rem; opacity:0.8;">語音翻譯成日文給對方聽</div>
+                        </div>
+                    </a>
+
+                    <a href="https://translate.google.com/?sl=ja&tl=zh-TW&op=images" target="_blank" class="action-btn btn-camera">
+                        <i class="fas fa-camera"></i>
+                        <div>
+                            <div style="font-size:1rem;">拍照翻譯 (菜單/商品)</div>
+                            <div style="font-size:0.7rem; opacity:0.8;">拍下看不懂的文字</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="tool-card">
+                <h3><i class="fas fa-calculator"></i> 快速記帳</h3>
+                <div class="input-group">
+                    <input type="text" id="expenseName" placeholder="項目 (如: 拉麵)">
+                    <input type="number" id="expenseAmount" placeholder="日幣金額">
+                </div>
+                <button class="tool-btn" onclick="addExpense()">加入記帳</button>
+                <div style="margin-top: 20px; border-top: 1px solid #eee; padding-top:10px;">
+                    <h4>今日總計: <span id="totalExpense" style="color:var(--accent)">¥0</span></h4>
+                    <ul id="expenseList" style="padding-left: 20px; color:#666; font-size:0.9rem;"></ul>
+                </div>
+            </div>
+
+            <div class="tool-card">
+                <h3><i class="fas fa-suitcase"></i> 重點檢查</h3>
+                <label style="display:block; margin:8px 0; color:#555;"><input type="checkbox"> 護照 (隨身)</label>
+                <label style="display:block; margin:8px 0; color:#555;"><input type="checkbox"> 西瓜卡 (Suica)</label>
+                <label style="display:block; margin:8px 0; color:#555;"><input type="checkbox"> 網卡 (SIM/eSIM)</label>
+                <label style="display:block; margin:8px 0; color:#555;"><input type="checkbox"> 現金 (千圓鈔)</label>
+            </div>
+        </div>
+    </div>
 
     <div class="bottom-nav">
-        <div class="nav-item active" onclick="switchPage('itinerary', this)"><i class="fas fa-route"></i> 行程</div>
-        <div class="nav-item" onclick="switchPage('food', this)"><i class="fas fa-cookie-bite"></i> 美食</div>
+        <div class="nav-item active" onclick="switchPage('itinerary', this)">
+            <i class="fas fa-route"></i> 行程
+        </div>
+        <div class="nav-item" onclick="switchPage('food', this)">
+            <i class="fas fa-cookie-bite"></i> 美食
+        </div>
+        <div class="nav-item" onclick="switchPage('tools', this)">
+            <i class="fas fa-tools"></i> 工具
+        </div>
     </div>
 
     <script>
-        // 需求 2：防破圖圖片資料庫與 onerror 修復
-        const db = {
+        // --- 核心修復：使用 Base64 內建圖片，徹底解決破圖問題 ---
+        // 這些是 SVG 向量圖碼，不需要網路即可顯示
+        
+        // 交通圖示 (藍灰)
+        const img_trans = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MDAgNjAwIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWlkWU1pZCBzbGljZSI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI0RERTVFOCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjgwIiBmaWxsPSIjNTQ2RTdBIj7nkoDpg1o8L3RleHQ+PC9zdmc+";
+        // 景點圖示 (米棕)
+        const img_view = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MDAgNjAwIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWlkWU1pZCBzbGljZSI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI0VBRTREQyIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjgwIiBmaWxsPSIjOEQ3NjYzIj7mZr/buo48L3RleHQ+PC9zdmc+";
+        // 美食圖示 (暖白)
+        const img_food = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MDAgNjAwIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWlkWU1pZCBzbGljZSI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI0VGRUJFNSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjgwIiBmaWxsPSIjOEE3RTcyIj7voo/poq88L3RleHQ+PC9zdmc+";
+        // 購物圖示 (暖白)
+        const img_shop = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MDAgNjAwIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWlkWU1pZCBzbGljZSI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI0VGRUJFNSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjgwIiBmaWxsPSIjOEE3RTcyIj7eon/jgaE8L3RleHQ+PC9zdmc+";
+        // 住宿圖示 (深藍灰)
+        const img_stay = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MDAgNjAwIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWlkWU1pZCBzbGljZSI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iIzYwN0Q4QiIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjgwIiBmaWxsPSIjZmZmIj7lrr88L3RleHQ+PC9zdmc+";
+
+        const pageTitles = [
+            "◈ 東京慢旅．只屬於我的日常 ◈",
+            "一個人的節奏，最剛好的東京",
+            "與城市輕聲說話的日子",
+            "在街角光影中．飛翔",
+            "一杯咖啡，一條街，剛剛好的自在",
+            "把日子走成風景．輕揚"
+        ];
+
+        const weatherDB = {
+            "2026-02-03": { temp: "5-11°", icon: "cloud-sun", tip: "搭機日，建議洋蔥式穿搭。" },
+            "2026-02-04": { temp: "3-9°", icon: "sun", tip: "戶外多，穿羽絨衣與好走的鞋。" },
+            "2026-02-05": { temp: "2-8°", icon: "snowflake", tip: "氣溫轉冷，建議戴毛帽保暖。" },
+            "2026-02-06": { temp: "4-10°", icon: "cloud", tip: "市區逛街，穿著舒適保暖即可。" },
+            "2026-02-07": { temp: "5-12°", icon: "sun", tip: "天氣回暖，適合拍照。" },
+            "2026-02-08": { temp: "6-13°", icon: "plane", tip: "返程日，行李保持輕便。" }
+        };
+
+        const itineraryDB = {
             "D1 2026-02-03(二)": [
-                { time: "15:35", title: "桃園 T1 起飛", type: "交通", note: "IT202 班機", img: "https://images.unsplash.com/photo-1542296332-2e44a99cfef9?w=400" },
-                { time: "21:45", title: "入住四谷京阪飯店", type: "住宿", note: "四谷站步行3分", img: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400" }
+                { time: "15:35", title: "桃園 T1 起飛 (IT202)", type: "交通", note: "機場先吃午餐。13:30 報到。", link: "geo:25.0797,121.2342", img: img_trans },
+                { time: "19:35", title: "抵達成田 T2", type: "交通", note: "購買/儲值西瓜卡 (Suica)。", link: "geo:35.7719,140.3929", img: img_trans }, 
+                { time: "20:30", title: "Skyliner 往市區", type: "交通", note: "車上吃點輕食。車程45分。", link: "", img: img_trans },
+                { time: "21:45", title: "入住：四谷京阪飯店", type: "住宿", note: "四谷站步行3分。樓下有超市。", link: "https://www.google.com/maps/search/?api=1&query=Hotel+Keihan+Yotsuya", img: img_stay }
             ],
             "D2 2026-02-04(三)": [
-                { time: "09:30", title: "上野東照宮", type: "景點", note: "牡丹花園", img: "https://images.unsplash.com/photo-1589998126767-b89280d00f68?w=400" },
-                { time: "13:00", title: "淺草寺雷門", type: "景點", note: "仲見世通", img: "https://images.unsplash.com/photo-1563860533-36558ab479e7?w=400" }
+                { time: "09:30", title: "上野東照宮", type: "景點", note: "金碧輝煌江戶建築與牡丹花園。", link: "https://www.google.com/maps/search/?api=1&query=Ueno+Toshogu", img: img_view }, 
+                { time: "10:30", title: "上野恩賜公園", type: "景點", note: "不忍池觀鳥、辯天堂散步。", link: "https://www.google.com/maps/search/?api=1&query=Ueno+Park", img: img_view },
+                { time: "11:00", title: "伊豆榮 梅川亭", type: "餐飲", note: "百年鰻魚飯老店，環境清幽。", link: "https://www.google.com/maps/search/?api=1&query=Izuei+Umekawatei", img: img_food },
+                { time: "11:30", title: "阿美橫丁", type: "購物", note: "熱鬧市集，買藥妝、水果。", link: "https://www.google.com/maps/search/?api=1&query=Ameyoko", img: img_shop }, 
+                { time: "13:00", title: "淺草寺 & 雷門", type: "景點", note: "人多小心。仲見世通吃人形燒。", link: "https://www.google.com/maps/search/?api=1&query=Sensoji", img: img_view }, 
+                { time: "14:00", title: "龜十銅鑼燒", type: "餐飲", note: "雷門對面，排隊伴手禮。", link: "https://www.google.com/maps/search/?api=1&query=Kameju", img: img_food } 
+            ],
+            "D3 2026-02-05(四)": [
+                { time: "09:00", title: "皇居 (二重橋)", type: "景點", note: "必帶護照。欣賞護城河、石垣。", link: "https://www.google.com/maps/search/?api=1&query=Imperial+Palace+Tokyo", img: img_view },
+                { time: "11:30", title: "東京車站一番街", type: "餐飲", note: "六厘舍沾麵或牛舌定食。", link: "https://www.google.com/maps/search/?api=1&query=Tokyo+Character+Street", img: img_food },
+                { time: "14:00", title: "東京大神宮", type: "景點", note: "結緣神社，日式庭園極美。", link: "https://www.google.com/maps/search/?api=1&query=Tokyo+Daijingu", img: img_view },
+                { time: "15:00", title: "秋葉原尋寶", type: "購物", note: "無線電會館，找志摩凜公仔。", link: "https://www.google.com/maps/search/?api=1&query=Radio+Kaikan", img: img_shop }, 
+                { time: "17:30", title: "晚餐：神田 藪蕎麥", type: "餐飲", note: "百年老店，體驗江戶老味道。", link: "https://www.google.com/maps/search/?api=1&query=Kanda+Yabu+Soba", img: img_food }
+            ],
+            "D4 2026-02-06(五)": [
+                { time: "09:00", title: "明治神宮", type: "景點", note: "都市森林漫步，享受清幽。", link: "https://www.google.com/maps/search/?api=1&query=Meiji+Jingu", img: img_view },
+                { time: "12:00", title: "AFURI 柚子拉麵", type: "餐飲", note: "清爽柚子鹽口味，適合女生。", link: "https://www.google.com/maps/search/?api=1&query=AFURI+Harajuku", img: img_food },
+                { time: "13:30", title: "新宿御苑", type: "景點", note: "《言葉之庭》取景，庭園極美。", link: "https://www.google.com/maps/search/?api=1&query=Shinjuku+Gyoen", img: img_view }, 
+                { time: "16:30", title: "思出橫丁", type: "景點", note: "體驗昭和懷舊窄巷。", link: "https://www.google.com/maps/search/?api=1&query=Omoide+Yokocho", img: img_view }, 
+                { time: "17:30", title: "Alpen Tokyo", type: "購物", note: "Snow Peak 專區，戶外用品。", link: "https://www.google.com/maps/search/?api=1&query=Alpen+Tokyo", img: img_shop },
+                { time: "19:00", title: "東京都廳夜景", type: "景點", note: "免費上 45 樓俯瞰東京。", link: "https://www.google.com/maps/search/?api=1&query=Tokyo+Metropolitan+Government+Building", img: img_view }
+            ],
+            "D5 2026-02-07(六)": [
+                { time: "10:30", title: "東京鐵塔", type: "景點", note: "芝公園拍照經典位。", link: "https://www.google.com/maps/search/?api=1&query=Tokyo+Tower", img: img_view },
+                { time: "12:30", title: "炸牛排 Motomura", type: "餐飲", note: "口感軟嫩，通常需排隊。", link: "", img: img_food }, 
+                { time: "14:00", title: "國立新美術館", type: "景點", note: "玻璃帷幕，大廳光影美。", link: "https://www.google.com/maps/search/?api=1&query=The+National+Art+Center+Tokyo", img: img_view },
+                { time: "15:30", title: "表參道之丘", type: "購物", note: "時尚大道，安藤忠雄建築。", link: "https://www.google.com/maps/search/?api=1&query=Omotesando+Hills", img: img_shop }, 
+                { time: "17:30", title: "澀谷 Sky", type: "景點", note: "俯瞰東京全景 (需預約)。", link: "https://www.google.com/maps/search/?api=1&query=Shibuya+Sky", img: img_view },
+                { time: "19:00", title: "澀谷交叉點", type: "景點", note: "世界最繁忙路口。", link: "https://www.google.com/maps/search/?api=1&query=Shibuya+Crossing", img: img_view },
+                { time: "21:30", title: "池尻大橋住宿", type: "住宿", note: "目黑區慢活生活感。", link: "https://www.google.com/maps/search/?api=1&query=Ikejiri-Ohashi", img: img_stay }
+            ],
+            "D6 2026-02-08(日)": [
+                { time: "07:30", title: "前往成田機場", type: "交通", note: "搭乘 NEX 或 Skyliner。", link: "", img: img_trans }, 
+                { time: "09:15", title: "抵達機場報到", type: "交通", note: "MM623。最後採買伴手禮。", link: "", img: img_trans },
+                { time: "14:30", title: "抵達桃園 T1", type: "交通", note: "平安回家。", link: "", img: img_trans }
             ]
         };
 
-        const weatherDB = { "2026-02-03": { temp: "5-11°", icon: "cloud-sun", tip: "羽絨衣+圍巾" }, "2026-02-04": { temp: "3-9°", icon: "sun", tip: "戶外冷，穿好走的鞋" } };
+        const foodDB = [
+            { name: "FamiChiki 炸雞", jp: "ファミチキ", price: "¥240", shop: "FamilyMart", img: img_food },
+            { name: "炸雞君 (辣味/起司)", jp: "からあげクン", price: "¥258", shop: "Lawson", img: img_food },
+            { name: "關東煮", jp: "おでん", price: "¥120", shop: "7-11", img: img_food },
+            { name: "麻糬口感生乳捲", jp: "もち食感ロール", price: "¥397", shop: "Lawson", img: img_food },
+            { name: "濃厚蛋黃醬泡芙", jp: "カスタード", price: "¥150", shop: "7-11", img: img_food }
+        ];
 
-        let current = Object.keys(db)[0];
+        // --- 程式邏輯區 ---
 
-        function render() {
-            const nav = document.getElementById('dateNav'); nav.innerHTML = "";
-            Object.keys(db).forEach((d, i) => {
-                const el = document.createElement('div'); el.className = `date-chip ${current===d?'active':''}`;
-                el.innerHTML = `<strong>D${i+1}</strong><span>${d.substring(5,10)}</span>`;
-                el.onclick = () => { current = d; render(); }; nav.appendChild(el);
-            });
-            const list = document.getElementById('itineraryList'); list.innerHTML = "";
-            db[current].forEach(item => {
-                list.innerHTML += `<div class="content-col"><div class="card-img-col"><img src="${item.img}" class="card-img" onerror="this.src='https://images.unsplash.com/photo-1503899036084-c55cdd92da26?w=400'"></div><div class="card-body"><span class="tag">${item.type}</span><h3>${item.time} ${item.title}</h3><div class="note">${item.note}</div></div></div>`;
-            });
-            const w = weatherDB[current.substring(3,13)] || {temp:"--", icon:"sun", tip:"注意保暖"};
-            document.getElementById('weatherTemp').innerHTML = `<i class="fas fa-${w.icon}"></i> ${w.temp}`;
-            document.getElementById('weatherTip').innerHTML = `<span>${w.tip}</span>`;
-            document.getElementById('currentDateDisplay').innerText = current.substring(3,13);
-        }
+        let currentDate = "2026-02-03";
+        const dates = Object.keys(itineraryDB);
 
-        function switchPage(p, el) {
-            document.querySelectorAll('.page').forEach(pg => pg.classList.remove('active'));
-            document.getEleme<!DOCTYPE html>
-<html lang="zh-TW">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>華的東京獨旅 2026</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --primary: #6B8E9B; --primary-dark: #557582; --bg: #F9F7F5; --text: #5A5A5A;
-            --text-light: #949494; --card-bg: #FFFFFF; --accent: #C5A087; --line: #E0E0E0;
-            --bubble-border: #BCCCD1; --tag-transport: #DDE5E8; --tag-spot: #EAE4DC; --tag-food: #EFEBE5;      
-        }
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { font-family: 'Noto Sans TC', sans-serif; background-color: var(--bg); color: var(--text); margin: 0; padding-bottom: 90px; }
-
-        /* --- Header 恢復原始版面並嵌入功能 --- */
-        .header { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; padding: 20px; border-radius: 0 0 30px 30px; position: sticky; top: 0; z-index: 100; min-height: 180px; }
-        .title-area { display: flex; align-items: center; justify-content: flex-start; gap: 8px; margin-bottom: 12px; }
-        #mainTitle { margin: 0; font-size: 1.1rem; font-weight: 700; white-space: nowrap; }
-        
-        /* 修正：女性圖示縮小 */
-        .walking-icon-img { width: 24px; height: 24px; border-radius: 50%; border: 1.5px solid white; object-fit: cover; background: white; }
-
-        /* 修正：新增翻譯三大區塊 */
-        .trans-suite { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 15px; }
-        .tr-btn { padding: 8px 2px; border-radius: 12px; text-align: center; color: white; text-decoration: none; font-size: 0.75rem; display: flex; flex-direction: column; align-items: center; gap: 4px; }
-        .tr-listen { background: #FF9800; } .tr-speak { background: #2196F3; } .tr-camera { background: #9C27B0; }
-
-        .weather-widget { display: flex; justify-content: space-between; align-items: flex-end; }
-        .temp-box h1 { margin: 0; font-size: 1.3rem; display: flex; align-items: center; gap: 8px; }
-        .outfit-tip { background: rgba(255,255,255,0.2); padding: 8px 12px; border-radius: 12px; font-size: 0.75rem; border: 1px solid rgba(255,255,255,0.3); }
-
-        /* --- 找回日期切換卡片 --- */
-        .date-scroller { display: flex; overflow-x: auto; padding: 15px; gap: 10px; scrollbar-width: none; background: var(--bg); }
-        .date-chip { background: white; min-width: 65px; height: 65px; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
-        .date-chip.active { border: 2px solid var(--primary); color: var(--primary); }
-
-        /* --- 找回原始行程卡片與圖片佈局 --- */
-        .timeline-container { padding: 10px 20px; }
-        .content-col { background: var(--card-bg); border-radius: 16px; margin-bottom: 20px; display: flex; overflow: hidden; min-height: 110px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
-        .card-img-col { width: 33%; min-width: 100px; background: #eee; }
-        .card-img { width: 100%; height: 100%; object-fit: cover; }
-        .card-body { flex: 1; padding: 12px 15px; display: flex; flex-direction: column; justify-content: center; }
-
-        /* --- 底部導航恢復 --- */
-        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; display: flex; justify-content: space-around; padding: 12px 0; z-index: 200; box-shadow: 0 -4px 20px rgba(0,0,0,0.05); border-radius: 20px 20px 0 0; }
-        .nav-item { text-align: center; color: #C0C0C0; font-size: 0.75rem; cursor: pointer; }
-        .nav-item.active { color: var(--primary); }
-        .page { display: none; } .page.active { display: block; }
-    </style>
-</head>
-<body>
-    <div class="header">
-        <div class="title-area">
-            <h2 id="mainTitle">◈ 東京慢旅．只屬於我的日常 ◈</h2>
-            <img src="https://images.unsplash.com/photo-1508830524289-0adcbe822b40?w=100" class="walking-icon-img">
-        </div>
-        <div class="trans-suite">
-            <a href="googletranslate://?sl=ja&tl=zh-TW&mode=audio" class="tr-btn tr-listen"><i class="fas fa-ear-listen"></i>聽譯(橘)</a>
-            <a href="googletranslate://?sl=zh-TW&tl=ja&mode=audio" class="tr-btn tr-speak"><i class="fas fa-comment-dots"></i>口譯(藍)</a>
-            <a href="googletranslate://?sl=ja&tl=zh-TW&mode=camera" class="tr-btn tr-camera"><i class="fas fa-camera"></i>拍照(紫)</a>
-        </div>
-        <div class="weather-widget">
-            <div class="temp-box">
-                <p id="currentDateDisplay" style="margin:0; font-size:0.8rem; opacity:0.9;">2月3日 (二)</p>
-                <h1 id="weatherTemp"><i class="fas fa-cloud-sun"></i> 5-11°</h1>
-            </div>
-            <div class="outfit-tip"><i class="fas fa-tshirt"></i> <span>羽絨衣+圍巾</span></div>
-        </div>
-    </div>
-
-    <div class="date-scroller" id="dateNav"></div>
-    <div id="page-itinerary" class="page active"><div class="timeline-container" id="itineraryList"></div></div>
-    <div id="page-food" class="page"><div id="foodList" style="display:grid; grid-template-columns: 1fr 1fr; gap:15px; padding:15px;"></div></div>
-
-    <div class="bottom-nav">
-        <div class="nav-item active" onclick="switchPage('itinerary', this)"><i class="fas fa-route"></i><br>行程</div>
-        <div class="nav-item" onclick="switchPage('food', this)"><i class="fas fa-cookie-bite"></i><br>美食</div>
-        <div class="nav-item" onclick="switchPage('tools', this)"><i class="fas fa-tools"></i><br>工具</div>
-    </div>
-
-    <script>
-        const db = {
-            "D1 2026-02-03(二)": [
-                { time: "15:35", title: "桃園 T1 起飛", type: "交通", note: "IT202 班機", img: "https://images.unsplash.com/photo-1542296332-2e44a99cfef9?w=400" },
-                { time: "21:45", title: "入住四谷京阪飯店", type: "住宿", note: "四谷站步行3分", img: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400" }
-            ],
-            "D2 2026-02-04(三)": [
-                { time: "09:30", title: "上野東照宮", type: "景點", note: "金碧輝煌江戶建築", img: "https://images.unsplash.com/photo-1589998126767-b89280d00f68?w=400" }
-            ],
-            // ... 行程資料請依此格式補回
+        window.onload = function() {
+            renderDateNav();
+            renderItinerary(currentDate);
+            renderWeather(currentDate);
+            renderFood();
+            loadExpenses();
         };
 
-        let current = Object.keys(db)[0];
+        function renderDateNav() {
+            const container = document.getElementById('dateNav');
+            container.innerHTML = "";
+            
+            dates.forEach((date, index) => {
+                const dayStr = date.split(' ')[1].substring(5);
+                const dLabel = `D${index + 1}`;
+                const dateKey = date.split(' ')[1].substring(0,10);
 
-        function render() {
-            const nav = document.getElementById('dateNav'); nav.innerHTML = "";
-            Object.keys(db).forEach((d, i) => {
-                const el = document.createElement('div'); el.className = `date-chip ${current===d?'active':''}`;
-                el.innerHTML = `<strong>D${i+1}</strong><span>${d.substring(5,10)}</span>`;
-                el.onclick = () => { current = d; render(); }; nav.appendChild(el);
-            });
-            const list = document.getElementById('itineraryList'); list.innerHTML = "";
-            db[current].forEach(item => {
-                list.innerHTML += `<div class="content-col"><div class="card-img-col"><img src="${item.img}" class="card-img" onerror="this.src='https://images.unsplash.com/photo-1503899036084-c55cdd92da26?w=400'"></div><div class="card-body"><h3>${item.time} ${item.title}</h3><p style="font-size:0.85rem;color:#888;">${item.note}</p></div></div>`;
+                const el = document.createElement('div');
+                el.className = 'date-chip';
+                el.dataset.date = dateKey;
+                el.dataset.index = index;
+                
+                if(currentDate === dateKey) {
+                    el.classList.add('active');
+                }
+
+                el.innerHTML = `<strong>${dLabel}</strong><span>${dayStr}</span>`;
+                el.onclick = () => selectDate(date, index);
+                container.appendChild(el);
             });
         }
 
-        function switchPage(p, el) {
-            document.querySelectorAll('.page').forEach(pg => pg.classList.remove('active'));
-            if(document.getElementById(`page-${p}`)) document.getElementById(`page-${p}`).classList.add('active');
-            document.querySelectorAll('.nav-item').forEach(ni => ni.classList.remove('active'));
-            el.classList.add('active');
+        function selectDate(fullKey, index) {
+            currentDate = fullKey.split(' ')[1].substring(0,10);
+            if (index === undefined) {
+                index = dates.indexOf(fullKey);
+            }
+            if (index !== -1 && pageTitles[index]) {
+                document.getElementById('mainTitle').innerText = pageTitles[index];
+            }
+
+            renderDateNav();
+            renderItinerary(fullKey);
+            const weatherDate = fullKey.match(/\d{4}-\d{2}-\d{2}/)[0];
+            renderWeather(weatherDate);
         }
-        render();
-    </script>
-</body>
-</html>
-ntById(`page-${p}`).classList.add('active');
-            document.querySelectorAll('.nav-item').forEach(ni => ni.classList.remove('active'));
-            el.classList.add('active');
+
+        function renderItinerary(key) {
+            const list = document.getElementById('itineraryList');
+            const items = itineraryDB[key] || [];
+            list.innerHTML = "";
+            
+            items.forEach(item => {
+                const navBtn = item.link ? `<a href="${item.link}" target="_blank" class="nav-btn-corner"><i class="fas fa-location-arrow"></i></a>` : '';
+                const imgHtml = item.img ? `<div class="card-img-col"><img src="${item.img}" class="card-img" alt="${item.title}"></div>` : '';
+                
+                const html = `
+                <div class="timeline-item">
+                    <div class="time-wrapper">
+                        <div class="time-bubble">${item.time}</div>
+                    </div>
+                    <div class="content-col">
+                        ${navBtn}
+                        ${imgHtml}
+                        <div class="card-body">
+                            <span class="tag ${item.type}">${item.type}</span>
+                            <h3>${item.title}</h3>
+                            <div class="note">${item.note}</div>
+                        </div>
+                    </div>
+                </div>`;
+                list.innerHTML += html;
+            });
         }
-        render();
+
+        function renderWeather(dateStr) {
+            const data = weatherDB[dateStr] || { temp: "--", tip: "祝您旅途愉快", icon: "smile" };
+            document.getElementById('currentDateDisplay').innerText = dateStr;
+            document.getElementById('weatherTemp').innerHTML = `<i class="fas fa-${data.icon}" style="font-size:0.8em; margin-right:5px;"></i> ${data.temp}`;
+            document.getElementById('weatherTip').innerHTML = `<i class="fas fa-tshirt"></i> <span>${data.tip}</span>`;
+        }
+
+        function renderFood() {
+            const list = document.getElementById('foodList');
+            foodDB.forEach(item => {
+                const imgHtml = item.img ? `<img src="${item.img}" class="real-food-img">` : `<div class="food-img-placeholder"><i class="fas fa-utensils"></i></div>`;
+                list.innerHTML += `
+                <div class="food-card">
+                    ${imgHtml}
+                    <div class="food-info">
+                        <div class="food-name">${item.name}</div>
+                        <div class="food-jp">${item.jp}</div>
+                        <div class="food-price">${item.price} (${item.shop})</div>
+                    </div>
+                </div>`;
+            });
+        }
+
+        function speak(text, alertText) {
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'ja-JP';
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert("文字：" + (alertText || text));
+            }
+        }
+
+        function switchPage(pageId, navEl) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(`page-${pageId}`).classList.add('active');
+            
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            navEl.classList.add('active');
+        }
+
+        function addExpense() {
+            const name = document.getElementById('expenseName').value;
+            const amount = parseInt(document.getElementById('expenseAmount').value);
+            if(!name || !amount) return;
+
+            const list = document.getElementById('expenseList');
+            const li = document.createElement('li');
+            li.innerText = `${name}: ¥${amount}`;
+            list.appendChild(li);
+
+            updateTotal(amount);
+
+            document.getElementById('expenseName').value = '';
+            document.getElementById('expenseAmount').value = '';
+            saveData(name, amount);
+        }
+
+        let total = 0;
+        function updateTotal(amount) {
+            total += amount;
+            document.getElementById('totalExpense').innerText = `¥${total}`;
+        }
+        
+        function saveData(name, amount) {
+            let expenses = JSON.parse(localStorage.getItem('tokyo_expenses')) || [];
+            expenses.push({ name, amount });
+            localStorage.setItem('tokyo_expenses', JSON.stringify(expenses));
+        }
+
+        function loadExpenses() {
+            let expenses = JSON.parse(localStorage.getItem('tokyo_expenses')) || [];
+            const list = document.getElementById('expenseList');
+            expenses.forEach(ex => {
+                const li = document.createElement('li');
+                li.innerText = `${ex.name}: ¥${ex.amount}`;
+                list.appendChild(li);
+                updateTotal(ex.amount);
+            });
+        }
     </script>
 </body>
 </html>
