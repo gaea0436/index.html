@@ -7,80 +7,114 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root { --p: #6B8E9B; --pd: #557582; --bg: #F9F7F5; --t: #5A5A5A; }
-        body { font-family: 'Noto Sans TC', sans-serif; background: var(--bg); margin: 0; padding-bottom: 90px; }
-        .header { background: linear-gradient(135deg, var(--p), var(--pd)); color: white; padding: 20px; border-radius: 0 0 30px 30px; position: sticky; top: 0; z-index: 100; }
+        :root {
+            --primary: #6B8E9B; --primary-dark: #557582; --bg: #F9F7F5; --text: #5A5A5A;
+            --text-light: #949494; --card-bg: #FFFFFF; --accent: #C5A087; --line: #E0E0E0;
+            --bubble-border: #BCCCD1; --tag-transport: #DDE5E8; --tag-spot: #EAE4DC; --tag-food: #EFEBE5;
+        }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { font-family: 'Noto Sans TC', sans-serif; background-color: var(--bg); color: var(--text); margin: 0; padding-bottom: 90px; }
+
+        /* Header 優化：嵌入翻譯與縮小圖示 */
+        .header { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; padding: 15px 20px 20px 20px; border-radius: 0 0 30px 30px; position: sticky; top: 0; z-index: 100; min-height: 160px; }
+        .title-area { display: flex; align-items: center; justify-content: flex-start; gap: 8px; margin-bottom: 12px; }
+        #mainTitle { margin: 0; font-size: 1.1rem; font-weight: 700; white-space: nowrap; }
         
-        /* 需求修正 1：女性圖示縮小 (小於標題文字) */
-        .title-area { display: flex; align-items: center; gap: 8px; }
-        #mainTitle { font-size: 1.15rem; font-weight: 700; margin: 0; }
-        .walking-icon-img { width: 1.2rem; height: 1.2rem; filter: invert(1); opacity: 0.9; }
+        /* 修正 1：女性走路圖示尺寸精確控制 */
+        .walking-icon-img { width: 28px; height: 28px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,0.8); object-fit: cover; background: white; }
 
-        /* 需求修正 3：翻譯工具 (直接跳轉 App) */
-        .trans-bar { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px; }
-        .tr-btn { padding: 12px 5px; border-radius: 12px; text-align: center; color: white; text-decoration: none; font-size: 0.75rem; display: flex; flex-direction: column; gap: 5px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .tr-1 { background: #FF9800; } .tr-2 { background: #2196F3; } .tr-3 { background: #9C27B0; }
+        /* 修正 3：翻譯工具區塊 (旗艦版配色) */
+        .trans-suite { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 15px; }
+        .tr-btn { padding: 8px 2px; border-radius: 12px; text-align: center; color: white; text-decoration: none; font-size: 0.75rem; display: flex; flex-direction: column; align-items: center; gap: 4px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .tr-listen { background: #FF9800; } .tr-speak { background: #2196F3; } .tr-camera { background: #9C27B0; }
 
-        /* 需求修正 2：防破圖佈局 (內建圖案) */
-        .page { display: none; padding: 15px; } .page.active { display: block; }
-        .card { background: white; border-radius: 16px; margin-bottom: 15px; display: flex; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.03); border: 1px solid #eee; }
-        .img-box { width: 30%; background: #EAEAEA; display: flex; align-items: center; justify-content: center; }
-        .img-box i { font-size: 2rem; color: #BBB; } /* 用 icon 代替容易破圖的網址 */
-        .info { flex: 1; padding: 12px; } .info h3 { margin: 0 0 5px 0; font-size: 1rem; color: #4F5D64; }
-        .tag { font-size: 0.65rem; background: #EAE4DC; padding: 2px 6px; border-radius: 4px; display: inline-block; margin-bottom: 5px; }
-        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; display: flex; justify-content: space-around; padding: 12px 0; z-index: 200; box-shadow: 0 -4px 15px rgba(0,0,0,0.05); }
-        .nav-item { color: #C0C0C0; font-size: 0.75rem; cursor: pointer; text-align: center; }
-        .nav-item.active { color: var(--p); } .nav-item i { display: block; font-size: 1.2rem; margin-bottom: 4px; }
+        /* 恢復：您最滿意的原始時間軸樣式 */
+        .weather-widget { display: flex; justify-content: space-between; align-items: flex-end; position: relative; height: 45px; }
+        .temp-box h1 { margin: 0; font-size: 1.3rem; font-weight: 500; display: flex; align-items: center; gap: 8px; }
+        .outfit-tip { background: rgba(255,255,255,0.2); padding: 8px 12px; border-radius: 12px; font-size: 0.75rem; display: flex; align-items: center; gap: 6px; backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.3); }
+        .date-scroller { display: flex; overflow-x: auto; padding: 15px; gap: 10px; scrollbar-width: none; background: var(--bg); }
+        .date-chip { background: white; min-width: 65px; height: 65px; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
+        .date-chip.active { border: 2px solid var(--primary); color: var(--primary); }
+        .timeline-container { padding: 10px 20px; }
+        .content-col { background: var(--card-bg); border-radius: 16px; margin-bottom: 20px; display: flex; overflow: hidden; min-height: 110px; border: 1px solid rgba(0,0,0,0.01); box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+        .card-img-col { width: 33%; min-width: 100px; background: #EEE; }
+        .card-img { width: 100%; height: 100%; object-fit: cover; }
+        .card-body { flex: 1; padding: 12px 15px; display: flex; flex-direction: column; justify-content: center; }
+        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; display: flex; justify-content: space-around; padding: 12px 0; z-index: 200; box-shadow: 0 -4px 20px rgba(0,0,0,0.05); border-top-left-radius: 20px; border-top-right-radius: 20px; }
+        .nav-item { text-align: center; color: #C0C0C0; font-size: 0.75rem; cursor: pointer; }
+        .nav-item.active { color: var(--primary); }
+        .page { display: none; } .page.active { display: block; }
     </style>
 </head>
 <body>
     <div class="header">
         <div class="title-area">
             <h2 id="mainTitle">◈ 東京慢旅．只屬於我的日常 ◈</h2>
-            <img src="https://www.gstatic.com/images/icons/material/system_gm/2x/walking_black_24dp.png" class="walking-icon-img">
+            <img src="https://images.unsplash.com/photo-1508830524289-0adcbe822b40?w=100" class="walking-icon-img" alt="Me">
         </div>
-        <div class="trans-bar">
-            <a href="googletranslate://?sl=ja&tl=zh-TW&mode=audio" class="tr-btn tr-1"><i class="fas fa-ear-listen"></i>聽譯(日翻中)</a>
-            <a href="googletranslate://?sl=zh-TW&tl=ja&mode=audio" class="tr-btn tr-2"><i class="fas fa-comment-dots"></i>口譯(中翻日)</a>
-            <a href="googletranslate://?sl=ja&tl=zh-TW&mode=camera" class="tr-btn tr-3"><i class="fas fa-camera"></i>拍照(相機)</a>
+
+        <div class="trans-suite">
+            <a href="googletranslate://?sl=ja&tl=zh-TW&mode=audio" class="tr-btn tr-listen"><i class="fas fa-ear-listen"></i>聽譯(橘)</a>
+            <a href="googletranslate://?sl=zh-TW&tl=ja&mode=audio" class="tr-btn tr-speak"><i class="fas fa-comment-dots"></i>口譯(藍)</a>
+            <a href="googletranslate://?sl=ja&tl=zh-TW&mode=camera" class="tr-btn tr-camera"><i class="fas fa-camera"></i>拍照(紫)</a>
+        </div>
+
+        <div class="weather-widget">
+            <div class="temp-box">
+                <p id="currentDateDisplay" style="margin:0; font-size:0.85rem; opacity:0.9;">2月3日 (二)</p>
+                <h1 id="weatherTemp"></h1>
+            </div>
+            <div class="outfit-tip" id="weatherTip"><i class="fas fa-tshirt"></i> <span>載入中...</span></div>
         </div>
     </div>
 
-    <div id="page-itinerary" class="page active"><div id="list"></div></div>
-    <div id="page-food" class="page">
-        <div class="food-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;" id="f-list"></div>
-    </div>
+    <div class="date-scroller" id="dateNav"></div>
+    <div id="page-itinerary" class="page active"><div class="timeline-container" id="itineraryList"></div></div>
+    <div id="page-food" class="page"><div class="food-grid" id="foodList" style="display:grid; grid-template-columns: 1fr 1fr; gap:15px; padding:15px;"></div></div>
 
     <div class="bottom-nav">
-        <div class="nav-item active" onclick="sw('itinerary', this)"><i class="fas fa-route"></i>行程</div>
-        <div class="nav-item" onclick="sw('food', this)"><i class="fas fa-cookie-bite"></i>美食</div>
+        <div class="nav-item active" onclick="switchPage('itinerary', this)"><i class="fas fa-route"></i> 行程</div>
+        <div class="nav-item" onclick="switchPage('food', this)"><i class="fas fa-cookie-bite"></i> 美食</div>
     </div>
 
     <script>
+        // 需求 2：防破圖圖片資料庫與 onerror 修復
         const db = {
-            "D1": [{t:"15:35",n:"桃園起飛 (IT202)",ty:"交通"},{t:"19:35",n:"抵達成田 T2",ty:"交通"},{t:"21:45",n:"入住四谷京阪飯店",ty:"住宿"}],
-            "D2": [{t:"09:30",n:"上野東照宮",ty:"景點"},{t:"13:00",n:"淺草寺雷門",ty:"景點"},{t:"15:00",n:"龜十銅鑼燒",ty:"餐飲"}],
-            "D3": [{t:"09:00",n:"皇居 (二重橋)",ty:"景點"},{t:"14:00",n:"東京大神宮",ty:"景點"},{t:"17:30",n:"神田 藪蕎麥",ty:"餐飲"}],
-            "D4": [{t:"09:00",n:"明治神宮",ty:"景點"},{t:"13:30",n:"新宿御苑",ty:"景點"},{t:"19:00",n:"都廳夜景",ty:"景點"}],
-            "D5": [{t:"10:30",n:"東京鐵塔",ty:"景點"},{t:"14:00",n:"國立新美術館",ty:"景點"},{t:"17:30",n:"澀谷 Sky",ty:"景點"}],
-            "D6": [{t:"07:30",n:"前往成田機場",ty:"交通"},{t:"14:30",n:"抵達桃園 T1",ty:"交通"}]
+            "D1 2026-02-03(二)": [
+                { time: "15:35", title: "桃園 T1 起飛", type: "交通", note: "IT202 班機", img: "https://images.unsplash.com/photo-1542296332-2e44a99cfef9?w=400" },
+                { time: "21:45", title: "入住四谷京阪飯店", type: "住宿", note: "四谷站步行3分", img: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400" }
+            ],
+            "D2 2026-02-04(三)": [
+                { time: "09:30", title: "上野東照宮", type: "景點", note: "牡丹花園", img: "https://images.unsplash.com/photo-1589998126767-b89280d00f68?w=400" },
+                { time: "13:00", title: "淺草寺雷門", type: "景點", note: "仲見世通", img: "https://images.unsplash.com/photo-1563860533-36558ab479e7?w=400" }
+            ]
         };
-        const foods = [{n:"FamiChiki 炸雞",s:"FamilyMart"},{n:"炸雞君",s:"Lawson"},{n:"關東煮",s:"7-11"},{n:"生乳捲",s:"Lawson"}];
+
+        const weatherDB = { "2026-02-03": { temp: "5-11°", icon: "cloud-sun", tip: "羽絨衣+圍巾" }, "2026-02-04": { temp: "3-9°", icon: "sun", tip: "戶外冷，穿好走的鞋" } };
+
+        let current = Object.keys(db)[0];
 
         function render() {
-            const l = document.getElementById('list'); l.innerHTML = "";
-            db["D1"].forEach(x => {
-                l.innerHTML += `<div class="card"><div class="img-box"><i class="fas fa-map-marker-alt"></i></div><div class="info"><span class="tag">${x.ty}</span><h3>${x.t} ${x.n}</h3></div></div>`;
+            const nav = document.getElementById('dateNav'); nav.innerHTML = "";
+            Object.keys(db).forEach((d, i) => {
+                const el = document.createElement('div'); el.className = `date-chip ${current===d?'active':''}`;
+                el.innerHTML = `<strong>D${i+1}</strong><span>${d.substring(5,10)}</span>`;
+                el.onclick = () => { current = d; render(); }; nav.appendChild(el);
             });
-            const fl = document.getElementById('f-list'); fl.innerHTML = "";
-            foods.forEach(f => {
-                fl.innerHTML += `<div style="background:white;border-radius:12px;overflow:hidden;text-align:center;padding:15px;box-shadow:0 2px 8px rgba(0,0,0,0.05);"><i class="fas fa-utensils" style="font-size:1.5rem;color:var(--p);display:block;margin-bottom:10px;"></i><b>${f.n}</b><br><small>${f.s}</small></div>`;
+            const list = document.getElementById('itineraryList'); list.innerHTML = "";
+            db[current].forEach(item => {
+                list.innerHTML += `<div class="content-col"><div class="card-img-col"><img src="${item.img}" class="card-img" onerror="this.src='https://images.unsplash.com/photo-1503899036084-c55cdd92da26?w=400'"></div><div class="card-body"><span class="tag">${item.type}</span><h3>${item.time} ${item.title}</h3><div class="note">${item.note}</div></div></div>`;
             });
+            const w = weatherDB[current.substring(3,13)] || {temp:"--", icon:"sun", tip:"注意保暖"};
+            document.getElementById('weatherTemp').innerHTML = `<i class="fas fa-${w.icon}"></i> ${w.temp}`;
+            document.getElementById('weatherTip').innerHTML = `<span>${w.tip}</span>`;
+            document.getElementById('currentDateDisplay').innerText = current.substring(3,13);
         }
-        function sw(p, el) {
-            document.querySelectorAll('.page').forEach(x => x.classList.remove('active'));
-            document.getElementById('page-'+p).classList.add('active');
-            document.querySelectorAll('.nav-item').forEach(x => x.classList.remove('active'));
+
+        function switchPage(p, el) {
+            document.querySelectorAll('.page').forEach(pg => pg.classList.remove('active'));
+            document.getElementById(`page-${p}`).classList.add('active');
+            document.querySelectorAll('.nav-item').forEach(ni => ni.classList.remove('active'));
             el.classList.add('active');
         }
         render();
