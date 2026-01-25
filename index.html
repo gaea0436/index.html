@@ -18,12 +18,13 @@
             --accent: #C5A087;        /* 奶茶棕 */
             --line: #E0E0E0;
             --bubble-border: #BCCCD1;
-            
+
             /* 標籤配色 */
             --tag-transport: #DDE5E8;
-            --tag-spot: #EAE4DC;      
-            --tag-food: #EFEBE5;      
-            
+            --tag-spot: #EAE4DC;
+            --tag-food: #EFEBE5;
+            --secondary: #CFD8DC;
+
             /* --- 翻譯工具配色 --- */
             --trans-listen: #D5B0A3;  /* 乾燥玫瑰 */
             --trans-speak: #8FA7B6;   /* 霧霾藍 */
@@ -55,15 +56,15 @@
             flex-direction: column;
             justify-content: space-between;
         }
-        
+
         .title-area {
             display: flex;
-            align-items: center; 
+            align-items: center;
             justify-content: flex-start;
             gap: 8px;
             margin-bottom: 10px;
         }
-        
+
         #mainTitle {
             margin: 0;
             font-size: 1.25rem;
@@ -72,15 +73,15 @@
             text-shadow: 0 2px 4px rgba(0,0,0,0.1);
             line-height: 1.4;
         }
-        
+
         #dailyIcon {
-            font-size: 1.2rem; 
+            font-size: 1.2rem;
             filter: drop-shadow(0 2px 3px rgba(0,0,0,0.2));
             animation: bounce 2s infinite ease-in-out;
             cursor: default;
             line-height: 1;
         }
-        
+
         @keyframes bounce {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-3px); }
@@ -94,11 +95,11 @@
             position: relative;
             height: 50px;
         }
-        
+
         .temp-box { position: absolute; left: 0; bottom: 0; }
         .temp-box p { margin: 0; font-size: 0.85rem; opacity: 0.9; font-weight: 400; margin-bottom: 2px;}
         .temp-box h1 { margin: 0; font-size: 1.6rem; font-weight: 500; letter-spacing: 1px; line-height: 1; }
-        
+
         .outfit-tip {
             background: rgba(255,255,255,0.2);
             padding: 8px 12px;
@@ -129,7 +130,7 @@
             background: var(--bg);
         }
         .date-scroller::-webkit-scrollbar { display: none; }
-        
+
         .date-chip {
             background: white;
             min-width: 65px;
@@ -149,7 +150,7 @@
         }
         .date-chip strong { font-size: 1.1rem; font-weight: 700; margin-bottom: 2px; color: #C0C0C0; }
         .date-chip span { font-size: 0.7rem; }
-        
+
         .date-chip.active {
             background: white;
             border: 2px solid var(--primary);
@@ -161,7 +162,7 @@
 
         /* --- 行程時間軸 --- */
         .timeline-container { padding: 10px 20px; }
-        
+
         .timeline-item {
             display: flex;
             margin-bottom: 25px;
@@ -212,7 +213,7 @@
             z-index: 1;
             overflow: hidden;
             border: 1px solid rgba(0,0,0,0.01);
-            display: flex; 
+            display: flex;
             flex-direction: row;
             min-height: 110px;
         }
@@ -232,16 +233,16 @@
             top: 0; left: 0;
         }
 
-        .card-body { 
+        .card-body {
             flex: 1;
-            padding: 12px 15px; 
+            padding: 12px 15px;
             display: flex;
             flex-direction: column;
             justify-content: center;
         }
 
         .content-col h3 { margin: 0 0 5px 0; font-size: 1.05rem; color: #4F5D64; font-weight: 700; line-height: 1.3; }
-        
+
         .tag {
             display: inline-block;
             font-size: 0.65rem;
@@ -285,18 +286,18 @@
         }
         .nav-btn-corner:active { transform: scale(0.9); background: var(--primary); color: white; }
 
-        /* --- 交通救命符樣式 (新增) --- */
+        /* --- 交通救命符樣式 --- */
         .transport-container { padding: 15px; }
-        
+
         .lifeline-card {
             background: white;
             border-radius: 16px;
             padding: 20px;
             margin-bottom: 20px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.03);
-            border-left: 5px solid var(--accent); /* 左側色條強調 */
+            border-left: 5px solid var(--accent);
         }
-        
+
         .lifeline-title {
             color: var(--primary);
             font-size: 1.1rem;
@@ -312,7 +313,7 @@
             border-bottom: 1px solid #f0f0f0;
         }
         .station-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-        
+
         .station-name {
             font-weight: 700;
             font-size: 1.05rem;
@@ -323,8 +324,7 @@
             flex-wrap: wrap;
             gap: 5px;
         }
-        
-        /* 站號徽章樣式 */
+
         .station-badge {
             display: inline-flex;
             align-items: center;
@@ -338,20 +338,20 @@
             min-width: 36px;
             letter-spacing: 0.5px;
         }
-        
+
         .exit-info {
             font-size: 0.95rem;
             color: var(--text);
             margin-bottom: 4px;
         }
         .exit-highlight {
-            color: var(--accent); /* 關鍵出口用奶茶色 */
+            color: var(--accent);
             font-weight: 700;
             background: rgba(197, 160, 135, 0.1);
             padding: 1px 5px;
             border-radius: 4px;
         }
-        
+
         .guide-text {
             font-size: 0.85rem;
             color: #888;
@@ -388,7 +388,7 @@
             font-size: 0.75rem;
             cursor: pointer;
             transition: color 0.3s;
-            flex: 1; /* 均分寬度 */
+            flex: 1;
         }
         .nav-item.active { color: var(--primary); }
         .nav-item i { font-size: 1.2rem; display: block; margin-bottom: 4px; }
@@ -412,7 +412,7 @@
         .tools-container { padding: 20px; }
         .tool-card { background: white; padding: 20px; border-radius: 16px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); }
         .tool-card h3 { color: var(--primary); margin-top: 0; font-size: 1.1rem; }
-        
+
         /* 翻譯按鈕 */
         .trans-actions-grid {
             display: grid;
@@ -439,439 +439,444 @@
 
         /* 語句按鈕 */
         .translate-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .phrase-btn { background: white; border: 1px solid var(--accent); color: var(--accent); padding: 15px 10px; border-radius: 12px; text-align: center; font-size: 0.9rem; cursor: pointer; transition: all 0.2s; }
+        .phrase-btn { background: white; border: 1px solid var(--accent); color: var(--accent); padding: 15px 10px; border-radius: 12px; text-align: center; font-size: 0.9rem;
+            cursor: pointer; transition: all 0.2s; }
         .phrase-btn:active { background: var(--accent); color: white; transform: scale(0.98); }
         .phrase-btn i { display: block; margin-bottom: 5px; opacity: 0.5; }
 
         /* 記帳 */
         .input-group { display: flex; flex-direction: column; gap: 10px; margin-bottom: 10px; }
         .input-group input { width: 100%; padding: 12px; border: 1px solid #eee; border-radius: 8px; font-size: 1rem; background: #FAFAFA; }
-        .tool-btn { background: var(--accent); color: white; border: none; padding: 12px; width: 100%; border-radius: 10px; font-size: 1rem; margin-top: 10px; cursor: pointer; }
+        .tool-btn { background: var(--accent); color: white; border: none; padding: 12px; width: 100%; border-radius: 10px; font-size: 1rem; margin-top: 10px; cursor: pointer;
+        }
 
     </style>
 </head>
 <body>
 
-    <div class="header" id="headerWidget">
-        <div class="title-area">
-            <h2 id="mainTitle">◈東京慢旅．只屬於我的日常◈</h2>
-            <span id="dailyIcon">✈️</span>
+<div class="header" id="headerWidget">
+    <div class="title-area">
+        <h2 id="mainTitle">◈東京慢旅．只屬於我的日常◈</h2>
+        <span id="dailyIcon">✈️</span>
+    </div>
+    <div class="weather-widget">
+        <div class="temp-box">
+            <p id="currentDateDisplay">2月3日 (二)</p>
+            <h1 id="weatherTemp">6°C</h1>
         </div>
-        <div class="weather-widget">
-            <div class="temp-box">
-                <p id="currentDateDisplay">2月3日 (二)</p>
-                <h1 id="weatherTemp">6°C</h1>
-            </div>
-            <div class="outfit-tip" id="weatherTip">
-                <i class="fas fa-tshirt"></i> <span>寒冷，請穿著羽絨衣並攜帶圍巾</span>
-            </div>
+        <div class="outfit-tip" id="weatherTip">
+            <i class="fas fa-tshirt"></i> <span>寒冷，請穿著羽絨衣並攜帶圍巾</span>
         </div>
     </div>
+</div>
 
-    <div class="date-scroller" id="dateNav"></div>
+<div class="date-scroller" id="dateNav"></div>
 
-    <div id="page-itinerary" class="page active">
-        <div class="timeline-container" id="itineraryList"></div>
-    </div>
-    
-    <div id="page-transport" class="page">
-        <div class="transport-container">
-            
-            <div class="lifeline-card">
-                <h3 class="lifeline-title"><i class="fas fa-bed"></i> 住宿與換宿保命</h3>
-                
-                <div class="station-item">
-                    <div class="station-name">四谷京阪飯店 <span class="station-badge">M12</span> <span class="station-badge">N08</span></div>
-                    <div class="exit-info">四谷站 <span class="exit-highlight">出口 2</span></div>
-                    <div class="guide-text">有電梯！出站後過個馬路，飯店就在 LIFE 超市旁。</div>
-                </div>
+<div id="page-itinerary" class="page active">
+    <div class="timeline-container" id="itineraryList"></div>
+</div>
 
-                <div class="station-item">
-                    <div class="station-name">池尻大橋住宿 <span class="station-badge">DT02</span></div>
-                    <div class="exit-info">池尻大橋站 <span class="exit-highlight">北口</span></div>
-                    <div class="guide-text">只有兩站，從澀谷過來請搭「各站停車」的車。</div>
-                </div>
+<div id="page-transport" class="page">
+    <div class="transport-container">
+
+        <div class="lifeline-card">
+            <h3 class="lifeline-title"><i class="fas fa-bed"></i> 住宿與換宿保命</h3>
+
+            <div class="station-item">
+                <div class="station-name">四谷京阪飯店 <span class="station-badge">M12</span> <span class="station-badge">N08</span></div>
+                <div class="exit-info">四谷站 <span class="exit-highlight">出口 2</span></div>
+                <div class="guide-text">有電梯！出站後過個馬路，飯店就在 LIFE 超市旁。</div>
             </div>
 
-            <div class="lifeline-card">
-                <h3 class="lifeline-title"><i class="fas fa-map-signs"></i> 每日景點快速對照</h3>
-
-                <div class="date-divider">2/4 (三) 上野 / 淺草</div>
-                <div class="station-item">
-                    <div class="station-name">上野站 <span class="station-badge">G16</span></div>
-                    <div class="exit-info">走 <span class="exit-highlight">公園口</span></div>
-                    <div class="guide-text">路最寬，不容易走錯。</div>
-                </div>
-                <div class="station-item">
-                    <div class="station-name">淺草站 <span class="station-badge">G19</span></div>
-                    <div class="exit-info">走 <span class="exit-highlight">1 號出口</span></div>
-                    <div class="guide-text">一上來就是雷門大紅燈籠。</div>
-                </div>
-
-                <div class="date-divider">2/5 (四) 豪德寺 / 下北澤</div>
-                <div class="station-item">
-                    <div class="station-name">豪德寺站 <span class="station-badge">OH07</span></div>
-                    <div class="exit-info">出站後跟著人群走商店街。</div>
-                </div>
-                <div class="station-item">
-                    <div class="station-name">下北澤站 <span class="station-badge">OH07</span></div>
-                    <div class="exit-info">走 <span class="exit-highlight">東口</span></div>
-                    <div class="guide-text">逛街最方便。</div>
-                </div>
-
-                <div class="date-divider">2/6 (五) 皇居 / 新宿</div>
-                <div class="station-item">
-                    <div class="station-name">二重橋前站 <span class="station-badge">C10</span></div>
-                    <div class="exit-info">走 <span class="exit-highlight">2 號出口</span></div>
-                </div>
-                <div class="station-item">
-                    <div class="station-name">新宿御苑前站 <span class="station-badge">M10</span></div>
-                    <div class="exit-info">走 <span class="exit-highlight">1 號出口</span></div>
-                    <div class="guide-text">注意不是新宿大站喔！</div>
-                </div>
-
-                <div class="date-divider">2/7 (六) 鐵塔 / 美術館</div>
-                <div class="station-item">
-                    <div class="station-name">赤羽橋站 <span class="station-badge">E21</span></div>
-                    <div class="exit-info">走 <span class="exit-highlight">赤羽橋口</span></div>
-                    <div class="guide-text">出站抬頭看鐵塔定位。</div>
-                </div>
-                <div class="station-item">
-                    <div class="station-name">乃木坂站 <span class="station-badge">C05</span></div>
-                    <div class="exit-info">走 <span class="exit-highlight">6 號出口</span></div>
-                    <div class="guide-text">最推薦！直通美術館內部。</div>
-                </div>
-
+            <div class="station-item">
+                <div class="station-name">池尻大橋住宿 <span class="station-badge">DT02</span></div>
+                <div class="exit-info">池尻大橋站 <span class="exit-highlight">北口</span></div>
+                <div class="guide-text">只有兩站，從澀谷過來請搭「各站停車」的車。</div>
             </div>
         </div>
-    </div>
 
-    <div id="page-food" class="page">
-        <div style="padding: 20px;">
-            <h2 style="color:var(--text); font-weight:500; font-size: 1.3rem;"><i class="fas fa-utensils" style="color:var(--primary)"></i> 超商必吃</h2>
-            <p style="color:#888; font-size:0.85rem;">已為您整理好清單，結帳時可直接出示圖片給店員看。</p>
-        </div>
-        <div class="food-grid" id="foodList"></div>
-    </div>
+        <div class="lifeline-card">
+            <h3 class="lifeline-title"><i class="fas fa-map-signs"></i> 每日景點快速對照</h3>
 
-    <div id="page-tools" class="page">
-        <div class="tools-container">
-            
-            <div class="tool-card">
-                <h3><i class="fas fa-language"></i> 隨身翻譯官</h3>
-                <p style="font-size:0.8rem; color:#999; margin-bottom:15px;">一鍵開啟 Google 翻譯對應模式 (無需打字)</p>
-                
-                <div class="trans-actions-grid">
-                    <a href="https://translate.google.com/?sl=ja&tl=zh-TW&op=translate" target="_blank" class="trans-action-btn" style="background: var(--trans-listen);">
-                        <i class="fas fa-ear-listen"></i>
-                        <span>聽譯</span>
-                        <small>對方說日文</small>
-                    </a>
-                    
-                    <a href="https://translate.google.com/?sl=zh-TW&tl=ja&op=translate" target="_blank" class="trans-action-btn" style="background: var(--trans-speak);">
-                        <i class="fas fa-microphone-alt"></i>
-                        <span>口譯</span>
-                        <small>我說中文</small>
-                    </a>
-                    
-                    <a href="https://translate.google.com/?sl=ja&tl=zh-TW&op=images" target="_blank" class="trans-action-btn" style="background: var(--trans-cam);">
-                        <i class="fas fa-camera"></i>
-                        <span>拍照</span>
-                        <small>翻譯菜單</small>
-                    </a>
-                </div>
-
-                <p style="font-size:0.8rem; color:#999; margin-bottom:10px; margin-top:5px;">常用語句 (點擊發音)</p>
-                <div class="translate-grid">
-                    <div class="phrase-btn" onclick="speak('すみません、トイレはどこですか？', 'Sumimasen, toire wa doko desu ka?')">
-                        <i class="fas fa-restroom"></i> 廁所在哪裡
-                    </div>
-                    <div class="phrase-btn" onclick="speak('これをください。', 'Kore o kudasai')">
-                        <i class="fas fa-hand-pointer"></i> 請給我這個
-                    </div>
-                    <div class="phrase-btn" onclick="speak('お会計をお願いします。', 'Okaikei o onegaishimasu')">
-                        <i class="fas fa-wallet"></i> 麻煩結帳
-                    </div>
-                    <div class="phrase-btn" onclick="speak('袋はいりません。', 'Fukuro wa irimasen')">
-                        <i class="fas fa-shopping-bag"></i> 不用袋子
-                    </div>
-                </div>
+            <div class="date-divider">2/4 (三) 上野 / 淺草</div>
+            <div class="station-item">
+                <div class="station-name">上野站 <span class="station-badge">G16</span></div>
+                <div class="exit-info">走 <span class="exit-highlight">公園口</span></div>
+                <div class="guide-text">路最寬，不容易走錯。</div>
+            </div>
+            <div class="station-item">
+                <div class="station-name">淺草站 <span class="station-badge">G19</span></div>
+                <div class="exit-info">走 <span class="exit-highlight">1 號出口</span></div>
+                <div class="guide-text">一上來就是雷門大紅燈籠。</div>
             </div>
 
-            <div class="tool-card">
-                <h3><i class="fas fa-calculator"></i> 快速記帳</h3>
-                <div class="input-group">
-                    <input type="text" id="expenseName" placeholder="項目 (如: 拉麵)">
-                    <input type="number" id="expenseAmount" placeholder="日幣金額">
-                </div>
-                <button class="tool-btn" onclick="addExpense()">加入記帳</button>
-                <div style="margin-top: 20px; border-top: 1px solid #eee; padding-top:10px;">
-                    <h4>今日總計: <span id="totalExpense" style="color:var(--accent)">¥0</span></h4>
-                    <ul id="expenseList" style="padding-left: 20px; color:#666; font-size:0.9rem;"></ul>
-                </div>
+            <div class="date-divider">2/5 (四) 豪德寺 / 下北澤</div>
+            <div class="station-item">
+                <div class="station-name">豪德寺站 <span class="station-badge">OH07</span></div>
+                <div class="exit-info">出站後跟著人群走商店街。</div>
+            </div>
+            <div class="station-item">
+                <div class="station-name">下北澤站 <span class="station-badge">OH07</span></div>
+                <div class="exit-info">走 <span class="exit-highlight">東口</span></div>
+                <div class="guide-text">逛街最方便。</div>
             </div>
 
-            <div class="tool-card">
-                <h3><i class="fas fa-suitcase"></i> 重點檢查</h3>
-                <label style="display:block; margin:8px 0; color:#555;"><input type="checkbox"> 護照 (隨身)</label>
-                <label style="display:block; margin:8px 0; color:#555;"><input type="checkbox"> 西瓜卡 (Suica)</label>
-                <label style="display:block; margin:8px 0; color:#555;"><input type="checkbox"> 網卡 (SIM/eSIM)</label>
-                <label style="display:block; margin:8px 0; color:#555;"><input type="checkbox"> 現金 (千圓鈔)</label>
+            <div class="date-divider">2/6 (五) 皇居 / 新宿</div>
+            <div class="station-item">
+                <div class="station-name">二重橋前站 <span class="station-badge">C10</span></div>
+                <div class="exit-info">走 <span class="exit-highlight">2 號出口</span></div>
+            </div>
+            <div class="station-item">
+                <div class="station-name">新宿御苑前站 <span class="station-badge">M10</span></div>
+                <div class="exit-info">走 <span class="exit-highlight">1 號出口</span></div>
+                <div class="guide-text">注意不是新宿大站喔！</div>
+            </div>
+
+            <div class="date-divider">2/7 (六) 鐵塔 / 美術館</div>
+            <div class="station-item">
+                <div class="station-name">赤羽橋站 <span class="station-badge">E21</span></div>
+                <div class="exit-info">走 <span class="exit-highlight">赤羽橋口</span></div>
+                <div class="guide-text">出站抬頭看鐵塔定位。</div>
+            </div>
+            <div class="station-item">
+                <div class="station-name">乃木坂站 <span class="station-badge">C05</span></div>
+                <div class="exit-info">走 <span class="exit-highlight">6 號出口</span></div>
+                <div class="guide-text">最推薦！直通美術館內部。</div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div id="page-food" class="page">
+    <div style="padding: 20px;">
+        <h2 style="color:var(--text); font-weight:500; font-size: 1.3rem;"><i class="fas fa-utensils" style="color:var(--primary)"></i> 超商必吃</h2>
+        <p style="color:#888; font-size:0.85rem;">已為您整理好清單，結帳時可直接出示圖片給店員看。</p>
+    </div>
+    <div class="food-grid" id="foodList"></div>
+</div>
+
+<div id="page-tools" class="page">
+    <div class="tools-container">
+
+        <div class="tool-card">
+            <h3><i class="fas fa-language"></i> 隨身翻譯官</h3>
+            <p style="font-size:0.8rem; color:#999; margin-bottom:15px;">一鍵開啟 Google 翻譯對應模式 (無需打字)</p>
+
+            <div class="trans-actions-grid">
+                <a href="https://translate.google.com/?sl=ja&tl=zh-TW&op=translate" target="_blank" class="trans-action-btn" style="background: var(--trans-listen);">
+                    <i class="fas fa-ear-listen"></i>
+                    <span>聽譯</span>
+                    <small>對方說日文</small>
+                </a>
+
+                <a href="https://translate.google.com/?sl=zh-TW&tl=ja&op=translate" target="_blank" class="trans-action-btn" style="background: var(--trans-speak);">
+                    <i class="fas fa-microphone-alt"></i>
+                    <span>口譯</span>
+                    <small>我說中文</small>
+                </a>
+
+                <a href="https://translate.google.com/?sl=ja&tl=zh-TW&op=images" target="_blank" class="trans-action-btn" style="background: var(--trans-cam);">
+                    <i class="fas fa-camera"></i>
+                    <span>拍照</span>
+                    <small>翻譯菜單</small>
+                </a>
+            </div>
+
+            <p style="font-size:0.8rem; color:#999; margin-bottom:10px; margin-top:5px;">常用語句 (點擊發音)</p>
+            <div class="translate-grid">
+                <div class="phrase-btn" onclick="speak('すみません、トイレはどこですか？', 'Sumimasen, toire wa doko desu ka?')">
+                    <i class="fas fa-restroom"></i> 廁所在哪裡
+                </div>
+                <div class="phrase-btn" onclick="speak('これをください。', 'Kore o kudasai')">
+                    <i class="fas fa-hand-pointer"></i> 請給我這個
+                </div>
+                <div class="phrase-btn" onclick="speak('お会計をお願いします。', 'Okaikei o onegaishimasu')">
+                    <i class="fas fa-wallet"></i> 麻煩結帳
+                </div>
+                <div class="phrase-btn" onclick="speak('袋はいりません。', 'Fukuro wa irimasen')">
+                    <i class="fas fa-shopping-bag"></i> 不用袋子
+                </div>
             </div>
         </div>
+
+        <div class="tool-card">
+            <h3><i class="fas fa-calculator"></i> 快速記帳</h3>
+            <div class="input-group">
+                <input type="text" id="expenseName" placeholder="項目 (如: 拉麵)">
+                <input type="number" id="expenseAmount" placeholder="日幣金額">
+            </div>
+            <button class="tool-btn" onclick="addExpense()">加入記帳</button>
+            <div style="margin-top: 20px; border-top: 1px solid #eee; padding-top:10px;">
+                <h4>今日總計: <span id="totalExpense" style="color:var(--accent)">¥0</span></h4>
+                <ul id="expenseList" style="padding-left: 20px; color:#666; font-size:0.9rem;"></ul>
+            </div>
+        </div>
+
+        <div class="tool-card">
+            <h3><i class="fas fa-suitcase"></i> 重點檢查</h3>
+            <label style="display:block; margin:8px 0; color:#555;"><input type="checkbox"> 護照 (隨身)</label>
+            <label style="display:block; margin:8px 0; color:#555;"><input type="checkbox"> 西瓜卡 (Suica)</label>
+            <label style="display:block; margin:8px 0; color:#555;"><input type="checkbox"> 網卡 (SIM/eSIM)</label>
+            <label style="display:block; margin:8px 0; color:#555;"><input type="checkbox"> 現金 (千圓鈔)</label>
+        </div>
     </div>
+</div>
 
-    <div class="bottom-nav">
-        <div class="nav-item active" onclick="switchPage('itinerary', this)">
-            <i class="fas fa-route"></i> 行程
-        </div>
-        <div class="nav-item" onclick="switchPage('transport', this)">
-            <i class="fas fa-subway"></i> 交通
-        </div>
-        <div class="nav-item" onclick="switchPage('food', this)">
-            <i class="fas fa-cookie-bite"></i> 美食
-        </div>
-        <div class="nav-item" onclick="switchPage('tools', this)">
-            <i class="fas fa-tools"></i> 工具
-        </div>
+<div class="bottom-nav">
+    <div class="nav-item active" onclick="switchPage('itinerary', this)">
+        <i class="fas fa-route"></i> 行程
     </div>
+    <div class="nav-item" onclick="switchPage('transport', this)">
+        <i class="fas fa-subway"></i> 交通
+    </div>
+    <div class="nav-item" onclick="switchPage('food', this)">
+        <i class="fas fa-cookie-bite"></i> 美食
+    </div>
+    <div class="nav-item" onclick="switchPage('tools', this)">
+        <i class="fas fa-tools"></i> 工具
+    </div>
+</div>
 
-    <script>
-        // --- 資料區 (Unsplash 穩定連結) ---
-        
-        const pageConfigs = [
-            { title: "◈ 東京慢旅．只屬於我的日常 ◈", icon: "✈️" },      // D1
-            { title: "一個人的節奏，最剛好的東京", icon: "🌸" },         // D2
-            { title: "與城市輕聲說話的日子", icon: "📷" },               // D3
-            { title: "在街角光影中．飛翔", icon: "⛩️" },                 // D4
-            { title: "一杯咖啡，一條街，剛剛好的自在", icon: "🗼" },    // D5
-            { title: "把日子走成風景．輕揚", icon: "🧳" }                // D6
-        ];
+<script>
+    // --- 資料區 (圖片路徑已改為 images/檔名.jpg) ---
 
-        const weatherDB = {
-            "2026-02-03": { temp: "5-11°", icon: "cloud-sun", tip: "搭機日，建議洋蔥式穿搭。" },
-            "2026-02-04": { temp: "3-9°", icon: "sun", tip: "戶外多，穿羽絨衣與好走的鞋。" },
-            "2026-02-05": { temp: "2-8°", icon: "snowflake", tip: "氣溫轉冷，建議戴毛帽保暖。" },
-            "2026-02-06": { temp: "4-10°", icon: "cloud", tip: "市區逛街，穿著舒適保暖即可。" },
-            "2026-02-07": { temp: "5-12°", icon: "sun", tip: "天氣回暖，適合拍照。" },
-            "2026-02-08": { temp: "6-13°", icon: "plane", tip: "返程日，行李保持輕便。" }
-        };
+    const pageConfigs = [
+        { title: "◈ 東京慢旅．只屬於我的日常 ◈", icon: "✈️" },      // D1
+        { title: "一個人的節奏，最剛好的東京", icon: "🌸" },         // D2
+        { title: "與城市輕聲說話的日子", icon: "📷" },               // D3
+        { title: "在街角光影中．飛翔", icon: "⛩️" },                 // D4
+        { title: "一杯咖啡，一條街，剛剛好的自在", icon: "🗼" },    // D5
+        { title: "把日子走成風景．輕揚", icon: "🧳" }                // D6
+    ];
 
-        const itineraryDB = {
-            "D1 2026-02-03(二)": [
-                { time: "15:35", title: "桃園 T1 起飛 (IT202)", type: "交通", note: "機場先吃午餐。13:30 報到。", link: "geo:25.0797,121.2342", img: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=600&q=80" },
-                { time: "19:35", title: "抵達成田 T2", type: "交通", note: "購買/儲值西瓜卡 (Suica)。", link: "geo:35.7719,140.3929", img: "https://images.unsplash.com/photo-1474403078171-7f1032948c63?auto=format&fit=crop&w=600&q=80" }, 
-                { time: "20:30", title: "Skyliner 往市區", type: "交通", note: "車上吃點輕食。車程45分。", link: "", img: "https://images.unsplash.com/photo-1555529733-0e670560f7e1?auto=format&fit=crop&w=600&q=80" },
-                { time: "21:45", title: "入住：四谷京阪飯店", type: "住宿", note: "四谷站步行3分。樓下有超市。", link: "https://www.google.com/maps/search/?api=1&query=Hotel+Keihan+Yotsuya", img: "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=600&q=80" }
-            ],
-            "D2 2026-02-04(三)": [
-                { time: "09:30", title: "上野東照宮", type: "景點", note: "金碧輝煌江戶建築與牡丹花園。", link: "https://www.google.com/maps/search/?api=1&query=Ueno+Toshogu", img: "https://images.unsplash.com/photo-1596720619888-e2142d2a233b?auto=format&fit=crop&w=600&q=80" }, 
-                { time: "10:30", title: "上野恩賜公園", type: "景點", note: "不忍池觀鳥、辯天堂散步。", link: "https://www.google.com/maps/search/?api=1&query=Ueno+Park", img: "https://images.unsplash.com/photo-1554797589-7241bb691973?auto=format&fit=crop&w=600&q=80" }, 
-                { time: "11:00", title: "伊豆榮 梅川亭", type: "餐飲", note: "百年鰻魚飯老店，環境清幽。", link: "https://www.google.com/maps/search/?api=1&query=Izuei+Umekawatei", img: "https://images.unsplash.com/photo-1552611052-33e04de081de?auto=format&fit=crop&w=600&q=80" }, 
-                { time: "11:30", title: "阿美橫丁", type: "購物", note: "熱鬧市集，買藥妝、水果。", link: "https://www.google.com/maps/search/?api=1&query=Ameyoko", img: "https://images.unsplash.com/photo-1524819771110-022645607b22?auto=format&fit=crop&w=600&q=80" }, 
-                { time: "13:00", title: "淺草寺 & 雷門", type: "景點", note: "人多小心。仲見世通吃人形燒。", link: "https://www.google.com/maps/search/?api=1&query=Sensoji", img: "https://images.unsplash.com/photo-1534270804882-6b5048b1c1fc?auto=format&fit=crop&w=600&q=80" }, 
-                { time: "14:00", title: "龜十銅鑼燒", type: "餐飲", note: "雷門對面，排隊伴手禮。", link: "https://www.google.com/maps/search/?api=1&query=Kameju", img: "https://images.unsplash.com/photo-1505253716362-afaea1d3d1af?auto=format&fit=crop&w=600&q=80" } 
-            ],
-            "D3 2026-02-05(四)": [
-                { time: "09:00", title: "皇居 (二重橋)", type: "景點", note: "必帶護照。欣賞護城河、石垣。", link: "https://www.google.com/maps/search/?api=1&query=Imperial+Palace+Tokyo", img: "https://images.unsplash.com/photo-1553335028-09f446db6233?auto=format&fit=crop&w=600&q=80" }, 
-                { time: "11:30", title: "東京車站一番街", type: "餐飲", note: "六厘舍沾麵或牛舌定食。", link: "https://www.google.com/maps/search/?api=1&query=Tokyo+Character+Street", img: "https://images.unsplash.com/photo-1546221845-d85607848601?auto=format&fit=crop&w=600&q=80" }, 
-                { time: "14:00", title: "東京大神宮", type: "景點", note: "結緣神社，日式庭園極美。", link: "https://www.google.com/maps/search/?api=1&query=Tokyo+Daijingu", img: "https://images.unsplash.com/photo-1579401734563-718cb6a28296?auto=format&fit=crop&w=600&q=80" }, 
-                { time: "15:00", title: "秋葉原尋寶", type: "購物", note: "無線電會館，找志摩凜公仔。", link: "https://www.google.com/maps/search/?api=1&query=Radio+Kaikan", img: "https://images.unsplash.com/photo-1578556755452-19e3448f7b7f?auto=format&fit=crop&w=600&q=80" }, 
-                { time: "17:30", title: "晚餐：神田 藪蕎麥", type: "餐飲", note: "百年老店，體驗江戶老味道。", link: "https://www.google.com/maps/search/?api=1&query=Kanda+Yabu+Soba", img: "https://images.unsplash.com/photo-1519985176271-adb1088fa94c?auto=format&fit=crop&w=600&q=80" } 
-            ],
-            "D4 2026-02-06(五)": [
-                { time: "09:00", title: "明治神宮", type: "景點", note: "都市森林漫步，享受清幽。", link: "https://www.google.com/maps/search/?api=1&query=Meiji+Jingu", img: "https://images.unsplash.com/photo-1543360699-f4c084793f77?auto=format&fit=crop&w=600&q=80" }, 
-                { time: "12:00", title: "AFURI 柚子拉麵", type: "餐飲", note: "清爽柚子鹽口味，適合女生。", link: "https://www.google.com/maps/search/?api=1&query=AFURI+Harajuku", img: "https://images.unsplash.com/photo-1591310103772-e56597793c04?auto=format&fit=crop&w=600&q=80" }, 
-                { time: "13:30", title: "新宿御苑", type: "景點", note: "《言葉之庭》取景，庭園極美。", link: "https://www.google.com/maps/search/?api=1&query=Shinjuku+Gyoen", img: "https://images.unsplash.com/photo-1528643329938-1a529326f536?auto=format&fit=crop&w=600&q=80" }, 
-                { time: "16:30", title: "思出橫丁", type: "景點", note: "體驗昭和懷舊窄巷。", link: "https://www.google.com/maps/search/?api=1&query=Omoide+Yokocho", img: "https://images.unsplash.com/photo-1565426873118-a17ed65d7429?auto=format&fit=crop&w=600&q=80" }, 
-                { time: "17:30", title: "Alpen Tokyo", type: "購物", note: "Snow Peak 專區，戶外用品。", link: "https://www.google.com/maps/search/?api=1&query=Alpen+Tokyo", img: "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=600&q=80" }, 
-                { time: "19:00", title: "東京都廳夜景", type: "景點", note: "免費上 45 樓俯瞰東京。", link: "https://www.google.com/maps/search/?api=1&query=Tokyo+Metropolitan+Government+Building", img: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=600&q=80" } 
-            ],
-            "D5 2026-02-07(六)": [
-                { time: "10:30", title: "東京鐵塔", type: "景點", note: "芝公園拍照經典位。", link: "https://www.google.com/maps/search/?api=1&query=Tokyo+Tower", img: "https://images.unsplash.com/photo-1536098561742-ca998e48cbcc?auto=format&fit=crop&w=600&q=80" }, 
-                { time: "12:30", title: "炸牛排 Motomura", type: "餐飲", note: "口感軟嫩，通常需排隊。", link: "", img: "https://images.unsplash.com/photo-1595295333158-4742f28fbd85?auto=format&fit=crop&w=600&q=80" }, 
-                { time: "14:00", title: "國立新美術館", type: "景點", note: "玻璃帷幕，大廳光影美。", link: "https://www.google.com/maps/search/?api=1&query=The+National+Art+Center+Tokyo", img: "https://images.unsplash.com/photo-1582255740465-983226a31063?auto=format&fit=crop&w=600&q=80" }, 
-                { time: "15:30", title: "表參道之丘", type: "購物", note: "時尚大道，安藤忠雄建築。", link: "https://www.google.com/maps/search/?api=1&query=Omotesando+Hills", img: "https://images.unsplash.com/photo-1559563458-527698bf5295?auto=format&fit=crop&w=600&q=80" }, 
-                { time: "17:30", title: "澀谷 Sky", type: "景點", note: "俯瞰東京全景 (需預約)。", link: "https://www.google.com/maps/search/?api=1&query=Shibuya+Sky", img: "https://images.unsplash.com/photo-1563721345592-2624dd192938?auto=format&fit=crop&w=600&q=80" }, 
-                { time: "19:00", title: "澀谷交叉點", type: "景點", note: "世界最繁忙路口。", link: "https://www.google.com/maps/search/?api=1&query=Shibuya+Crossing", img: "https://images.unsplash.com/photo-1542931287-023b922fa899?auto=format&fit=crop&w=600&q=80" }, 
-                { time: "21:30", title: "池尻大橋住宿", type: "住宿", note: "目黑區慢活生活感。", link: "https://www.google.com/maps/search/?api=1&query=Ikejiri-Ohashi", img: "https://images.unsplash.com/photo-1507038772120-7a765d123990?auto=format&fit=crop&w=600&q=80" } 
-            ],
-            "D6 2026-02-08(日)": [
-                { time: "07:30", title: "前往成田機場", type: "交通", note: "搭乘 NEX 或 Skyliner。", link: "", img: "https://images.unsplash.com/photo-1601051515286-664448557342?auto=format&fit=crop&w=600&q=80" }, 
-                { time: "09:15", title: "抵達機場報到", type: "交通", note: "MM623。最後採買伴手禮。", link: "", img: "https://images.unsplash.com/photo-1530521954074-e64f6810b32d?auto=format&fit=crop&w=600&q=80" }, 
-                { time: "14:30", title: "抵達桃園 T1", type: "交通", note: "平安回家。", link: "", img: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=600&q=80" } 
-            ]
-        };
+    const weatherDB = {
+        "2026-02-03": { temp: "5-11°", icon: "cloud-sun", tip: "搭機日，建議洋蔥式穿搭。" },
+        "2026-02-04": { temp: "3-9°", icon: "sun", tip: "戶外多，穿羽絨衣與好走的鞋。" },
+        "2026-02-05": { temp: "2-8°", icon: "snowflake", tip: "氣溫轉冷，建議戴毛帽保暖。" },
+        "2026-02-06": { temp: "4-10°", icon: "cloud", tip: "市區逛街，穿著舒適保暖即可。" },
+        "2026-02-07": { temp: "5-12°", icon: "sun", tip: "天氣回暖，適合拍照。" },
+        "2026-02-08": { temp: "6-13°", icon: "plane", tip: "返程日，行李保持輕便。" }
+    };
 
-        const foodDB = [
-            { name: "FamiChiki 炸雞", jp: "ファミチキ", price: "¥240", shop: "FamilyMart", img: "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=600&q=80" }, 
-            { name: "炸雞君 (辣味/起司)", jp: "からあげクン", price: "¥258", shop: "Lawson", img: "https://images.unsplash.com/photo-1569058242253-92a9c755a0ec?auto=format&fit=crop&w=600&q=80" }, 
-            { name: "關東煮", jp: "おでん", price: "¥120", shop: "7-11", img: "https://images.unsplash.com/photo-1576063673322-1d573f00889c?auto=format&fit=crop&w=600&q=80" }, 
-            { name: "麻糬口感生乳捲", jp: "もち食感ロール", price: "¥397", shop: "Lawson", img: "https://images.unsplash.com/photo-1549520245-c8e426804a1e?auto=format&fit=crop&w=600&q=80" }, 
-            { name: "濃厚蛋黃醬泡芙", jp: "カスタード", price: "¥150", shop: "7-11", img: "https://images.unsplash.com/photo-1601205741712-b261aff33a7d?auto=format&fit=crop&w=600&q=80" } 
-        ];
+    const itineraryDB = {
+        "D1 2026-02-03(二)": [
+            { time: "15:35", title: "桃園 T1 起飛 (IT202)", type: "交通", note: "機場先吃午餐。13:30 報到。", link: "geo:25.0797,121.2342", img: "images/d1_01_airport.jpg" },
+            { time: "19:35", title: "抵達成田 T2", type: "交通", note: "購買/儲值西瓜卡 (Suica)。", link: "geo:35.7719,140.3929", img: "images/d1_02_narita.jpg" },
+            { time: "20:30", title: "Skyliner 往市區", type: "交通", note: "車上吃點輕食。車程45分。", link: "", img: "images/d1_03_skyliner.jpg" },
+            { time: "21:45", title: "入住：四谷京阪飯店", type: "住宿", note: "四谷站步行3分。樓下有超市。", link: "https://www.google.com/maps/search/?api=1&query=Hotel+Keihan+Yotsuya", img: "images/d1_04_hotel.jpg" }
+        ],
+        "D2 2026-02-04(三)": [
+            { time: "09:30", title: "上野東照宮", type: "景點", note: "金碧輝煌江戶建築與牡丹花園。", link: "https://www.google.com/maps/search/?api=1&query=Ueno+Toshogu", img: "images/d2_01_toshogu.jpg" },
+            { time: "10:30", title: "上野恩賜公園", type: "景點", note: "不忍池觀鳥、辯天堂散步。", link: "https://www.google.com/maps/search/?api=1&query=Ueno+Park", img: "images/d2_02_park.jpg" },
+            { time: "11:00", title: "伊豆榮 梅川亭", type: "餐飲", note: "百年鰻魚飯老店，環境清幽。", link: "https://www.google.com/maps/search/?api=1&query=Izuei+Umekawatei", img: "images/d2_03_eel.jpg" },
+            { time: "11:30", title: "阿美橫丁", type: "購物", note: "熱鬧市集，買藥妝、水果。", link: "https://www.google.com/maps/search/?api=1&query=Ameyoko", img: "images/d2_04_ameyoko.jpg" },
+            { time: "13:00", title: "淺草寺 & 雷門", type: "景點", note: "人多小心。仲見世通吃人形燒。", link: "https://www.google.com/maps/search/?api=1&query=Sensoji", img: "images/d2_05_asakusa.jpg" },
+            { time: "14:00", title: "龜十銅鑼燒", type: "餐飲", note: "雷門對面，排隊伴手禮。", link: "https://www.google.com/maps/search/?api=1&query=Kameju", img: "images/d2_06_dorayaki.jpg" }
+        ],
+        "D3 2026-02-05(四)": [
+            { time: "09:00", title: "皇居 (二重橋)", type: "景點", note: "必帶護照。欣賞護城河、石垣。", link: "https://www.google.com/maps/search/?api=1&query=Imperial+Palace+Tokyo", img: "images/d3_01_palace.jpg" },
+            { time: "11:30", title: "東京車站一番街", type: "餐飲", note: "六厘舍沾麵或牛舌定食。", link: "https://www.google.com/maps/search/?api=1&query=Tokyo+Character+Street", img: "images/d3_02_station.jpg" },
+            { time: "14:00", title: "東京大神宮", type: "景點", note: "結緣神社，日式庭園極美。", link: "https://www.google.com/maps/search/?api=1&query=Tokyo+Daijingu", img: "images/d3_03_shrine.jpg" },
+            { time: "15:00", title: "秋葉原尋寶", type: "購物", note: "無線電會館，找志摩凜公仔。", link: "https://www.google.com/maps/search/?api=1&query=Radio+Kaikan", img: "images/d3_04_akiba.jpg" },
+            { time: "17:30", title: "晚餐：神田 藪蕎麥", type: "餐飲", note: "百年老店，體驗江戶老味道。", link: "https://www.google.com/maps/search/?api=1&query=Kanda+Yabu+Soba", img: "images/d3_05_soba.jpg" }
+        ],
+        "D4 2026-02-06(五)": [
+            { time: "09:00", title: "明治神宮", type: "景點", note: "都市森林漫步，享受清幽。", link: "https://www.google.com/maps/search/?api=1&query=Meiji+Jingu", img: "images/d4_01_meiji.jpg" },
+            { time: "12:00", title: "AFURI 柚子拉麵", type: "餐飲", note: "清爽柚子鹽口味，適合女生。", link: "https://www.google.com/maps/search/?api=1&query=AFURI+Harajuku", img: "images/d4_02_ramen.jpg" },
+            { time: "13:30", title: "新宿御苑", type: "景點", note: "《言葉之庭》取景，庭園極美。", link: "https://www.google.com/maps/search/?api=1&query=Shinjuku+Gyoen", img: "images/d4_03_gyoen.jpg" },
+            { time: "16:30", title: "思出橫丁", type: "景點", note: "體驗昭和懷舊窄巷。", link: "https://www.google.com/maps/search/?api=1&query=Omoide+Yokocho", img: "images/d4_04_yokocho.jpg" },
+            { time: "17:30", title: "Alpen Tokyo", type: "購物", note: "Snow Peak 專區，戶外用品。", link: "https://www.google.com/maps/search/?api=1&query=Alpen+Tokyo", img: "images/d4_05_alpen.jpg" },
+            { time: "19:00", title: "東京都廳夜景", type: "景點", note: "免費上 45 樓俯瞰東京。", link: "https://www.google.com/maps/search/?api=1&query=Tokyo+Metropolitan+Government+Building", img: "images/d4_06_nightview.jpg" }
+        ],
+        "D5 2026-02-07(六)": [
+            { time: "10:30", title: "東京鐵塔", type: "景點", note: "芝公園拍照經典位。", link: "https://www.google.com/maps/search/?api=1&query=Tokyo+Tower", img: "images/d5_01_tower.jpg" },
+            { time: "12:30", title: "炸牛排 Motomura", type: "餐飲", note: "口感軟嫩，通常需排隊。", link: "", img: "images/d5_02_beef.jpg" },
+            { time: "14:00", title: "國立新美術館", type: "景點", note: "玻璃帷幕，大廳光影美。", link: "https://www.google.com/maps/search/?api=1&query=The+National+Art+Center+Tokyo", img: "images/d5_03_art.jpg" },
+            { time: "15:30", title: "表參道之丘", type: "購物", note: "時尚大道，安藤忠雄建築。", link: "https://www.google.com/maps/search/?api=1&query=Omotesando+Hills", img: "images/d5_04_omotesando.jpg" },
+            { time: "17:30", title: "澀谷 Sky", type: "景點", note: "俯瞰東京全景 (需預約)。", link: "https://www.google.com/maps/search/?api=1&query=Shibuya+Sky", img: "images/d5_05_sky.jpg" },
+            { time: "19:00", title: "澀谷交叉點", type: "景點", note: "世界最繁忙路口。", link: "https://www.google.com/maps/search/?api=1&query=Shibuya+Crossing", img: "images/d5_06_crossing.jpg" },
+            { time: "21:30", title: "池尻大橋住宿", type: "住宿", note: "目黑區慢活生活感。", link: "https://www.google.com/maps/search/?api=1&query=Ikejiri-Ohashi", img: "images/d5_07_hotel.jpg" }
+        ],
+        "D6 2026-02-08(日)": [
+            { time: "07:30", title: "前往成田機場", type: "交通", note: "搭乘 NEX 或 Skyliner。", link: "", img: "images/d6_01_transport.jpg" },
+            { time: "09:15", title: "抵達機場報到", type: "交通", note: "MM623。最後採買伴手禮。", link: "", img: "images/d6_02_checkin.jpg" },
+            { time: "14:30", title: "抵達桃園 T1", type: "交通", note: "平安回家。", link: "", img: "images/d6_03_arrival.jpg" }
+        ]
+    };
 
-        // --- 程式邏輯區 ---
+    const foodDB = [
+        { name: "FamiChiki 炸雞", jp: "ファミチキ", price: "¥240", shop: "FamilyMart", img: "images/food_famichiki.jpg" },
+        { name: "炸雞君 (辣味/起司)", jp: "からあげクン", price: "¥258", shop: "Lawson", img: "images/food_karaage.jpg" },
+        { name: "關東煮", jp: "おでん", price: "¥120", shop: "7-11", img: "images/food_oden.jpg" },
+        { name: "麻糬口感生乳捲", jp: "もち食感ロール", price: "¥397", shop: "Lawson", img: "images/food_rollcake.jpg" },
+        { name: "濃厚蛋黃醬泡芙", jp: "カスタード", price: "¥150", shop: "7-11", img: "images/food_puff.jpg" }
+    ];
 
-        let currentDate = "2026-02-03";
-        const dates = Object.keys(itineraryDB);
+    // --- 程式邏輯區 ---
 
-        window.onload = function() {
-            renderDateNav();
-            renderItinerary(currentDate);
-            renderWeather(currentDate);
-            renderFood();
-            loadExpenses();
-        };
+    let currentDate = "2026-02-03";
+    const dates = Object.keys(itineraryDB);
 
-        function renderDateNav() {
-            const container = document.getElementById('dateNav');
-            container.innerHTML = "";
-            
-            dates.forEach((date, index) => {
-                const dayStr = date.split(' ')[1].substring(5);
-                const dLabel = `D${index + 1}`;
-                const dateKey = date.split(' ')[1].substring(0,10);
+    window.onload = function() {
+        renderDateNav();
+        renderItinerary(currentDate);
+        renderWeather(currentDate);
+        renderFood();
+        loadExpenses();
+    };
 
-                const el = document.createElement('div');
-                el.className = 'date-chip';
-                el.dataset.date = dateKey;
-                el.dataset.index = index;
-                
-                if(currentDate === dateKey) {
-                    el.classList.add('active');
-                }
+    function renderDateNav() {
+        const container = document.getElementById('dateNav');
+        container.innerHTML = "";
 
-                el.innerHTML = `<strong>${dLabel}</strong><span>${dayStr}</span>`;
-                el.onclick = () => selectDate(date, index);
-                container.appendChild(el);
-            });
-        }
+        dates.forEach((date, index) => {
+            const dayStr = date.split(' ')[1].substring(5);
+            const dLabel = `D${index + 1}`;
+            const dateKey = date.split(' ')[1].substring(0,10);
 
-        function selectDate(fullKey, index) {
-            currentDate = fullKey.split(' ')[1].substring(0,10);
-            if (index === undefined) {
-                index = dates.indexOf(fullKey);
-            }
-            if (index !== -1 && pageConfigs[index]) {
-                document.getElementById('mainTitle').innerText = pageConfigs[index].title;
-                document.getElementById('dailyIcon').innerText = pageConfigs[index].icon;
+            const el = document.createElement('div');
+            el.className = 'date-chip';
+            el.dataset.date = dateKey;
+            el.dataset.index = index;
+
+            if(currentDate === dateKey) {
+                el.classList.add('active');
             }
 
-            renderDateNav();
-            renderItinerary(fullKey);
-            const weatherDate = fullKey.match(/\d{4}-\d{2}-\d{2}/)[0];
-            renderWeather(weatherDate);
+            el.innerHTML = `<strong>${dLabel}</strong><span>${dayStr}</span>`;
+            el.onclick = () => selectDate(date, index);
+            container.appendChild(el);
+        });
+    }
+
+    function selectDate(fullKey, index) {
+        currentDate = fullKey.split(' ')[1].substring(0,10);
+        if (index === undefined) {
+            index = dates.indexOf(fullKey);
+        }
+        if (index !== -1 && pageConfigs[index]) {
+            document.getElementById('mainTitle').innerText = pageConfigs[index].title;
+            document.getElementById('dailyIcon').innerText = pageConfigs[index].icon;
         }
 
-        function renderItinerary(key) {
-            const list = document.getElementById('itineraryList');
-            const items = itineraryDB[key] || [];
-            list.innerHTML = "";
-            
-            items.forEach(item => {
-                const navBtn = item.link ? `<a href="${item.link}" target="_blank" class="nav-btn-corner"><i class="fas fa-location-arrow"></i></a>` : '';
-                const imgHtml = item.img ? `<div class="card-img-col"><img src="${item.img}" class="card-img" alt="${item.title}"></div>` : '';
-                
-                const html = `
-                <div class="timeline-item">
-                    <div class="time-wrapper">
-                        <div class="time-bubble">${item.time}</div>
-                    </div>
-                    <div class="content-col">
-                        ${navBtn}
-                        ${imgHtml}
-                        <div class="card-body">
-                            <span class="tag ${item.type}">${item.type}</span>
-                            <h3>${item.title}</h3>
-                            <div class="note">${item.note}</div>
-                        </div>
-                    </div>
-                </div>`;
-                list.innerHTML += html;
-            });
-        }
+        renderDateNav();
+        renderItinerary(fullKey);
+        const weatherDate = fullKey.match(/\d{4}-\d{2}-\d{2}/)[0];
+        renderWeather(weatherDate);
+    }
 
-        function renderWeather(dateStr) {
-            const data = weatherDB[dateStr] || { temp: "--", tip: "祝您旅途愉快" };
-            document.getElementById('currentDateDisplay').innerText = dateStr;
-            document.getElementById('weatherTemp').innerText = data.temp;
-            document.getElementById('weatherTip').innerHTML = `<i class="fas fa-tshirt"></i> <span>${data.tip}</span>`;
-        }
+    function renderItinerary(key) {
+        const list = document.getElementById('itineraryList');
+        const items = itineraryDB[key] || [];
+        list.innerHTML = "";
 
-        function renderFood() {
-            const list = document.getElementById('foodList');
-            foodDB.forEach(item => {
-                const imgHtml = item.img ? `<img src="${item.img}" class="real-food-img">` : `<div class="food-img-placeholder"><i class="fas fa-utensils"></i></div>`;
-                list.innerHTML += `
-                <div class="food-card">
+        items.forEach(item => {
+            const navBtn = item.link ? `<a href="${item.link}" target="_blank" class="nav-btn-corner"><i class="fas fa-location-arrow"></i></a>` : '';
+            // 修正：無論有沒有圖，都保留容器，但若沒圖則顯示替代色塊或隱藏
+            // 這裡邏輯改為：只要是有效路徑就會嘗試顯示。若使用者沒放圖，會顯示破圖icon，這是正常的HTML行為。
+            const imgHtml = item.img ? `<div class="card-img-col"><img src="${item.img}" class="card-img" alt="${item.title}" onerror="this.style.display='none';this.parentNode.style.backgroundColor='#ddd'"></div>` : '';
+
+            const html = `
+            <div class="timeline-item">
+                <div class="time-wrapper">
+                    <div class="time-bubble">${item.time}</div>
+                </div>
+                <div class="content-col">
+                    ${navBtn}
                     ${imgHtml}
-                    <div class="food-info">
-                        <div class="food-name">${item.name}</div>
-                        <div class="food-jp">${item.jp}</div>
-                        <div class="food-price">${item.price} (${item.shop})</div>
+                    <div class="card-body">
+                        <span class="tag ${item.type}">${item.type}</span>
+                        <h3>${item.title}</h3>
+                        <div class="note">${item.note}</div>
                     </div>
-                </div>`;
-            });
+                </div>
+            </div>`;
+            list.innerHTML += html;
+        });
+    }
+
+    function renderWeather(dateStr) {
+        const data = weatherDB[dateStr] || { temp: "--", tip: "祝您旅途愉快" };
+        document.getElementById('currentDateDisplay').innerText = dateStr;
+        document.getElementById('weatherTemp').innerText = data.temp;
+        document.getElementById('weatherTip').innerHTML = `<i class="fas fa-tshirt"></i> <span>${data.tip}</span>`;
+    }
+
+    function renderFood() {
+        const list = document.getElementById('foodList');
+        foodDB.forEach(item => {
+            // 修正：同樣加入 onerror 處理
+            const imgHtml = item.img ? `<img src="${item.img}" class="real-food-img" onerror="this.style.display='none';this.parentNode.innerHTML='<div class=\\'food-img-placeholder\\'><i class=\\'fas fa-utensils\\'></i></div>'">` : `<div class="food-img-placeholder"><i class="fas fa-utensils"></i></div>`;
+            list.innerHTML += `
+            <div class="food-card">
+                ${imgHtml}
+                <div class="food-info">
+                    <div class="food-name">${item.name}</div>
+                    <div class="food-jp">${item.jp}</div>
+                    <div class="food-price">${item.price} (${item.shop})</div>
+                </div>
+            </div>`;
+        });
+    }
+
+    function speak(text, alertText) {
+        if ('speechSynthesis' in window) {
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'ja-JP';
+            window.speechSynthesis.speak(utterance);
+        } else {
+            alert("文字：" + (alertText || text));
         }
+    }
 
-        function speak(text, alertText) {
-            if ('speechSynthesis' in window) {
-                const utterance = new SpeechSynthesisUtterance(text);
-                utterance.lang = 'ja-JP';
-                window.speechSynthesis.speak(utterance);
-            } else {
-                alert("文字：" + (alertText || text));
-            }
-        }
+    function switchPage(pageId, navEl) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById(`page-${pageId}`).classList.add('active');
 
-        function switchPage(pageId, navEl) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.getElementById(`page-${pageId}`).classList.add('active');
-            
-            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-            navEl.classList.add('active');
-        }
+        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+        navEl.classList.add('active');
+    }
 
-        function addExpense() {
-            const name = document.getElementById('expenseName').value;
-            const amount = parseInt(document.getElementById('expenseAmount').value);
-            if(!name || !amount) return;
+    function addExpense() {
+        const name = document.getElementById('expenseName').value;
+        const amount = parseInt(document.getElementById('expenseAmount').value);
+        if(!name || !amount) return;
 
-            const list = document.getElementById('expenseList');
+        const list = document.getElementById('expenseList');
+        const li = document.createElement('li');
+        li.innerText = `${name}: ¥${amount}`;
+        list.appendChild(li);
+
+        updateTotal(amount);
+
+        document.getElementById('expenseName').value = '';
+        document.getElementById('expenseAmount').value = '';
+        saveData(name, amount);
+    }
+
+    let total = 0;
+    function updateTotal(amount) {
+        total += amount;
+        document.getElementById('totalExpense').innerText = `¥${total}`;
+    }
+
+    function saveData(name, amount) {
+        let expenses = JSON.parse(localStorage.getItem('tokyo_expenses')) || [];
+        expenses.push({ name, amount });
+        localStorage.setItem('tokyo_expenses', JSON.stringify(expenses));
+    }
+
+    function loadExpenses() {
+        let expenses = JSON.parse(localStorage.getItem('tokyo_expenses')) || [];
+        const list = document.getElementById('expenseList');
+        expenses.forEach(ex => {
             const li = document.createElement('li');
-            li.innerText = `${name}: ¥${amount}`;
+            li.innerText = `${ex.name}: ¥${ex.amount}`;
             list.appendChild(li);
-
-            updateTotal(amount);
-
-            document.getElementById('expenseName').value = '';
-            document.getElementById('expenseAmount').value = '';
-            saveData(name, amount);
-        }
-
-        let total = 0;
-        function updateTotal(amount) {
-            total += amount;
-            document.getElementById('totalExpense').innerText = `¥${total}`;
-        }
-        
-        function saveData(name, amount) {
-            let expenses = JSON.parse(localStorage.getItem('tokyo_expenses')) || [];
-            expenses.push({ name, amount });
-            localStorage.setItem('tokyo_expenses', JSON.stringify(expenses));
-        }
-
-        function loadExpenses() {
-            let expenses = JSON.parse(localStorage.getItem('tokyo_expenses')) || [];
-            const list = document.getElementById('expenseList');
-            expenses.forEach(ex => {
-                const li = document.createElement('li');
-                li.innerText = `${ex.name}: ¥${ex.amount}`;
-                list.appendChild(li);
-                updateTotal(ex.amount);
-            });
-        }
-    </script>
+            updateTotal(ex.amount);
+        });
+    }
+</script>
 </body>
 </html>
