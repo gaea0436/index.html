@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>華的東京獨旅 2026 (穩定圖源版)</title>
+    <title>華的東京獨旅 2026 (交通救命版)</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -24,10 +24,10 @@
             --tag-spot: #EAE4DC;      
             --tag-food: #EFEBE5;      
             
-            /* --- 翻譯工具：莫蘭迪特調色 --- */
-            --trans-listen: #D5B0A3;  /* 聽譯 - 乾燥玫瑰 */
-            --trans-speak: #8FA7B6;   /* 口譯 - 霧霾藍 */
-            --trans-cam: #B3A8B8;     /* 拍照 - 薰衣草灰紫 */
+            /* --- 翻譯工具配色 --- */
+            --trans-listen: #D5B0A3;  /* 乾燥玫瑰 */
+            --trans-speak: #8FA7B6;   /* 霧霾藍 */
+            --trans-cam: #B3A8B8;     /* 薰衣草灰 */
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -40,7 +40,7 @@
             padding-bottom: 90px;
         }
 
-        /* --- Header 優化 --- */
+        /* --- Header --- */
         .header {
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: white;
@@ -73,7 +73,6 @@
             line-height: 1.4;
         }
         
-        /* 每日心情 Emoji 小圖示：強制縮小至 1.2rem (約 19-20px)，確保不超過標題 */
         #dailyIcon {
             font-size: 1.2rem; 
             filter: drop-shadow(0 2px 3px rgba(0,0,0,0.2));
@@ -286,6 +285,90 @@
         }
         .nav-btn-corner:active { transform: scale(0.9); background: var(--primary); color: white; }
 
+        /* --- 交通救命符樣式 (新增) --- */
+        .transport-container { padding: 15px; }
+        
+        .lifeline-card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            border-left: 5px solid var(--accent); /* 左側色條強調 */
+        }
+        
+        .lifeline-title {
+            color: var(--primary);
+            font-size: 1.1rem;
+            margin: 0 0 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .station-item {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .station-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        
+        .station-name {
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: #444;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+        
+        /* 站號徽章樣式 */
+        .station-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 6px;
+            border: 2px solid #ddd;
+            color: #666;
+            min-width: 36px;
+            letter-spacing: 0.5px;
+        }
+        
+        .exit-info {
+            font-size: 0.95rem;
+            color: var(--text);
+            margin-bottom: 4px;
+        }
+        .exit-highlight {
+            color: var(--accent); /* 關鍵出口用奶茶色 */
+            font-weight: 700;
+            background: rgba(197, 160, 135, 0.1);
+            padding: 1px 5px;
+            border-radius: 4px;
+        }
+        
+        .guide-text {
+            font-size: 0.85rem;
+            color: #888;
+            line-height: 1.4;
+        }
+        .date-divider {
+            font-size: 0.9rem;
+            color: var(--primary);
+            font-weight: 700;
+            margin: 25px 0 10px 0;
+            padding-left: 10px;
+            border-left: 3px solid var(--primary);
+            background: rgba(107, 142, 155, 0.05);
+            padding: 5px 10px;
+            border-radius: 0 8px 8px 0;
+        }
+
         /* --- 底部導航 --- */
         .bottom-nav {
             position: fixed;
@@ -305,6 +388,7 @@
             font-size: 0.75rem;
             cursor: pointer;
             transition: color 0.3s;
+            flex: 1; /* 均分寬度 */
         }
         .nav-item.active { color: var(--primary); }
         .nav-item i { font-size: 1.2rem; display: block; margin-bottom: 4px; }
@@ -329,7 +413,7 @@
         .tool-card { background: white; padding: 20px; border-radius: 16px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); }
         .tool-card h3 { color: var(--primary); margin-top: 0; font-size: 1.1rem; }
         
-        /* 翻譯按鈕樣式 (莫蘭迪色) */
+        /* 翻譯按鈕 */
         .trans-actions-grid {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
@@ -353,7 +437,7 @@
         .trans-action-btn span { font-size: 0.8rem; font-weight: 700; }
         .trans-action-btn small { font-size: 0.65rem; opacity: 0.9; font-weight: 400; margin-top: 2px; }
 
-        /* 語句按鈕網格 */
+        /* 語句按鈕 */
         .translate-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
         .phrase-btn { background: white; border: 1px solid var(--accent); color: var(--accent); padding: 15px 10px; border-radius: 12px; text-align: center; font-size: 0.9rem; cursor: pointer; transition: all 0.2s; }
         .phrase-btn:active { background: var(--accent); color: white; transform: scale(0.98); }
@@ -370,7 +454,7 @@
 
     <div class="header" id="headerWidget">
         <div class="title-area">
-            <h2 id="mainTitle">◈ 東京慢旅．只屬於我的日常 ◈</h2>
+            <h2 id="mainTitle">◈東京慢旅．只屬於我的日常◈</h2>
             <span id="dailyIcon">✈️</span>
         </div>
         <div class="weather-widget">
@@ -388,6 +472,78 @@
 
     <div id="page-itinerary" class="page active">
         <div class="timeline-container" id="itineraryList"></div>
+    </div>
+    
+    <div id="page-transport" class="page">
+        <div class="transport-container">
+            
+            <div class="lifeline-card">
+                <h3 class="lifeline-title"><i class="fas fa-bed"></i> 住宿與換宿保命</h3>
+                
+                <div class="station-item">
+                    <div class="station-name">四谷京阪飯店 <span class="station-badge">M12</span> <span class="station-badge">N08</span></div>
+                    <div class="exit-info">四谷站 <span class="exit-highlight">出口 2</span></div>
+                    <div class="guide-text">有電梯！出站後過個馬路，飯店就在 LIFE 超市旁。</div>
+                </div>
+
+                <div class="station-item">
+                    <div class="station-name">池尻大橋住宿 <span class="station-badge">DT02</span></div>
+                    <div class="exit-info">池尻大橋站 <span class="exit-highlight">北口</span></div>
+                    <div class="guide-text">只有兩站，從澀谷過來請搭「各站停車」的車。</div>
+                </div>
+            </div>
+
+            <div class="lifeline-card">
+                <h3 class="lifeline-title"><i class="fas fa-map-signs"></i> 每日景點快速對照</h3>
+
+                <div class="date-divider">2/4 (三) 上野 / 淺草</div>
+                <div class="station-item">
+                    <div class="station-name">上野站 <span class="station-badge">G16</span></div>
+                    <div class="exit-info">走 <span class="exit-highlight">公園口</span></div>
+                    <div class="guide-text">路最寬，不容易走錯。</div>
+                </div>
+                <div class="station-item">
+                    <div class="station-name">淺草站 <span class="station-badge">G19</span></div>
+                    <div class="exit-info">走 <span class="exit-highlight">1 號出口</span></div>
+                    <div class="guide-text">一上來就是雷門大紅燈籠。</div>
+                </div>
+
+                <div class="date-divider">2/5 (四) 豪德寺 / 下北澤</div>
+                <div class="station-item">
+                    <div class="station-name">豪德寺站 <span class="station-badge">OH07</span></div>
+                    <div class="exit-info">出站後跟著人群走商店街。</div>
+                </div>
+                <div class="station-item">
+                    <div class="station-name">下北澤站 <span class="station-badge">OH07</span></div>
+                    <div class="exit-info">走 <span class="exit-highlight">東口</span></div>
+                    <div class="guide-text">逛街最方便。</div>
+                </div>
+
+                <div class="date-divider">2/6 (五) 皇居 / 新宿</div>
+                <div class="station-item">
+                    <div class="station-name">二重橋前站 <span class="station-badge">C10</span></div>
+                    <div class="exit-info">走 <span class="exit-highlight">2 號出口</span></div>
+                </div>
+                <div class="station-item">
+                    <div class="station-name">新宿御苑前站 <span class="station-badge">M10</span></div>
+                    <div class="exit-info">走 <span class="exit-highlight">1 號出口</span></div>
+                    <div class="guide-text">注意不是新宿大站喔！</div>
+                </div>
+
+                <div class="date-divider">2/7 (六) 鐵塔 / 美術館</div>
+                <div class="station-item">
+                    <div class="station-name">赤羽橋站 <span class="station-badge">E21</span></div>
+                    <div class="exit-info">走 <span class="exit-highlight">赤羽橋口</span></div>
+                    <div class="guide-text">出站抬頭看鐵塔定位。</div>
+                </div>
+                <div class="station-item">
+                    <div class="station-name">乃木坂站 <span class="station-badge">C05</span></div>
+                    <div class="exit-info">走 <span class="exit-highlight">6 號出口</span></div>
+                    <div class="guide-text">最推薦！直通美術館內部。</div>
+                </div>
+
+            </div>
+        </div>
     </div>
 
     <div id="page-food" class="page">
@@ -469,6 +625,9 @@
         <div class="nav-item active" onclick="switchPage('itinerary', this)">
             <i class="fas fa-route"></i> 行程
         </div>
+        <div class="nav-item" onclick="switchPage('transport', this)">
+            <i class="fas fa-subway"></i> 交通
+        </div>
         <div class="nav-item" onclick="switchPage('food', this)">
             <i class="fas fa-cookie-bite"></i> 美食
         </div>
@@ -478,7 +637,7 @@
     </div>
 
     <script>
-        // --- 資料區 (圖片連結全部更新為 Unsplash 原始穩定 CDN) ---
+        // --- 資料區 (Unsplash 穩定連結) ---
         
         const pageConfigs = [
             { title: "◈ 東京慢旅．只屬於我的日常 ◈", icon: "✈️" },      // D1
@@ -498,7 +657,6 @@
             "2026-02-08": { temp: "6-13°", icon: "plane", tip: "返程日，行李保持輕便。" }
         };
 
-        // 圖片策略：使用 Unsplash 原生 ID 連結，確保不跑掉
         const itineraryDB = {
             "D1 2026-02-03(二)": [
                 { time: "15:35", title: "桃園 T1 起飛 (IT202)", type: "交通", note: "機場先吃午餐。13:30 報到。", link: "geo:25.0797,121.2342", img: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=600&q=80" },
@@ -507,11 +665,11 @@
                 { time: "21:45", title: "入住：四谷京阪飯店", type: "住宿", note: "四谷站步行3分。樓下有超市。", link: "https://www.google.com/maps/search/?api=1&query=Hotel+Keihan+Yotsuya", img: "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=600&q=80" }
             ],
             "D2 2026-02-04(三)": [
-                { time: "09:30", title: "上野東照宮", type: "景點", note: "金碧輝煌江戶建築與牡丹花園。", link: "https://www.google.com/maps/search/?api=1&query=Ueno+Toshogu", img: "https://images.unsplash.com/photo-1596720619888-e2142d2a233b?auto=format&fit=crop&w=600&q=80" }, // 替代：日式神社細節
+                { time: "09:30", title: "上野東照宮", type: "景點", note: "金碧輝煌江戶建築與牡丹花園。", link: "https://www.google.com/maps/search/?api=1&query=Ueno+Toshogu", img: "https://images.unsplash.com/photo-1596720619888-e2142d2a233b?auto=format&fit=crop&w=600&q=80" }, 
                 { time: "10:30", title: "上野恩賜公園", type: "景點", note: "不忍池觀鳥、辯天堂散步。", link: "https://www.google.com/maps/search/?api=1&query=Ueno+Park", img: "https://images.unsplash.com/photo-1554797589-7241bb691973?auto=format&fit=crop&w=600&q=80" }, 
                 { time: "11:00", title: "伊豆榮 梅川亭", type: "餐飲", note: "百年鰻魚飯老店，環境清幽。", link: "https://www.google.com/maps/search/?api=1&query=Izuei+Umekawatei", img: "https://images.unsplash.com/photo-1552611052-33e04de081de?auto=format&fit=crop&w=600&q=80" }, 
                 { time: "11:30", title: "阿美橫丁", type: "購物", note: "熱鬧市集，買藥妝、水果。", link: "https://www.google.com/maps/search/?api=1&query=Ameyoko", img: "https://images.unsplash.com/photo-1524819771110-022645607b22?auto=format&fit=crop&w=600&q=80" }, 
-                { time: "13:00", title: "淺草寺 & 雷門", type: "景點", note: "人多小心。仲見世通吃人形燒。", link: "https://www.google.com/maps/search/?api=1&query=Sensoji", img: "https://images.unsplash.com/photo-1534270804882-6b5048b1c1fc?auto=format&fit=crop&w=600&q=80" }, // 經典雷門
+                { time: "13:00", title: "淺草寺 & 雷門", type: "景點", note: "人多小心。仲見世通吃人形燒。", link: "https://www.google.com/maps/search/?api=1&query=Sensoji", img: "https://images.unsplash.com/photo-1534270804882-6b5048b1c1fc?auto=format&fit=crop&w=600&q=80" }, 
                 { time: "14:00", title: "龜十銅鑼燒", type: "餐飲", note: "雷門對面，排隊伴手禮。", link: "https://www.google.com/maps/search/?api=1&query=Kameju", img: "https://images.unsplash.com/photo-1505253716362-afaea1d3d1af?auto=format&fit=crop&w=600&q=80" } 
             ],
             "D3 2026-02-05(四)": [
@@ -530,8 +688,8 @@
                 { time: "19:00", title: "東京都廳夜景", type: "景點", note: "免費上 45 樓俯瞰東京。", link: "https://www.google.com/maps/search/?api=1&query=Tokyo+Metropolitan+Government+Building", img: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=600&q=80" } 
             ],
             "D5 2026-02-07(六)": [
-                { time: "10:30", title: "東京鐵塔", type: "景點", note: "芝公園拍照經典位。", link: "https://www.google.com/maps/search/?api=1&query=Tokyo+Tower", img: "https://images.unsplash.com/photo-1536098561742-ca998e48cbcc?auto=format&fit=crop&w=600&q=80" }, // 經典東京塔
-                { time: "12:30", title: "炸牛排 Motomura", type: "餐飲", note: "口感軟嫩，通常需排隊。", link: "", img: "https://images.unsplash.com/photo-1595295333158-4742f28fbd85?auto=format&fit=crop&w=600&q=80" }, // 炸肉排替代圖
+                { time: "10:30", title: "東京鐵塔", type: "景點", note: "芝公園拍照經典位。", link: "https://www.google.com/maps/search/?api=1&query=Tokyo+Tower", img: "https://images.unsplash.com/photo-1536098561742-ca998e48cbcc?auto=format&fit=crop&w=600&q=80" }, 
+                { time: "12:30", title: "炸牛排 Motomura", type: "餐飲", note: "口感軟嫩，通常需排隊。", link: "", img: "https://images.unsplash.com/photo-1595295333158-4742f28fbd85?auto=format&fit=crop&w=600&q=80" }, 
                 { time: "14:00", title: "國立新美術館", type: "景點", note: "玻璃帷幕，大廳光影美。", link: "https://www.google.com/maps/search/?api=1&query=The+National+Art+Center+Tokyo", img: "https://images.unsplash.com/photo-1582255740465-983226a31063?auto=format&fit=crop&w=600&q=80" }, 
                 { time: "15:30", title: "表參道之丘", type: "購物", note: "時尚大道，安藤忠雄建築。", link: "https://www.google.com/maps/search/?api=1&query=Omotesando+Hills", img: "https://images.unsplash.com/photo-1559563458-527698bf5295?auto=format&fit=crop&w=600&q=80" }, 
                 { time: "17:30", title: "澀谷 Sky", type: "景點", note: "俯瞰東京全景 (需預約)。", link: "https://www.google.com/maps/search/?api=1&query=Shibuya+Sky", img: "https://images.unsplash.com/photo-1563721345592-2624dd192938?auto=format&fit=crop&w=600&q=80" }, 
@@ -596,7 +754,6 @@
                 index = dates.indexOf(fullKey);
             }
             if (index !== -1 && pageConfigs[index]) {
-                // 同時切換標題與圖示
                 document.getElementById('mainTitle').innerText = pageConfigs[index].title;
                 document.getElementById('dailyIcon').innerText = pageConfigs[index].icon;
             }
