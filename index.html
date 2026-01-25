@@ -8,13 +8,13 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
 :root {
-  --primary: #6B8E9B;       /* 湖水綠 */
+  --primary: #6B8E9B; /* 湖水綠 */
   --primary-dark: #557582;
   --bg: #F9F7F5;            /* 米白 */
   --text: #5A5A5A;
   --text-light: #949494;
   --card-bg: #FFFFFF;
-  --accent: #C5A087;        /* 奶茶棕 */
+  --accent: #C5A087; /* 奶茶棕 */
   --line: #E0E0E0;
   --bubble-border: #BCCCD1;
   --tag-transport: #DDE5E8;
@@ -63,15 +63,13 @@ body {
 .temp-box { position: absolute; left: 0; bottom: 0; }
 .temp-box p { margin: 0; font-size: 0.85rem; opacity: 0.9; font-weight: 400; margin-bottom: 2px;}
 .temp-box h1 { margin: 0; font-size: 1.6rem; font-weight: 500; letter-spacing: 1px; line-height: 1; }
-.outfit-tip { background: rgba(255,255,255,0.2); padding: 8px 12px; border-radius: 12px; font-size: 0.75rem; display: flex; align-items: center; gap: 6px; backdrop-filter: blur(5px);
-  line-height: 1.3; border: 1px solid rgba(255,255,255,0.3); position: absolute; right: 0; bottom: 0; max-width: 65%; height: 42px; overflow: hidden; }
+.outfit-tip { background: rgba(255,255,255,0.2); padding: 8px 12px; border-radius: 12px; font-size: 0.75rem; display: flex; align-items: center; gap: 6px; backdrop-filter: blur(5px); line-height: 1.3; border: 1px solid rgba(255,255,255,0.3); position: absolute; right: 0; bottom: 0; max-width: 65%; height: 42px; overflow: hidden; }
 .outfit-tip i { font-size: 0.9rem; flex-shrink: 0; }
 
 /* Date Scroller */
 .date-scroller { display: flex; overflow-x: auto; padding: 15px 15px; gap: 10px; scrollbar-width: none; background: var(--bg); }
 .date-scroller::-webkit-scrollbar { display: none; }
-.date-chip { background: white; min-width: 65px; height: 65px; padding: 8px; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center;
-  color: var(--text-light); border: 1px solid transparent; transition: all 0.2s ease; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.03); flex-shrink: 0; }
+.date-chip { background: white; min-width: 65px; height: 65px; padding: 8px; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--text-light); border: 1px solid transparent; transition: all 0.2s ease; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.03); flex-shrink: 0; }
 .date-chip strong { font-size: 1.1rem; font-weight: 700; margin-bottom: 2px; color: #C0C0C0; }
 .date-chip span { font-size: 0.7rem; }
 .date-chip.active { background: white; border: 2px solid var(--primary); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(107, 142, 155, 0.3); }
@@ -85,11 +83,9 @@ body {
 .timeline-item:last-child::before { display: none; }
 
 .time-wrapper { width: 65px; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; padding-top: 10px; z-index: 1; margin-right: 10px; }
-.time-bubble { background: white; color: var(--primary); border: 2px solid var(--bubble-border); border-radius: 20px; padding: 4px 8px; font-size: 0.75rem; font-weight: 700;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.05); z-index: 2; text-align: center; min-width: 50px; }
+.time-bubble { background: white; color: var(--primary); border: 2px solid var(--bubble-border); border-radius: 20px; padding: 4px 8px; font-size: 0.75rem; font-weight: 700; box-shadow: 0 2px 5px rgba(0,0,0,0.05); z-index: 2; text-align: center; min-width: 50px; }
 
-.content-col { flex: 1; background: var(--card-bg); border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); position: relative; z-index: 1; overflow: hidden;
-  border: 1px solid rgba(0,0,0,0.01); display: flex; flex-direction: row; min-height: 110px; }
+.content-col { flex: 1; background: var(--card-bg); border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); position: relative; z-index: 1; overflow: hidden; border: 1px solid rgba(0,0,0,0.01); display: flex; flex-direction: row; min-height: 110px; }
 .card-img-col { width: 33%; min-width: 100px; position: relative; overflow: hidden; background-color: #eee; }
 .card-img { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; }
 .card-body { flex: 1; padding: 12px 15px; display: flex; flex-direction: column; justify-content: center; }
@@ -102,8 +98,7 @@ body {
 .tag.住宿 { background: var(--secondary); color: #607D8B; }
 
 .note { font-size: 0.8rem; color: #888; margin-top: 5px; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-.nav-btn-corner { position: absolute; top: 10px; right: 10px; color: var(--primary); background: rgba(255,255,255,0.8); width: 28px; height: 28px; border-radius: 50%; display: flex;
-  align-items: center; justify-content: center; font-size: 0.9rem; box-shadow: 0 2px 5px rgba(0,0,0,0.1); z-index: 5; text-decoration: none; }
+.nav-btn-corner { position: absolute; top: 10px; right: 10px; color: var(--primary); background: rgba(255,255,255,0.8); width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; box-shadow: 0 2px 5px rgba(0,0,0,0.1); z-index: 5; text-decoration: none; }
 .nav-btn-corner:active { transform: scale(0.9); background: var(--primary); color: white; }
 
 /* Transport Page */
@@ -113,17 +108,14 @@ body {
 .station-item { margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #f0f0f0; }
 .station-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
 .station-name { font-weight: 700; font-size: 1.05rem; color: #444; margin-bottom: 6px; display: flex; align-items: center; flex-wrap: wrap; gap: 5px; }
-.station-badge { display: inline-flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; padding: 2px 6px; border-radius: 6px;
-  border: 2px solid #ddd; color: #666; min-width: 36px; letter-spacing: 0.5px; }
+.station-badge { display: inline-flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; padding: 2px 6px; border-radius: 6px; border: 2px solid #ddd; color: #666; min-width: 36px; letter-spacing: 0.5px; }
 .exit-info { font-size: 0.95rem; color: var(--text); margin-bottom: 4px; }
 .exit-highlight { color: var(--accent); font-weight: 700; background: rgba(197, 160, 135, 0.1); padding: 1px 5px; border-radius: 4px; }
 .guide-text { font-size: 0.85rem; color: #888; line-height: 1.4; }
-.date-divider { font-size: 0.9rem; color: var(--primary); font-weight: 700; margin: 25px 0 10px 0; padding-left: 10px; border-left: 3px solid var(--primary);
-  background: rgba(107, 142, 155, 0.05); padding: 5px 10px; border-radius: 0 8px 8px 0; }
+.date-divider { font-size: 0.9rem; color: var(--primary); font-weight: 700; margin: 25px 0 10px 0; padding-left: 10px; border-left: 3px solid var(--primary); background: rgba(107, 142, 155, 0.05); padding: 5px 10px; border-radius: 0 8px 8px 0; }
 
 /* Bottom Nav */
-.bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; display: flex; justify-content: space-around; padding: 10px 0;
-  box-shadow: 0 -4px 20px rgba(0,0,0,0.05); z-index: 200; border-top-left-radius: 20px; border-top-right-radius: 20px; }
+.bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; display: flex; justify-content: space-around; padding: 10px 0; box-shadow: 0 -4px 20px rgba(0,0,0,0.05); z-index: 200; border-top-left-radius: 20px; border-top-right-radius: 20px; }
 .nav-item { text-align: center; color: #C0C0C0; font-size: 0.75rem; cursor: pointer; transition: color 0.3s; flex: 1; }
 .nav-item.active { color: var(--primary); }
 .nav-item i { font-size: 1.2rem; display: block; margin-bottom: 4px; }
@@ -148,23 +140,20 @@ body {
 .tool-card { background: white; padding: 20px; border-radius: 16px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); }
 .tool-card h3 { color: var(--primary); margin-top: 0; font-size: 1.1rem; }
 .trans-actions-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 15px; }
-.trans-action-btn { display: flex; flex-direction: column; align-items: center; justify-content: center; color: white; padding: 15px 5px; border-radius: 12px; text-decoration: none;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1); transition: transform 0.1s; }
+.trans-action-btn { display: flex; flex-direction: column; align-items: center; justify-content: center; color: white; padding: 15px 5px; border-radius: 12px; text-decoration: none; box-shadow: 0 4px 8px rgba(0,0,0,0.1); transition: transform 0.1s; }
 .trans-action-btn:active { transform: scale(0.95); opacity: 0.9; }
 .trans-action-btn i { font-size: 1.4rem; margin-bottom: 6px; }
 .trans-action-btn span { font-size: 0.8rem; font-weight: 700; }
 .trans-action-btn small { font-size: 0.65rem; opacity: 0.9; font-weight: 400; margin-top: 2px; }
 
 .translate-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.phrase-btn { background: white; border: 1px solid var(--accent); color: var(--accent); padding: 15px 10px; border-radius: 12px; text-align: center; font-size: 0.9rem;
-  cursor: pointer; transition: all 0.2s; }
+.phrase-btn { background: white; border: 1px solid var(--accent); color: var(--accent); padding: 15px 10px; border-radius: 12px; text-align: center; font-size: 0.9rem; cursor: pointer; transition: all 0.2s; }
 .phrase-btn:active { background: var(--accent); color: white; transform: scale(0.98); }
 .phrase-btn i { display: block; margin-bottom: 5px; opacity: 0.5; }
 
 .input-group { display: flex; flex-direction: column; gap: 10px; margin-bottom: 10px; }
 .input-group input { width: 100%; padding: 12px; border: 1px solid #eee; border-radius: 8px; font-size: 1rem; background: #FAFAFA; }
-.tool-btn { background: var(--accent); color: white; border: none; padding: 12px; width: 100%; border-radius: 10px; font-size: 1rem; margin-top: 10px; cursor: pointer;
-}
+.tool-btn { background: var(--accent); color: white; border: none; padding: 12px; width: 100%; border-radius: 10px; font-size: 1rem; margin-top: 10px; cursor: pointer; }
 
 </style>
 </head>
@@ -197,64 +186,74 @@ body {
 
     <div class="lifeline-card">
       <h3 class="lifeline-title"><i class="fas fa-bed"></i> 住宿與換宿保命</h3>
+      
       <div class="station-item">
         <div class="station-name">四谷京阪飯店 <span class="station-badge">M12</span> <span class="station-badge">N08</span></div>
-        <div class="exit-info">四谷站 <span class="exit-highlight">出口 2</span></div>
-        <div class="guide-text">有電梯！出站後過個馬路，飯店就在 LIFE 超市旁。</div>
+        <div class="exit-info">丸之內線/南北線 <span class="exit-highlight">出口 2</span></div>
+        <div class="guide-text"><strong style="color:var(--primary)">有電梯！</strong> 出站過馬路，飯店在 LIFE 超市旁。</div>
       </div>
+      
       <div class="station-item">
-        <div class="station-name">池尻大橋住宿 <span class="station-badge">DT02</span></div>
-        <div class="exit-info">池尻大橋站 <span class="exit-highlight">北口</span></div>
-        <div class="guide-text">只有兩站，從澀谷過來請搭「各站停車」的車。</div>
+        <div class="station-name">池尻大橋住宿 (2/7後) <span class="station-badge">DT02</span></div>
+        <div class="exit-info">田園都市線 <span class="exit-highlight">北口/東口</span></div>
+        <div class="guide-text">與半藏門線直通。從澀谷過來只有一站，<strong style="color:#d9534f">請搭「各站停車」</strong>，急行不停！</div>
       </div>
     </div>
 
     <div class="lifeline-card">
       <h3 class="lifeline-title"><i class="fas fa-map-signs"></i> 每日景點快速對照</h3>
+      
       <div class="date-divider">2/4 (三) 上野 / 淺草</div>
       <div class="station-item">
-        <div class="station-name">上野站 <span class="station-badge">G16</span></div>
-        <div class="exit-info">走 <span class="exit-highlight">公園口</span></div>
-        <div class="guide-text">路最寬，不容易走錯。</div>
+        <div class="station-name">上野東照宮 <span class="station-badge">G16</span></div>
+        <div class="exit-info">上野站 <span class="exit-highlight">公園口</span></div>
+        <div class="guide-text">路徑：四谷(M)→赤坂見附轉銀座線(G)→上野。<br>出站即公園，路寬好走。</div>
       </div>
       <div class="station-item">
-        <div class="station-name">淺草站 <span class="station-badge">G19</span></div>
-        <div class="exit-info">走 <span class="exit-highlight">1 號出口</span></div>
-        <div class="guide-text">一上來就是雷門大紅燈籠。</div>
-      </div>
-
-      <div class="date-divider">2/5 (四) 豪德寺 / 下北澤</div>
-      <div class="station-item">
-        <div class="station-name">豪德寺站 <span class="station-badge">OH07</span></div>
-        <div class="exit-info">出站後跟著人群走商店街。</div>
-      </div>
-      <div class="station-item">
-        <div class="station-name">下北澤站 <span class="station-badge">OH07</span></div>
-        <div class="exit-info">走 <span class="exit-highlight">東口</span></div>
-        <div class="guide-text">逛街最方便。</div>
+        <div class="station-name">淺草寺 <span class="station-badge">G19</span></div>
+        <div class="exit-info">淺草站 <span class="exit-highlight">1 號出口</span></div>
+        <div class="guide-text">搭銀座線到終點。一上來就是雷門大燈籠。</div>
       </div>
 
-      <div class="date-divider">2/6 (五) 皇居 / 新宿</div>
+      <div class="date-divider">2/5 (四) 下北澤 / 豪德寺</div>
       <div class="station-item">
-        <div class="station-name">二重橋前站 <span class="station-badge">C10</span></div>
-        <div class="exit-info">走 <span class="exit-highlight">2 號出口</span></div>
+        <div class="station-name">下北澤 <span class="station-badge">OH07</span></div>
+        <div class="exit-info">小田急線 <span class="exit-highlight">東口</span></div>
+        <div class="guide-text">路徑：四谷(M)→新宿轉小田急線。<br>東口出站逛街最順。</div>
       </div>
       <div class="station-item">
-        <div class="station-name">新宿御苑前站 <span class="station-badge">M10</span></div>
-        <div class="exit-info">走 <span class="exit-highlight">1 號出口</span></div>
-        <div class="guide-text">注意不是新宿大站喔！</div>
+        <div class="station-name">豪德寺 (招財貓) <span class="station-badge">OH07</span></div>
+        <div class="exit-info">豪德寺站</div>
+        <div class="guide-text">下北澤搭小田急線續行。出站後沿著商店街跟著人群走。</div>
+      </div>
+
+      <div class="date-divider">2/6 (五) 皇居 / 澀谷 / 六本木</div>
+      <div class="station-item">
+        <div class="station-name">皇居外苑 <span class="station-badge">C10</span></div>
+        <div class="exit-info">二重橋前站 <span class="exit-highlight">2 號出口</span></div>
+        <div class="guide-text">路徑：四谷(N)→溜池山王轉千代田線(C)→二重橋前。</div>
+      </div>
+      <div class="station-item">
+        <div class="station-name">SHIBUYA SKY <span class="station-badge">G01</span></div>
+        <div class="exit-info">澀谷站</div>
+        <div class="guide-text">站體極大。請死命盯著 <strong style="color:#444">"Shibuya Scramble Square"</strong> 指標走。</div>
+      </div>
+      <div class="station-item">
+        <div class="station-name">六本木之丘 <span class="station-badge">H04</span></div>
+        <div class="exit-info">六本木站 <span class="exit-highlight">1C 出口</span></div>
+        <div class="guide-text">出口直通，不需日曬雨淋。</div>
       </div>
 
       <div class="date-divider">2/7 (六) 鐵塔 / 美術館</div>
       <div class="station-item">
-        <div class="station-name">赤羽橋站 <span class="station-badge">E21</span></div>
-        <div class="exit-info">走 <span class="exit-highlight">赤羽橋口</span></div>
-        <div class="guide-text">出站抬頭看鐵塔定位。</div>
+        <div class="station-name">東京鐵塔 (芝公園) <span class="station-badge">E21</span></div>
+        <div class="exit-info">赤羽橋站 <span class="exit-highlight">赤羽橋口</span></div>
+        <div class="guide-text">搭大江戶線(E)。出站抬頭即鐵塔，免導航。</div>
       </div>
       <div class="station-item">
-        <div class="station-name">乃木坂站 <span class="station-badge">C05</span></div>
-        <div class="exit-info">走 <span class="exit-highlight">6 號出口</span></div>
-        <div class="guide-text">最推薦！直通美術館內部。</div>
+        <div class="station-name">國立新美術館 <span class="station-badge">C05</span></div>
+        <div class="exit-info">乃木坂站 <span class="exit-highlight">6 號出口</span></div>
+        <div class="guide-text">搭千代田線(C)。最推薦出口，直通美術館內部。</div>
       </div>
     </div>
   </div>
@@ -366,7 +365,6 @@ const weatherDB = {
   "2026-02-08": { temp: "6-13°", icon: "plane", tip: "返程日，行李保持輕便。" }
 };
 
-// 已將 img 改為標準流水號
 const itineraryDB = {
   "D1 2026-02-03(二)": [
     { time: "15:35", title: "桃園 T1 起飛 (IT202)", type: "交通", note: "機場先吃午餐。13:30 報到。", link: "geo:25.0797,121.2342", img: "images/d1_01.jpg" },
@@ -413,7 +411,6 @@ const itineraryDB = {
   ]
 };
 
-// 超商美食圖對照表
 const foodDB = [
     { name: "FamiChiki 無骨炸雞", jp: "ファミチキ", price: "¥240~¥260", shop: "FamilyMart", img: "images/food_01.jpg" },
     { name: "炸雞君 (辣味/起司)", jp: "からあげクン", price: "¥258~¥270", shop: "Lawson", img: "images/food_02.jpg" },
@@ -582,6 +579,3 @@ function loadExpenses() {
 </script>
 </body>
 </html>
-
-
-
