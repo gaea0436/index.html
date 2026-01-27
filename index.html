@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>華的東京獨旅 2026 (專業版)</title>
+<title>華的東京獨旅 2026 (完整還原版)</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
@@ -22,212 +22,252 @@
   --tag-food: #EFEBE5;
   --secondary: #CFD8DC;
   --trans-listen: #D5B0A3;
+  --trans-speak: #8FA7B6;
+  --trans-cam: #B3A8B8;
 }
+
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
 body {
-  margin: 0; padding: 0;
   font-family: 'Noto Sans TC', sans-serif;
   background-color: var(--bg);
   color: var(--text);
-  padding-bottom: 80px; /* Nav height */
+  margin: 0;
+  padding: 0;
+  padding-bottom: 90px; /* Space for nav */
 }
-header {
-  background-color: var(--primary);
-  color: #fff;
-  padding: 16px 20px;
+
+/* Header & Weather */
+.header {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: white;
+  padding: 20px 20px 25px 20px;
+  border-radius: 0 0 30px 30px;
+  box-shadow: 0 10px 20px rgba(107, 142, 155, 0.25);
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  min-height: 140px;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  align-items: center;
 }
-h1 { margin: 0; font-size: 1.2rem; font-weight: 700; }
-.subtitle { font-size: 0.8rem; opacity: 0.9; font-weight: 400; }
+
+.title-area { display: flex; align-items: center; justify-content: flex-start; gap: 8px; margin-bottom: 10px; }
+#mainTitle { margin: 0; font-size: 1.25rem; font-weight: 700; letter-spacing: 1.5px; text-shadow: 0 2px 4px rgba(0,0,0,0.1); line-height: 1.4; }
+
+.weather-widget { display: flex; justify-content: space-between; align-items: flex-end; position: relative; height: 50px; }
+.temp-box { position: absolute; left: 0; bottom: 0; }
+.temp-box p { margin: 0; font-size: 0.85rem; opacity: 0.9; font-weight: 400; margin-bottom: 2px;}
+.temp-box h1 { margin: 0; font-size: 1.6rem; font-weight: 500; letter-spacing: 1px; line-height: 1; }
+
+.outfit-tip { background: rgba(255,255,255,0.2); padding: 8px 12px; border-radius: 12px; font-size: 0.75rem; display: flex; align-items: center; gap: 6px; backdrop-filter: blur(5px); line-height: 1.3; border: 1px solid rgba(255,255,255,0.3); position: absolute; right: 0; bottom: 0; max-width: 65%; height: 42px; overflow: hidden; }
+
+/* Date Scroller (恢復原始橫向捲動條) */
+.date-scroller { display: flex; overflow-x: auto; padding: 15px 15px; gap: 10px; scrollbar-width: none; background: var(--bg); }
+.date-scroller::-webkit-scrollbar { display: none; }
+
+.date-chip { 
+  background: white; min-width: 65px; height: 65px; padding: 8px; 
+  border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; 
+  color: var(--text-light); border: 1px solid transparent; transition: all 0.2s ease; cursor: pointer; 
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03); flex-shrink: 0; 
+}
+.date-chip strong { font-size: 1.1rem; font-weight: 700; margin-bottom: 2px; color: #C0C0C0; }
+.date-chip span { font-size: 0.7rem; }
+
+.date-chip.active { background: white; border: 2px solid var(--primary); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(107, 142, 155, 0.3); }
+.date-chip.active strong { color: var(--primary) !important; }
+.date-chip.active span { color: var(--primary) !important; font-weight: bold; }
+
+/* Timeline */
+.timeline-container { padding: 10px 20px; }
+.timeline-item { display: flex; margin-bottom: 25px; position: relative; }
+.timeline-item::before { content: ''; position: absolute; left: 28px; top: 0; bottom: -25px; width: 2px; background: var(--line); z-index: 0; }
+.timeline-item:last-child::before { display: none; }
+
+.time-col { width: 60px; flex-shrink: 0; text-align: right; padding-right: 15px; z-index: 1; }
+.time { font-weight: 700; color: var(--primary); font-size: 0.9rem; display: block; margin-top: 5px;}
+
+.content-card { 
+  flex-grow: 1; background: var(--card-bg); border-radius: 16px; padding: 0; 
+  box-shadow: 0 4px 15px rgba(0,0,0,0.04); overflow: hidden; position: relative; border: 1px solid #f0f0f0; 
+}
+.card-img-top { width: 100%; height: 140px; object-fit: cover; display: block; }
+.card-body { padding: 15px; }
+
+.card-title { font-size: 1.1rem; font-weight: 700; margin: 0 0 5px 0; color: #333; display: flex; align-items: center; justify-content: space-between; }
+.card-note { font-size: 0.9rem; color: #666; line-height: 1.6; margin-bottom: 10px; white-space: pre-wrap; }
+
+/* Type Tags */
+.type-tag { display: inline-block; font-size: 0.75rem; padding: 4px 10px; border-radius: 20px; font-weight: 500; margin-bottom: 8px; }
+.tag-transport { background: var(--tag-transport); color: #78909C; }
+.tag-spot { background: var(--tag-spot); color: #8D6E63; }
+.tag-food { background: var(--tag-food); color: #795548; }
+.tag-backup { background: #ECEFF1; color: #90A4AE; border: 1px dashed #B0BEC5; }
+
+/* 備用行程樣式 */
+.item-backup { opacity: 0.85; }
+.item-backup .content-card { border: 2px dashed #B0BEC5; }
+
+/* Map Button */
+.btn-map { 
+  display: inline-flex; align-items: center; gap: 5px; 
+  background: var(--bg); color: var(--primary); 
+  padding: 6px 12px; border-radius: 8px; text-decoration: none; 
+  font-size: 0.85rem; font-weight: 700; margin-top: 5px; border: 1px solid var(--primary);
+}
+
+/* Pages */
+.page { display: none; animation: fadeIn 0.3s; }
+.page.active { display: block; }
+
+/* Transport Page Styles */
+.transport-list { padding: 20px; }
+.transport-card { background: #fff; padding: 15px; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); border-left: 4px solid var(--primary); }
+.trans-title { font-weight: bold; margin-bottom: 8px; color: var(--primary-dark); }
+.trans-detail { font-size: 0.9rem; line-height: 1.6; color: #555; }
+.hl { color: #D9534F; font-weight: 700; background: #FFF3E0; padding: 0 4px; border-radius: 4px; }
+
+/* Translation Floating Tools (還原翻譯官) */
+.trans-tools {
+  position: fixed; bottom: 85px; right: 20px;
+  display: flex; flex-direction: column; gap: 10px; z-index: 900;
+}
+.btn-trans {
+  width: 45px; height: 45px; border-radius: 50%;
+  border: none; color: white; font-size: 1.2rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2); cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: transform 0.2s;
+}
+.btn-trans:active { transform: scale(0.95); }
+.btn-listen { background: var(--trans-listen); }
+.btn-speak { background: var(--trans-speak); }
+.btn-cam { background: var(--trans-cam); }
 
 /* Navigation */
 .nav-bar {
-  position: fixed;
-  bottom: 0; left: 0; right: 0;
-  background: #fff;
-  display: flex;
-  justify-content: space-around;
-  padding: 10px 0;
-  box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
-  z-index: 1000;
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: #fff; display: flex; justify-content: space-around;
+  padding: 10px 0; box-shadow: 0 -2px 10px rgba(0,0,0,0.05); z-index: 1000;
 }
 .nav-item {
-  text-align: center;
-  color: var(--text-light);
-  font-size: 0.75rem;
-  background: none;
-  border: none;
-  cursor: pointer;
-  flex: 1;
+  text-align: center; color: var(--text-light); font-size: 0.75rem;
+  background: none; border: none; cursor: pointer; flex: 1;
 }
 .nav-item i { display: block; font-size: 1.2rem; margin-bottom: 4px; }
 .nav-item.active { color: var(--primary); font-weight: 700; }
-
-/* Pages */
-.page { display: none; padding: 20px; animation: fadeIn 0.3s; }
-.page.active { display: block; }
-
-/* Timeline Styles */
-.date-header {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--primary-dark);
-  margin: 20px 0 10px 0;
-  padding-bottom: 5px;
-  border-bottom: 2px solid var(--primary);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.timeline-item {
-  background: var(--card-bg);
-  border-radius: 12px;
-  padding: 15px;
-  margin-bottom: 15px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.03);
-  border-left: 5px solid var(--secondary);
-  position: relative;
-}
-.timeline-item.type-transport { border-left-color: var(--tag-transport); }
-.timeline-item.type-food { border-left-color: var(--tag-food); }
-.timeline-item.type-spot { border-left-color: var(--accent); }
-/* 備用行程樣式：半透明區隔 */
-.timeline-item.type-backup { border-left-color: #B0BEC5; opacity: 0.85; border-style: dashed; }
-
-.time { font-weight: 700; color: var(--primary); font-size: 0.9rem; margin-bottom: 4px; display: block;}
-.location { font-size: 1.05rem; font-weight: 700; margin-bottom: 6px; display: block; }
-.note { font-size: 0.9rem; color: #666; line-height: 1.5; white-space: pre-wrap; }
-.tags { margin-top: 8px; }
-.tag {
-  display: inline-block;
-  font-size: 0.75rem;
-  padding: 3px 8px;
-  border-radius: 4px;
-  background: #eee;
-  color: #555;
-  margin-right: 5px;
-}
-
-/* Transport Page */
-.transport-card {
-  background: #fff;
-  border-radius: 10px;
-  padding: 15px;
-  margin-bottom: 15px;
-  border: 1px solid var(--line);
-}
-.transport-title { font-weight: 700; color: var(--primary-dark); margin-bottom: 8px; border-bottom: 1px dashed #eee; padding-bottom: 5px;}
-.transport-detail { font-size: 0.9rem; line-height: 1.6; }
-.highlight { color: #D9534F; font-weight: 700; }
-
-/* Expenses */
-.expense-input {
-  width: 100%; padding: 10px; margin-bottom: 10px;
-  border: 1px solid #ddd; border-radius: 8px;
-  font-size: 1rem;
-}
-.btn-add {
-  width: 100%; background: var(--primary); color: #fff;
-  border: none; padding: 12px; border-radius: 8px;
-  font-size: 1rem; font-weight: 700; cursor: pointer;
-}
-.total-display {
-  background: var(--primary-dark); color: #fff;
-  padding: 15px; border-radius: 8px; text-align: center;
-  font-size: 1.2rem; font-weight: 700; margin-bottom: 20px;
-}
 
 @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 </style>
 </head>
 <body>
 
-<header>
-  <div>
-    <h1>華的東京獨旅 2026</h1>
-    <span class="subtitle">2/3 - 2/8 (六天五夜)</span>
+<header class="header">
+  <div class="title-area">
+    <h1 id="mainTitle">華的東京獨旅</h1>
   </div>
-  <i class="fa-solid fa-plane-departure" style="color: #fff; font-size: 1.2rem;"></i>
+  <div class="weather-widget">
+    <div class="temp-box">
+      <p>2/3 Tokyo</p>
+      <h1>8°C <i class="fa-solid fa-cloud-sun"></i></h1>
+    </div>
+    <div class="outfit-tip">
+      <i class="fa-solid fa-shirt"></i> 洋蔥式穿搭，室內有暖氣
+    </div>
+  </div>
 </header>
 
+<div id="dateScrollerArea" class="date-scroller">
+  </div>
+
 <div id="page-schedule" class="page active">
-  <div id="schedule-container"></div>
+  <div id="schedule-container" class="timeline-container">
+    </div>
+  
+  <div class="trans-tools">
+    <button class="btn-trans btn-listen" onclick="alert('開啟語音翻譯(聽)...')"><i class="fa-solid fa-ear-listen"></i></button>
+    <button class="btn-trans btn-speak" onclick="alert('開啟語音翻譯(說)...')"><i class="fa-solid fa-microphone"></i></button>
+    <button class="btn-trans btn-cam" onclick="alert('開啟鏡頭翻譯...')"><i class="fa-solid fa-camera"></i></button>
+  </div>
 </div>
 
 <div id="page-transport" class="page">
-  <div class="date-header">交通救命小抄</div>
-  
-  <div class="transport-card">
-    <div class="transport-title">2/3 機場 → 四谷 (飯店)</div>
-    <div class="transport-detail">
-      1. 成田T2搭乘 <span class="highlight">Skyliner</span> 至「日暮里」站 (約36分)。<br>
-      2. 站內轉乘 <span class="highlight">JR 山手線</span> 至「秋葉原」。<br>
-      3. 轉乘 <span class="highlight">JR 總武線 (黃色)</span> 至「四谷」站。<br>
-      4. 徒步約3分鐘抵達四谷京阪飯店。
+  <div class="transport-list">
+    <h2 style="color:var(--primary); border-bottom:2px solid var(--primary); padding-bottom:5px;">交通救命小抄</h2>
+    
+    <div class="transport-card">
+      <div class="trans-title">2/3 機場 ➔ 四谷</div>
+      <div class="trans-detail">
+        1. 成田T2搭 <span class="hl">Skyliner</span> 至「日暮里」。<br>
+        2. 轉乘 <span class="hl">JR 山手線</span> 至「秋葉原」。<br>
+        3. 轉乘 <span class="hl">JR 總武線</span> 至「四谷」。<br>
+        <small>註：全程約 70 分鐘，記得用西瓜卡。</small>
+      </div>
     </div>
-  </div>
 
-  <div class="transport-card">
-    <div class="transport-title">2/4 四谷 ↔ 上野/淺草</div>
-    <div class="transport-detail">
-      <strong>去程 (上野)：</strong>四谷站搭 <span class="highlight">JR 總武線</span> 至「秋葉原」，轉 <span class="highlight">JR 山手線</span> 至「上野」。(或搭 Metro 南北線轉銀座線)<br>
-      <strong>淺草移動：</strong>上野搭 <span class="highlight">Metro 銀座線</span> 至「淺草」。<br>
-      <strong>回程：</strong>淺草搭 <span class="highlight">Metro 銀座線</span> 至「赤坂見附」，同月台轉 <span class="highlight">Metro 丸之內線</span> 回「四谷」。
+    <div class="transport-card">
+      <div class="trans-title">2/4 四谷 ↔ 上野/淺草</div>
+      <div class="trans-detail">
+        <strong>去程：</strong>四谷搭JR至秋葉原，轉山手線至上野。<br>
+        <strong>移動：</strong>上野搭 <span class="hl">銀座線</span> 直達淺草。<br>
+        <strong>回程：</strong>淺草搭銀座線至「赤坂見附」，同月台轉 <span class="hl">丸之內線</span> 回四谷。
+      </div>
     </div>
-  </div>
 
-  <div class="transport-card">
-    <div class="transport-title">2/5 四谷 ↔ 皇居/神田/巨蛋</div>
-    <div class="transport-detail">
-      <strong>去程 (皇居)：</strong>四谷站搭 <span class="highlight">Metro 丸之內線</span> 至「東京」站或「二重橋前」。<br>
-      <strong>中途 (大神宮)：</strong>皇居移動至「大手町」搭東西線/半藏門線至「九段下」或「飯田橋」。<br>
-      <strong>中途 (秋葉原/神田)：</strong>飯田橋搭 <span class="highlight">JR 總武線</span> 至「秋葉原」。神田明神可從秋葉原徒步前往。<br>
-      <strong>回程 (巨蛋)：</strong>巨蛋位於「水道橋」或「後樂園」。可搭 <span class="highlight">Metro 南北線</span> (後樂園站) 直達回「四谷」。
+    <div class="transport-card">
+      <div class="trans-title">2/5 四谷 ↔ 皇居/秋葉原</div>
+      <div class="trans-detail">
+        <strong>去程：</strong>搭 <span class="hl">丸之內線</span> 至「東京」或「二重橋前」。<br>
+        <strong>中途：</strong>東京大神宮在「飯田橋」站。<br>
+        <strong>回程：</strong>從水道橋(巨蛋)搭 <span class="hl">JR 總武線</span> 直接回四谷。
+      </div>
     </div>
-  </div>
 
-  <div class="transport-card">
-    <div class="transport-title">2/6 四谷 ↔ 原宿/新宿</div>
-    <div class="transport-detail">
-      <strong>去程 (明治神宮)：</strong>四谷搭 <span class="highlight">JR 總武線</span> 至「代代木」，轉山手線一站至「原宿」。<br>
-      <strong>中途 (新宿御苑)：</strong>從原宿搭山手線至新宿，或徒步至千駄谷門。<br>
-      <strong>回程：</strong>新宿站搭 <span class="highlight">JR 中央線 (快速)</span> 或 <span class="highlight">丸之內線</span> 直達「四谷」。
+    <div class="transport-card">
+      <div class="trans-title">2/6 四谷 ↔ 新宿/原宿</div>
+      <div class="trans-detail">
+        <strong>去程：</strong>搭 <span class="hl">JR 總武線</span> 至「代代木」轉山手線至原宿。<br>
+        <strong>回程：</strong>新宿搭 <span class="hl">JR 中央線(快速)</span> 只要一站就回四谷。
+      </div>
     </div>
-  </div>
 
-  <div class="transport-card">
-    <div class="transport-title">2/7 四谷 → 鐵塔/涉谷 → 池尻大橋</div>
-    <div class="transport-detail">
-      <strong>退房後：</strong>行李寄放飯店或寄送。<br>
-      <strong>去程 (鐵塔)：</strong>四谷搭 <span class="highlight">Metro 南北線</span> 至「麻布十番」轉大江戶線至「赤羽橋」。(或丸之內線轉日比谷線至神谷町)<br>
-      <strong>中途 (涉谷)：</strong>表參道/原宿搭 <span class="highlight">Metro 銀座線/半藏門線</span> 至「涉谷」。<br>
-      <strong>入住 (池尻大橋)：</strong>涉谷搭 <span class="highlight">東急田園都市線</span> (僅一站) 至「池尻大橋」。
+    <div class="transport-card">
+      <div class="trans-title">2/7 四谷 ➔ 鐵塔 ➔ 池尻大橋</div>
+      <div class="trans-detail">
+        1. 早上退房，行李寄送或寄放。<br>
+        2. 鐵塔：搭 <span class="hl">南北線</span> 至「麻布十番」轉大江戶線至赤羽橋。<br>
+        3. <strong>移動至新飯店：</strong>從涉谷搭 <span class="hl">東急田園都市線</span> 至「池尻大橋」(僅一站)。
+      </div>
     </div>
-  </div>
 
-  <div class="transport-card">
-    <div class="transport-title">2/8 池尻大橋 → 成田機場</div>
-    <div class="transport-detail">
-      1. 池尻大橋搭 <span class="highlight">東急田園都市線</span> 至「涉谷」。<br>
-      2. 涉谷轉乘 <span class="highlight">成田特快 (N'EX)</span> 直達機場。<br>
-      3. 或者：涉谷搭山手線至日暮里，轉 Skyliner (較省錢)。
+    <div class="transport-card">
+      <div class="trans-title">2/8 池尻大橋 ➔ 機場</div>
+      <div class="trans-detail">
+        1. 搭電車回涉谷。<br>
+        2. 轉乘 <span class="hl">N'EX 成田特快</span> 直達機場。<br>
+        3. 或是去日暮里搭 Skyliner (較便宜)。
+      </div>
     </div>
   </div>
 </div>
 
 <div id="page-expenses" class="page">
-  <div class="total-display" id="totalExpense">¥0</div>
-  <input type="text" id="expenseName" class="expense-input" placeholder="項目 (如: 午餐)">
-  <input type="number" id="expenseAmount" class="expense-input" placeholder="金額 (日幣)">
-  <button class="btn-add" onclick="addExpense()">記一筆</button>
-  <div class="date-header" style="margin-top:30px;">消費紀錄</div>
-  <ul id="expenseList" style="padding-left:20px; line-height:1.8; color:#555;"></ul>
+  <div style="padding:20px;">
+    <div style="background:var(--primary); color:#fff; padding:20px; border-radius:12px; text-align:center; margin-bottom:20px;">
+      <p style="margin:0; opacity:0.8;">目前總花費</p>
+      <h1 style="margin:5px 0;" id="totalExpense">¥0</h1>
+    </div>
+    <input type="text" id="expenseName" placeholder="項目 (例如: 拉麵)" style="width:100%; padding:12px; margin-bottom:10px; border:1px solid #ddd; border-radius:8px;">
+    <input type="number" id="expenseAmount" placeholder="金額" style="width:100%; padding:12px; margin-bottom:10px; border:1px solid #ddd; border-radius:8px;">
+    <button onclick="addExpense()" style="width:100%; background:var(--primary-dark); color:#fff; padding:12px; border:none; border-radius:8px; font-weight:bold;">記一筆</button>
+    
+    <div style="margin-top:30px;">
+      <h3 style="border-bottom:1px solid #eee; padding-bottom:10px;">消費明細</h3>
+      <ul id="expenseList" style="padding-left:20px; color:#555;"></ul>
+    </div>
+  </div>
 </div>
 
 <nav class="nav-bar">
@@ -243,151 +283,184 @@ h1 { margin: 0; font-size: 1.2rem; font-weight: 700; }
 </nav>
 
 <script>
-// --- 行程資料 (已更新為新版 6 天行程) ---
-const scheduleData = [
-  // Day 1: 2/3
-  { date: "2/3 (二)", time: "15:35", location: "桃園 T1 起飛 (IT202)", type: "transport", note: "預計 13:30 抵達機場報到。\n建議先吃午餐。" },
-  { date: "2/3 (二)", time: "19:35", location: "抵達成田 T2", type: "transport", note: "通關約 1 小時。\n購買/儲值西瓜卡 (Suica)。" },
-  { date: "2/3 (二)", time: "20:30", location: "搭乘 Skyliner 往市區", type: "transport", note: "車上可吃輕食。(45分鐘)" },
-  { date: "2/3 (二)", time: "21:45", location: "入住：四谷京阪飯店", type: "spot", note: "Check-in。\n飯店旁有 LIFE 超市。" },
-  { date: "2/3 (二)", time: "22:00", location: "LIFE 超市 / 超商採買", type: "food", note: "買水、水果、明日早餐。\n避免太晚吃太硬食物。" },
+// --- Data: 完整行程資料 (Object Structure) ---
+const scheduleData = {
+  "2/3 (二)": [
+    { time: "15:35", title: "桃園 T1 起飛 (IT202)", type: "transport", note: "建議 13:30 抵達機場報到。\n午餐於機場解決。", link: "", img: "images/d1_01.jpg" },
+    { time: "19:35", title: "抵達成田 T2", type: "transport", note: "通關約1小時。購買西瓜卡。", link: "", img: "images/d1_02.jpg" },
+    { time: "20:30", title: "Skyliner 往市區", type: "transport", note: "車上吃輕食。往日暮里轉JR。", link: "", img: "images/d1_03.jpg" },
+    { time: "21:45", title: "四谷京阪飯店", type: "spot", note: "Check-in。位置方便，JR/地鐵雙線。", link: "https://goo.gl/maps/placeholder", img: "images/d1_04.jpg" },
+    { time: "22:00", title: "LIFE 超市採買", type: "food", note: "買水、水果、明日早餐。\n避免吃太硬食物。", link: "", img: "images/d1_05.jpg" }
+  ],
+  "2/4 (三)": [
+    { time: "09:30", title: "上野東照宮", type: "spot", note: "金碧輝煌的建築，早晨散步好去處。", link: "https://goo.gl/maps/placeholder", img: "images/d2_01.jpg" },
+    { time: "10:30", title: "上野恩賜公園 / 不忍池", type: "spot", note: "弁天堂、寬永寺清水觀音堂。", link: "", img: "images/d2_02.jpg" },
+    { time: "11:30", title: "阿美橫丁 (Ameyoko)", type: "spot", note: "感受熱鬧氣氛，可買二木菓子。", link: "", img: "images/d2_03.jpg" },
+    { time: "13:00", title: "午餐 (淺草周邊)", type: "food", note: "推薦：淺草今半(壽喜燒) 或 炸牛排。", link: "", img: "images/d2_04.jpg" },
+    { time: "14:30", title: "淺草寺 & 雷門", type: "spot", note: "仲見世通逛街。人潮眾多小心包包。", link: "", img: "images/d2_05.jpg" },
+    { time: "16:00", title: "隅田川公園", type: "spot", note: "遠眺晴空塔 (Skytree) 絕佳位置。", link: "", img: "images/d2_06.jpg" }
+  ],
+  "2/5 (四)": [
+    { time: "09:30", title: "皇居 (二重橋)", type: "spot", note: "經典東京地標，碎石路多請穿好走的鞋。", link: "", img: "images/d3_01.jpg" },
+    { time: "10:30", title: "皇居東御苑", type: "spot", note: "日式庭園造景，週四有開放。", link: "", img: "images/d3_02.jpg" },
+    { time: "11:30", title: "(備用) 東京車站一番街", type: "backup", note: "拉麵街、動漫角色街。視體力決定。", link: "", img: "images/d3_03.jpg" },
+    { time: "12:30", title: "午餐", type: "food", note: "神田/飯田橋周邊美食。", link: "", img: "images/d3_04.jpg" },
+    { time: "14:00", title: "東京大神宮", type: "spot", note: "知名的結緣神社，御守很美。", link: "", img: "images/d3_05.jpg" },
+    { time: "15:00", title: "(備用) 秋葉原無線電會館", type: "backup", note: "包含：AmiAmi(4F)、K-BOOKS(3F)。\n找志摩凜周邊。", link: "", img: "images/d3_06.jpg" },
+    { time: "16:30", title: "神田神社 (神田明神)", type: "spot", note: "IT與動漫守護神，紅色隨神門必拍。", link: "", img: "images/d3_07.jpg" },
+    { time: "17:30", title: "東京巨蛋 (Tokyo Dome)", type: "spot", note: "拍照打卡，感受氛圍。", link: "", img: "images/d3_08.jpg" }
+  ],
+  "2/6 (五)": [
+    { time: "09:30", title: "明治神宮", type: "spot", note: "巨大鳥居，都市森林享受芬多精。", link: "", img: "images/d4_01.jpg" },
+    { time: "11:00", title: "明治神宮棒球場", type: "spot", note: "拍照打卡 (棒球聖地)。", link: "", img: "images/d4_02.jpg" },
+    { time: "13:00", title: "新宿御苑", type: "spot", note: "《言葉之庭》場景。園內茶室休息。", link: "", img: "images/d4_03.jpg" },
+    { time: "15:00", title: "Alpen Tokyo", type: "spot", note: "新宿東口。超大型戶外用品店。", link: "", img: "images/d4_04.jpg" },
+    { time: "17:00", title: "思出橫丁", type: "food", note: "昭和風情居酒屋街，傍晚拍照很有Fu。", link: "", img: "images/d4_05.jpg" },
+    { time: "18:30", title: "(備用) 東京都廳展望室", type: "backup", note: "免費高空夜景。", link: "", img: "images/d4_06.jpg" }
+  ],
+  "2/7 (六)": [
+    { time: "09:30", title: "退房 & 寄行李", type: "transport", note: "將大件行李寄往下一間飯店。", link: "", img: "images/d5_01.jpg" },
+    { time: "10:30", title: "東京鐵塔", type: "spot", note: "經典紅白塔身。", link: "", img: "images/d5_02.jpg" },
+    { time: "11:30", title: "芝公園", type: "spot", note: "拍攝東京鐵塔的最佳角度。", link: "", img: "images/d5_03.jpg" },
+    { time: "12:30", title: "午餐", type: "food", note: "六本木/麻布十番周邊。", link: "", img: "images/d5_04.jpg" },
+    { time: "14:00", title: "國立新美術館", type: "spot", note: "波浪狀玻璃帷幕，建築美學。", link: "", img: "images/d5_05.jpg" },
+    { time: "15:30", title: "竹下通、表參道", type: "spot", note: "年輕潮流 vs 精品大道。", link: "", img: "images/d5_06.jpg" },
+    { time: "17:00", title: "涉谷 Sky / 交叉點", type: "spot", note: "需預約 Sky。體驗人潮洶湧。", link: "", img: "images/d5_07.jpg" },
+    { time: "19:00", title: "入住：池尻大橋", type: "spot", note: "前往飯店 Check-in。", link: "", img: "images/d5_08.jpg" }
+  ],
+  "2/8 (日)": [
+    { time: "09:00", title: "前往成田機場 T1", type: "transport", note: "搭乘 MM623。預留時間搭車。", link: "", img: "images/d6_01.jpg" },
+    { time: "11:30", title: "機場報到 / 起飛", type: "transport", note: "最後伴手禮採買。返台。", link: "", img: "images/d6_02.jpg" }
+  ]
+};
 
-  // Day 2: 2/4
-  { date: "2/4 (三)", time: "09:30", location: "上野東照宮", type: "spot", note: "金碧輝煌的建築，早晨散步。" },
-  { date: "2/4 (三)", time: "10:30", location: "上野恩賜公園 / 不忍池", type: "spot", note: "弁天堂、寬永寺清水觀音堂。" },
-  { date: "2/4 (三)", time: "11:30", location: "阿美橫丁 (Ameyoko)", type: "spot", note: "感受熱鬧氣氛，可買零食伴手禮。" },
-  { date: "2/4 (三)", time: "13:00", location: "午餐 (淺草周邊)", type: "food", note: "推薦：淺草今半(壽喜燒) 或 炸牛排。" },
-  { date: "2/4 (三)", time: "14:30", location: "淺草寺 & 雷門", type: "spot", note: "仲見世通逛街、參拜。\n人潮眾多請注意隨身物品。" },
-  { date: "2/4 (三)", time: "16:00", location: "隅田川公園", type: "spot", note: "遠眺晴空塔 (Skytree) 的絕佳位置。\n適合拍照散步。" },
+// --- Logic ---
+let currentDay = Object.keys(scheduleData)[0];
 
-  // Day 3: 2/5
-  { date: "2/5 (四)", time: "09:30", location: "皇居 (二重橋/外苑)", type: "spot", note: "經典東京地標，腹地廣大，需步行。" },
-  { date: "2/5 (四)", time: "10:30", location: "皇居東御苑", type: "spot", note: "日式庭園造景，週一五休園(但今日週四可)。" },
-  { date: "2/5 (四)", time: "11:30", location: "(備用) 東京車站一番街", type: "backup", note: "若時間充裕或天氣不佳可安排。\n拉麵街、動漫角色街。" },
-  { date: "2/5 (四)", time: "12:30", location: "午餐", type: "food", note: "神田/飯田橋周邊美食。" },
-  { date: "2/5 (四)", time: "14:00", location: "東京大神宮", type: "spot", note: "知名的結緣神社，御守設計精美。" },
-  { date: "2/5 (四)", time: "15:00", location: "(備用) 秋葉原無線電會館", type: "backup", note: "包含細項：\n1. amiami (4F)\n2. K-BOOKS 秋葉原本館 (3F/4F)\n動漫迷必逛。" },
-  { date: "2/5 (四)", time: "16:30", location: "神田神社 (神田明神)", type: "spot", note: "IT與動漫守護神，非常壯觀的紅色隨神門。" },
-  { date: "2/5 (四)", time: "17:30", location: "東京巨蛋 (Tokyo Dome)", type: "spot", note: "拍照打卡，感受巨蛋氛圍。" },
-
-  // Day 4: 2/6
-  { date: "2/6 (五)", time: "09:30", location: "明治神宮", type: "spot", note: "巨大鳥居，都市中的森林，享受芬多精。" },
-  { date: "2/6 (五)", time: "11:00", location: "明治神宮棒球場", type: "spot", note: "拍照打卡 (棒球聖地)。" },
-  { date: "2/6 (五)", time: "13:00", location: "新宿御苑", type: "spot", note: "言葉之庭場景。\n如果走累了可在園內茶室休息。" },
-  { date: "2/6 (五)", time: "15:00", location: "Alpen Tokyo", type: "spot", note: "Sports wear Disc. \n超大型運動用品店 (新宿東口)。" },
-  { date: "2/6 (五)", time: "17:00", location: "思出橫丁", type: "food", note: "傍晚氣氛佳，充滿昭和風情的居酒屋街。\n適合拍照，也可簡單用餐。" },
-  { date: "2/6 (五)", time: "18:30", location: "(備用) 東京都廳展望室", type: "backup", note: "免費高空夜景。若體力許可再前往。" },
-
-  // Day 5: 2/7
-  { date: "2/7 (六)", time: "09:30", location: "退房 & 行李寄送/置物", type: "transport", note: "將大件行李寄往下一間飯店或找置物櫃。" },
-  { date: "2/7 (六)", time: "10:30", location: "東京鐵塔", type: "spot", note: "經典紅白塔身，拍照打卡。" },
-  { date: "2/7 (六)", time: "11:30", location: "芝公園", type: "spot", note: "拍攝東京鐵塔的最佳角度之一。" },
-  { date: "2/7 (六)", time: "12:30", location: "午餐", type: "food", note: "六本木/麻布十番周邊。" },
-  { date: "2/7 (六)", time: "14:00", location: "國立新美術館", type: "spot", note: "拍照打卡：波浪狀玻璃帷幕建築美學。" },
-  { date: "2/7 (六)", time: "15:30", location: "竹下通、表參道", type: "spot", note: "年輕潮流聖地 vs 精品大道。\n可吃可麗餅或逛文創店。" },
-  { date: "2/7 (六)", time: "17:00", location: "涉谷", type: "spot", note: "1. 涉谷塔 (Shibuya Sky) 拍照打卡 (需預約)。\n2. 涉谷交叉點 (人潮洶湧)。" },
-  { date: "2/7 (六)", time: "19:00", location: "入住：池尻大橋住宿", type: "spot", note: "前往飯店 Check-in。" },
-  { date: "2/7 (六)", time: "20:00", location: "(備用) 中目黑星巴克工坊", type: "backup", note: "若不累可前往喝咖啡，就在池尻大橋附近。" },
-
-  // Day 6: 2/8
-  { date: "2/8 (日)", time: "09:00", location: "前往成田機場 T1", type: "transport", note: "預計搭乘 MM623 班機。\n請預留充裕時間搭車。" },
-  { date: "2/8 (日)", time: "11:30", location: "機場報到 / 起飛", type: "transport", note: "最後伴手禮採買。\n抵達桃園 T1。" }
-];
-
-// --- 渲染邏輯 ---
-function renderSchedule() {
-  const container = document.getElementById('schedule-container');
-  let currentTitle = '';
+function init() {
+  renderDateScroller();
+  renderSchedule(currentDay);
+  loadExpenses();
   
-  scheduleData.forEach(item => {
-    // 檢查是否需要插入日期標題
-    if (item.date !== currentTitle) {
-      const header = document.createElement('div');
-      header.className = 'date-header';
-      header.innerText = item.date;
-      container.appendChild(header);
-      currentTitle = item.date;
-    }
+  // 天氣 Widget 互動 (Mock)
+  document.querySelector('.weather-widget').addEventListener('click', () => {
+    alert('顯示詳細天氣預報 (Mock)');
+  });
+}
 
+function renderDateScroller() {
+  const scroller = document.getElementById('dateScrollerArea');
+  scroller.innerHTML = '';
+  
+  Object.keys(scheduleData).forEach((dateStr, index) => {
+    // 解析日期字串 "2/3 (二)" -> Day 1
+    const dayNum = index + 1;
+    const parts = dateStr.split(' ');
+    
+    const chip = document.createElement('div');
+    chip.className = `date-chip ${dateStr === currentDay ? 'active' : ''}`;
+    chip.innerHTML = `
+      <strong>D${dayNum}</strong>
+      <span>${parts[0]}</span>
+    `;
+    chip.onclick = () => {
+      document.querySelectorAll('.date-chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      currentDay = dateStr;
+      renderSchedule(dateStr);
+    };
+    scroller.appendChild(chip);
+  });
+}
+
+function renderSchedule(dateKey) {
+  const container = document.getElementById('schedule-container');
+  container.innerHTML = '';
+  
+  const items = scheduleData[dateKey];
+  if (!items) return;
+
+  items.forEach(item => {
     const div = document.createElement('div');
-    // 根據 type 設定樣式，如果是備用則多加 backup class
-    let typeClass = `type-${item.type}`;
-    if (item.type === 'backup') typeClass += ' type-backup';
+    const isBackup = item.type === 'backup';
+    div.className = `timeline-item ${isBackup ? 'item-backup' : ''}`;
     
-    div.className = `timeline-item ${typeClass}`;
+    // Tag Style
+    let tagClass = 'tag-spot';
+    if(item.type === 'transport') tagClass = 'tag-transport';
+    if(item.type === 'food') tagClass = 'tag-food';
+    if(item.type === 'backup') tagClass = 'tag-backup';
     
-    // 處理 Note 中的換行
-    const formattedNote = item.note.replace(/\n/g, '<br>');
+    const typeLabel = item.type === 'backup' ? '備用' : (item.type === 'transport' ? '交通' : (item.type === 'food' ? '餐飲' : '景點'));
 
     div.innerHTML = `
-      <span class="time">${item.time}</span>
-      <span class="location">${item.location}</span>
-      <div class="note">${formattedNote}</div>
+      <div class="time-col">
+        <span class="time">${item.time}</span>
+      </div>
+      <div class="content-card">
+        ${item.img ? `<img src="${item.img}" class="card-img-top" onerror="this.src='https://placehold.co/600x400?text=No+Image';">` : ''}
+        <div class="card-body">
+          <div class="type-tag ${tagClass}">${typeLabel}</div>
+          <h3 class="card-title">${item.title}</h3>
+          <div class="card-note">${item.note}</div>
+          ${item.link ? `<a href="${item.link}" target="_blank" class="btn-map"><i class="fa-solid fa-map-location-dot"></i> 導航</a>` : ''}
+        </div>
+      </div>
     `;
     container.appendChild(div);
   });
 }
 
-// --- 頁面切換 ---
 function switchPage(pageId, navEl) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById(`page-${pageId}`).classList.add('active');
   
+  // Date Scroller 只在行程頁顯示
+  const scroller = document.getElementById('dateScrollerArea');
+  if(pageId === 'schedule') scroller.style.display = 'flex';
+  else scroller.style.display = 'none';
+
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   navEl.classList.add('active');
 }
 
-// --- 記帳功能 ---
+// --- 簡單記帳功能 ---
 function addExpense() {
   const name = document.getElementById('expenseName').value;
   const amount = parseInt(document.getElementById('expenseAmount').value);
   if(!name || !amount) return;
   
-  saveData(name, amount);
-  renderExpenseItem(name, amount);
-  updateTotal(amount);
+  let expenses = JSON.parse(localStorage.getItem('tokyo_expenses')) || [];
+  expenses.push({ name, amount });
+  localStorage.setItem('tokyo_expenses', JSON.stringify(expenses));
   
+  renderExpenseList();
   document.getElementById('expenseName').value = '';
   document.getElementById('expenseAmount').value = '';
 }
 
-let total = 0;
-function updateTotal(amount) {
-  total += amount;
-  document.getElementById('totalExpense').innerText = `¥${total}`;
-}
-
-function saveData(name, amount) {
-  let expenses = JSON.parse(localStorage.getItem('tokyo_expenses')) || [];
-  expenses.push({ name, amount });
-  localStorage.setItem('tokyo_expenses', JSON.stringify(expenses));
-}
-
-function renderExpenseItem(name, amount) {
-  const list = document.getElementById('expenseList');
-  const li = document.createElement('li');
-  li.innerText = `${name}: ¥${amount}`;
-  list.appendChild(li);
-}
-
 function loadExpenses() {
-  let expenses = JSON.parse(localStorage.getItem('tokyo_expenses')) || [];
-  const list = document.getElementById('expenseList');
-  list.innerHTML = ''; // Clear current
-  total = 0;
-  
-  expenses.forEach(ex => {
-    renderExpenseItem(ex.name, ex.amount);
-    total += ex.amount;
-  });
-  document.getElementById('totalExpense').innerText = `¥${total}`;
+  renderExpenseList();
 }
 
-// 初始化
-window.onload = function() {
-  renderSchedule();
-  loadExpenses();
-};
+function renderExpenseList() {
+  let expenses = JSON.parse(localStorage.getItem('tokyo_expenses')) || [];
+  const list = document.getElementById('expenseList');
+  const totalEl = document.getElementById('totalExpense');
+  list.innerHTML = '';
+  
+  let total = 0;
+  expenses.forEach(ex => {
+    total += ex.amount;
+    const li = document.createElement('li');
+    li.innerText = `${ex.name}: ¥${ex.amount}`;
+    list.appendChild(li);
+  });
+  totalEl.innerText = `¥${total}`;
+}
+
+// Start
+init();
 </script>
 </body>
 </html>
